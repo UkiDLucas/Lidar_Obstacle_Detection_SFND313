@@ -42,7 +42,10 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     // -----Open 3D viewer and display simple highway -----
     // ----------------------------------------------------
     
-    // RENDER OPTIONS
+    /**
+     * This flag (true) allows you to render the whole scene (highway, cars),
+     * or just the cloud (false) - point cloud and rays
+     */
     bool renderScene = true;
     std::vector<Car> cars = initHighway(renderScene, viewer);
     
@@ -66,10 +69,15 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 
     /** 
      * void renderRays is in src/render/render.cpp 
-     * lidar->position is the ORGIN 
-     * see: Vect3 position in lidar.h
+     * lidar->position is the ORGIN where the rays are cast from.
+     * see: Vect3 position in lidar.h line 78
      */
     renderRays(viewer, lidar->position, inputCloud);
+
+    /**
+     * This method renders just the point cloud,
+     * this is what you would receive from the Lidar.
+     */
     renderPointCloud(viewer, inputCloud, "inputCloud");
 
     // TODO:: Create point processor

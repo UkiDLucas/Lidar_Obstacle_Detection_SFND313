@@ -88,15 +88,19 @@ struct Lidar
 		// setGroundSlope = 0.0 when flat surface
 		// Instanciate in enviroment.cpp on the HEAP (keyword NEW) as it can be too larege for the STACK
 		// TODO:: set minDistance to 5 to remove points from roof of ego car
-		minDistance = 5; // meters
+		minDistance = 4; // meters
 		maxDistance = 50;
 		resoultion = 0.2;
 		// TODO:: set sderr to 0.2 to get more interesting pcd files
-		sderr = 0.2; // adding noise, meters
+		sderr = 0.1; // adding noise, meters
 		cars = setCars;
 		groundSlope = setGroundSlope;
 
-		// TODO:: increase number of layers to 8 to get higher resoultion pcd
+		/**
+		 * Class default is 8 - renders in 14 milliseconds
+		 * at 16 the Ubuntu on MacBook Pro starts failing 63 milliseconds, does not rotate
+		 * at 64 the Ubuntu on MacBook Pro starts failing 120 milliseconds
+		 */
 		int numLayers = 8;
 		// the steepest vertical angle
 		double steepestAngle =  30.0*(-pi/180);
