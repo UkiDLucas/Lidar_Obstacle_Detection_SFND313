@@ -15,7 +15,10 @@ In this course we will be talking about sensor fusion, whch is the process of ta
 
 ## Installation
 
-### Ubuntu 
+### Ubuntu (Parallels on MacBook Pro, Radeon Pro 560 4 GB)
+
+See my blog post:
+https://ukidlucas.blogspot.com/2019/07/ubuntu-cmake.html
 
 ```bash
 $> sudo apt install libpcl-dev
