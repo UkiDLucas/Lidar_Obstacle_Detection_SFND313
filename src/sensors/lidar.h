@@ -86,23 +86,23 @@ struct Lidar
 		: cloud(new pcl::PointCloud<pcl::PointXYZ>()), position(0,0,2.6)
 	{
 		// setGroundSlope = 0.0 when flat surface
-		// Instanciate on the HEAP (keyword NEW) as it can be too larege for the STACK
+		// Instanciate in enviroment.cpp on the HEAP (keyword NEW) as it can be too larege for the STACK
 		// TODO:: set minDistance to 5 to remove points from roof of ego car
-		minDistance = 0;
+		minDistance = 5; // meters
 		maxDistance = 50;
 		resoultion = 0.2;
 		// TODO:: set sderr to 0.2 to get more interesting pcd files
-		sderr = 0.0;
+		sderr = 0.2; // adding noise, meters
 		cars = setCars;
 		groundSlope = setGroundSlope;
 
 		// TODO:: increase number of layers to 8 to get higher resoultion pcd
-		int numLayers = 3;
+		int numLayers = 8;
 		// the steepest vertical angle
 		double steepestAngle =  30.0*(-pi/180);
 		double angleRange = 26.0*(pi/180);
 		// TODO:: set to pi/64 to get higher resoultion pcd
-		double horizontalAngleInc = pi/6;
+		double horizontalAngleInc = pi/64;
 
 		double angleIncrement = angleRange/numLayers;
 

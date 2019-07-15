@@ -12,7 +12,9 @@ ProcessPointClouds<PointT>::ProcessPointClouds() {}
 template<typename PointT>
 ProcessPointClouds<PointT>::~ProcessPointClouds() {}
 
-
+/** 
+ * http://docs.pointclouds.org/1.8.1/classpcl_1_1_point_cloud.html#a86473dec40d705190c6b2c2f795b9f15 
+*/
 template<typename PointT>
 void ProcessPointClouds<PointT>::numPoints(typename pcl::PointCloud<PointT>::Ptr cloud)
 {
