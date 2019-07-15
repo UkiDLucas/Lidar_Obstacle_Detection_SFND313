@@ -85,6 +85,8 @@ struct Lidar
 	Lidar(std::vector<Car> setCars, double setGroundSlope)
 		: cloud(new pcl::PointCloud<pcl::PointXYZ>()), position(0,0,2.6)
 	{
+		// setGroundSlope = 0.0 when flat surface
+		// Instanciate on the HEAP (keyword NEW) as it can be too larege for the STACK
 		// TODO:: set minDistance to 5 to remove points from roof of ego car
 		minDistance = 0;
 		maxDistance = 50;

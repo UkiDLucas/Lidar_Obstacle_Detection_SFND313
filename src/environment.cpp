@@ -46,10 +46,37 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     bool renderScene = true;
     std::vector<Car> cars = initHighway(renderScene, viewer);
     
-    // TODO:: Create lidar sensor 
+    /**
+     * TODO:: Create lidar sensor 
+     * src/sensors/lidar.h header file
+     * Lidar pointer object on the heap using "new" keyword, 
+     * stack has only about 2MB, 
+     * however it takes longer to look up objects on the heap.
+     * double setGroundSlope = 0.0 for flat surface
+     */
+    Lidar* lidar = new Lidar(cars, 0.0);
+
+    /** 
+     * scan() does the ray casting
+     * scan() function does not take any parameters 
+     * scan() generates the Pointer object PointCloud of type PointXYZ named inputCloud
+     * The Pointer - 32 bit integer that contains the memory address of your point cloud object
+     */
+    pcl::PointCloud<pcl::PointXYZ>::Ptr inputCloud = lidar->scan(); 
+
+    /** 
+     * void renderRays is in src/render/render.cpp 
+     * lidar->position is the ORGIN 
+     * see: Vect3 position in lidar.h
+     */
+    renderRays(viewer, lidar->position, inputCloud);
+    renderPointCloud(viewer, inputCloud, "inputCloud");
 
     // TODO:: Create point processor
-  
+    //auto pointProcessor = new ProcessPointClouds<pcl::PointXYZ>();
+    //auto segmentedCloud = pointProcessor->SegmentPlane(pointCloud, 100, 0.2);
+    //renderPointCloud(viewer, segmentedCloud.first, "Objects", Color(1,0,0));
+    //renderPointCloud(viewer, segmentedCloud.second, "Road", Color(0,1,0));
 }
 
 
