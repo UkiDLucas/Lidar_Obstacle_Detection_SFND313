@@ -39,3 +39,4 @@ CMakeCache.txt
 CMakeFiles/CMakeOutput.log
 CMakeFiles/CMakeError.log
 Makefile
+*.log
