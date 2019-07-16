@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /media/uki/REPO/SFND313_Lidar_Obstacle_Detection
+CMAKE_SOURCE_DIR = /media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /media/uki/REPO/SFND313_Lidar_Obstacle_Detection
+CMAKE_BINARY_DIR = /media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/CMakeFiles /media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

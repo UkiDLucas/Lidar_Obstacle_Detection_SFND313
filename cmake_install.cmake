@@ -1,4 +1,4 @@
-# Install script for directory: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection
+# Install script for directory: /media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
