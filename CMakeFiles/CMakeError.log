@@ -565,3 +565,58 @@ Makefile:126: recipe for target 'cmTC_e98bd/fast' failed
 make: *** [cmTC_e98bd/fast] Error 2
 
 
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_35c7c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_35c7c.dir/build.make CMakeFiles/cmTC_35c7c.dir/build
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_35c7c.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_35c7c.dir/CheckSymbolExists.c.o   -c /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_35c7c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_35c7c.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_35c7c.dir/CheckSymbolExists.c.o  -o cmTC_35c7c 
+CMakeFiles/cmTC_35c7c.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_35c7c.dir/build.make:97: recipe for target 'cmTC_35c7c' failed
+make[1]: *** [cmTC_35c7c] Error 1
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_35c7c/fast' failed
+make: *** [cmTC_35c7c/fast] Error 2
+
+File /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c8e0e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_c8e0e.dir/build.make CMakeFiles/cmTC_c8e0e.dir/build
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c8e0e.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_c8e0e.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_c8e0e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c8e0e.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_c8e0e.dir/CheckFunctionExists.c.o  -o cmTC_c8e0e -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_c8e0e.dir/build.make:97: recipe for target 'cmTC_c8e0e' failed
+make[1]: *** [cmTC_c8e0e] Error 1
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_c8e0e/fast' failed
+make: *** [cmTC_c8e0e/fast] Error 2
+
+
