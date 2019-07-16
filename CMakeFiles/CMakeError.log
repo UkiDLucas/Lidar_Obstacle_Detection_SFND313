@@ -53,3 +53,515 @@ Makefile:126: recipe for target 'cmTC_3d53c/fast' failed
 make: *** [cmTC_3d53c/fast] Error 2
 
 
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags:  
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: -c 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --c++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --ec++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags:  
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: -c 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --c++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --ec++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags:  
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: -c 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --c++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --ec++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags:  
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: -c 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --c++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --ec++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags:  
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: -c 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --c++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --ec++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags:  
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: -c 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --c++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --ec++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags:  
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: -c 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --c++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --ec++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags:  
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: -c 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --c++ 
+
+The output was:
+No such file or directory
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: CMAKE_CXX_COMPILER-NOTFOUND 
+Build flags: 
+Id flags: --ec++ 
+
+The output was:
+No such file or directory
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_6583a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_6583a.dir/build.make CMakeFiles/cmTC_6583a.dir/build
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6583a.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_6583a.dir/CheckSymbolExists.c.o   -c /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_6583a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6583a.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_6583a.dir/CheckSymbolExists.c.o  -o cmTC_6583a 
+CMakeFiles/cmTC_6583a.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_6583a.dir/build.make:97: recipe for target 'cmTC_6583a' failed
+make[1]: *** [cmTC_6583a] Error 1
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_6583a/fast' failed
+make: *** [cmTC_6583a/fast] Error 2
+
+File /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_cb58d/fast"
+/usr/bin/make -f CMakeFiles/cmTC_cb58d.dir/build.make CMakeFiles/cmTC_cb58d.dir/build
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_cb58d.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_cb58d.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_cb58d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cb58d.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_cb58d.dir/CheckFunctionExists.c.o  -o cmTC_cb58d -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_cb58d.dir/build.make:97: recipe for target 'cmTC_cb58d' failed
+make[1]: *** [cmTC_cb58d] Error 1
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_cb58d/fast' failed
+make: *** [cmTC_cb58d/fast] Error 2
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e3ed2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e3ed2.dir/build.make CMakeFiles/cmTC_e3ed2.dir/build
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e3ed2.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_e3ed2.dir/CheckSymbolExists.c.o   -c /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_e3ed2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e3ed2.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_e3ed2.dir/CheckSymbolExists.c.o  -o cmTC_e3ed2 
+CMakeFiles/cmTC_e3ed2.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_e3ed2.dir/build.make:97: recipe for target 'cmTC_e3ed2' failed
+make[1]: *** [cmTC_e3ed2] Error 1
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_e3ed2/fast' failed
+make: *** [cmTC_e3ed2/fast] Error 2
+
+File /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9e8aa/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9e8aa.dir/build.make CMakeFiles/cmTC_9e8aa.dir/build
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9e8aa.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_9e8aa.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_9e8aa
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9e8aa.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_9e8aa.dir/CheckFunctionExists.c.o  -o cmTC_9e8aa -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_9e8aa.dir/build.make:97: recipe for target 'cmTC_9e8aa' failed
+make[1]: *** [cmTC_9e8aa] Error 1
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_9e8aa/fast' failed
+make: *** [cmTC_9e8aa/fast] Error 2
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_095f3/fast"
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_095f3.dir/build.make CMakeFiles/cmTC_095f3.dir/build
+make[2]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_095f3.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_095f3.dir/CheckSymbolExists.c.o   -c /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_095f3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_095f3.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_095f3.dir/CheckSymbolExists.c.o  -o cmTC_095f3 
+CMakeFiles/cmTC_095f3.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_095f3.dir/build.make:97: recipe for target 'cmTC_095f3' failed
+make[2]: *** [cmTC_095f3] Error 1
+make[2]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_095f3/fast' failed
+make[1]: *** [cmTC_095f3/fast] Error 2
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+
+File /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e4844/fast"
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_e4844.dir/build.make CMakeFiles/cmTC_e4844.dir/build
+make[2]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e4844.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_e4844.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e4844
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e4844.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_e4844.dir/CheckFunctionExists.c.o  -o cmTC_e4844 -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_e4844.dir/build.make:97: recipe for target 'cmTC_e4844' failed
+make[2]: *** [cmTC_e4844] Error 1
+make[2]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_e4844/fast' failed
+make[1]: *** [cmTC_e4844/fast] Error 2
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_67c00/fast"
+/usr/bin/make -f CMakeFiles/cmTC_67c00.dir/build.make CMakeFiles/cmTC_67c00.dir/build
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_67c00.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTC_67c00.dir/CheckSymbolExists.c.o   -c /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_67c00
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_67c00.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_67c00.dir/CheckSymbolExists.c.o  -o cmTC_67c00 
+CMakeFiles/cmTC_67c00.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_67c00.dir/build.make:97: recipe for target 'cmTC_67c00' failed
+make[1]: *** [cmTC_67c00] Error 1
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_67c00/fast' failed
+make: *** [cmTC_67c00/fast] Error 2
+
+File /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e98bd/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e98bd.dir/build.make CMakeFiles/cmTC_e98bd.dir/build
+make[1]: Entering directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e98bd.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_e98bd.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.10/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e98bd
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e98bd.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_e98bd.dir/CheckFunctionExists.c.o  -o cmTC_e98bd -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_e98bd.dir/build.make:97: recipe for target 'cmTC_e98bd' failed
+make[1]: *** [cmTC_e98bd] Error 1
+make[1]: Leaving directory '/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_e98bd/fast' failed
+make: *** [cmTC_e98bd/fast] Error 2
+
+

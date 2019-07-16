@@ -6,21 +6,21 @@
 
 #IncludeRegexTransform: 
 
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/environment.cpp
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/environment.cpp
 sensors/lidar.h
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/sensors/lidar.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/sensors/lidar.h
 render/render.h
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/render/render.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/render/render.h
 processPointClouds.h
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.h
 processPointClouds.cpp
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.cpp
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.cpp
 
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.cpp
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.cpp
 processPointClouds.h
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.h
 
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/processPointClouds.h
 pcl/io/pcd_io.h
 -
 pcl/common/common.h
@@ -50,21 +50,21 @@ ctime
 chrono
 -
 render/box.h
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/render/box.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/render/box.h
 
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/render/box.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/render/box.h
 Eigen/Geometry
 -
 
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/render/render.cpp
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/render/render.cpp
 render.h
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/render/render.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/render/render.h
 
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/render/render.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/render/render.h
 pcl/visualization/pcl_visualizer.h
 -
 box.h
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/render/box.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/render/box.h
 iostream
 -
 vector
@@ -72,9 +72,9 @@ vector
 string
 -
 
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/sensors/lidar.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/sensors/lidar.h
 ../render/render.h
-/media/psf/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/src/render/render.h
+/media/uki/REPO/SFND313_Lidar_Obstacle_Detection/src/render/render.h
 ctime
 -
 chrono
