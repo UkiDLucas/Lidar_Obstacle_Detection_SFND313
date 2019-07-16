@@ -35,3 +35,7 @@ cmake_install.cmake
 CMakeCache.txt
 CMakeFiles
 environment
+CMakeCache.txt
+CMakeFiles/CMakeOutput.log
+CMakeFiles/CMakeError.log
+Makefile

@@ -87,13 +87,12 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     //ProcessPointClouds<pcl::PointXYZ>* pointProcessor; // on the stack
     ProcessPointClouds<pcl::PointXYZ>* pointProcessor = 
         new ProcessPointClouds<pcl::PointXYZ>(); // on heap
-    ProcessPointClouds<pcl::PointXYZI>* pointProcessorI = 
-        new ProcessPointClouds<pcl::PointXYZI>(); // intensity
 
-
-    auto segmentedCloud = pointProcessor->SegmentPlane(inputCloud, 100, 0.2);
-    renderPointCloud(viewer, segmentedCloud.first, "Objects", Color(1,0,0)); // RED
-    renderPointCloud(viewer, segmentedCloud.second, "Road", Color(0,1,0)); // GREEN
+    std::pair<pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr> 
+    segmentCloud = pointProcessor->SegmentPlane(inputCloud, 100, 0.2);
+    
+    renderPointCloud(viewer, segmentCloud.first, "obstructions", Color(1,0,0)); // RED
+    renderPointCloud(viewer, segmentCloud.second, "road plane", Color(0,1,0)); // GREEN
 }
 
 
