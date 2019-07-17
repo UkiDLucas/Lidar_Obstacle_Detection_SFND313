@@ -40,3 +40,4 @@ CMakeFiles/CMakeOutput.log
 CMakeFiles/CMakeError.log
 Makefile
 *.log
+src/quiz/ransac/quizRansac

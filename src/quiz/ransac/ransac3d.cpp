@@ -7,43 +7,6 @@
 // using templates for processPointClouds so also include .cpp to help linker
 #include "../../processPointClouds.cpp"
 
-pcl::PointCloud<pcl::PointXYZ>::Ptr CreateData()
-{
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
-  	// Add inliers
-  	float scatter = 0.6;
-  	for(int i = -5; i < 5; i++)
-  	{
-  		double rx = 2*(((double) rand() / (RAND_MAX))-0.5);
-  		double ry = 2*(((double) rand() / (RAND_MAX))-0.5);
-  		pcl::PointXYZ point;
-  		point.x = i+scatter*rx;
-  		point.y = i+scatter*ry;
-  		point.z = 0;
-
-  		cloud->points.push_back(point);
-  	}
-  	// Add outliers
-  	int numOutliers = 10;
-  	while(numOutliers--)
-  	{
-  		double rx = 2*(((double) rand() / (RAND_MAX))-0.5);
-  		double ry = 2*(((double) rand() / (RAND_MAX))-0.5);
-  		pcl::PointXYZ point;
-  		point.x = 5*rx;
-  		point.y = 5*ry;
-  		point.z = 0;
-
-  		cloud->points.push_back(point);
-
-  	}
-  	cloud->width = cloud->points.size();
-  	cloud->height = 1;
-
-  	return cloud;
-
-}
-
 pcl::PointCloud<pcl::PointXYZ>::Ptr CreateData3D()
 {
 	ProcessPointClouds<pcl::PointXYZ> pointProcessor;
@@ -149,7 +112,7 @@ int main ()
 	pcl::visualization::PCLVisualizer::Ptr viewer = initScene();
 
 	// Create data
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = CreateData(); // Used with RANSAC LINE fitting
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = CreateData3D(); // Used with RANSAC PLANE surface fitting
 	
 
 	// TODO: Change the max iteration and distance tolerance arguments for Ransac function
