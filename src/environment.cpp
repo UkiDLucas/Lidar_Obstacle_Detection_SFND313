@@ -89,7 +89,9 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
         new ProcessPointClouds<pcl::PointXYZ>(); // on heap
 
     std::pair<pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr> 
-    segmentCloud = pointProcessor->SegmentPlane(inputCloud, 100, 0.5);
+    int iterations = 1000;
+    float distanceTreshhold = 0.05; // meters
+    segmentCloud = pointProcessor->SegmentPlane(inputCloud, iterations, distanceTreshhold);
     
     renderPointCloud(viewer, segmentCloud.first, "obstructions", Color(1,0,0)); // RED
     renderPointCloud(viewer, segmentCloud.second, "road plane", Color(0,1,0)); // GREEN

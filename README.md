@@ -20,7 +20,17 @@ In this course we will be talking about sensor fusion, whch is the process of ta
 
 Today, I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. Another happy milestone is that I am able to run it in Mac OS without Ubuntu (dual boot, or remote)
 
-<img src="media/RANSAC 3D 2019-07-18 at 8.27.59 AM.png" width="700" height="400" />
+<img src="media/RANSAC 3D 2019-07-18 at 8.27.59 AM.png" width="700" />
+
+
+
+
+
+You can see that the plane (green dots) reach to high and encroach on obstacles, the following image is after adjusting iterations to 1,000 and the distance threshold down to 0.05 meters (5 cm).
+
+
+
+<img src="media/RANSAC 3D 2019-07-18 at 8.58.20 AM.png" width="700" />
 
 
 
