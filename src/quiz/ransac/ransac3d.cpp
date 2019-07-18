@@ -27,9 +27,9 @@ pcl::visualization::PCLVisualizer::Ptr initScene()
 
 std::unordered_set<int> 
 Ransac(
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, 
+	pcl::PointCloud<pcl::PointXYZ>::Ptr inputPointCloud, 
 	int maxIterations, 
-	float distanceTol)
+	float distanceToline)
 {
 	// Declare an unordered set of the best results:
 	std::unordered_set<int> inliersResult;
@@ -50,26 +50,34 @@ Ransac(
 		{
 			// mod of cloud's size: results between 0 and the cloud size:
 			// we are using a set so we will not be able to pick the same point.
-			inliers.insert(rand()%(cloud->points.size()));
+			inliers.insert(rand()%(inputPointCloud->points.size()));
 		}
-		// Declare values for points (x1,y1), (x2, y2)
-		float x1, y1, x2, y2;
+		// Declare points (x1, y1, z3), (x2, y2, z2), (x3, y3, z3)
+		// they  have XYZ coordinates and there are 3 sets needed for a plane
+		float x1, y1, z1, x2, y2, z2, x3, y3, z3;
 		auto itr = inliers.begin(); // start from the begining of the set (of 2)
 
 		// grab the values from the cloud:
-		x1 = cloud->points[*itr].x;
-		y1 = cloud->points[*itr].y;
+		x1 = inputPointCloud->points[*itr].x;
+		y1 = inputPointCloud->points[*itr].y;
+		z1 = inputPointCloud->points[*itr].z;
 		itr++;
-		x2 = cloud->points[*itr].x;
-		y2 = cloud->points[*itr].y;
+		x2 = inputPointCloud->points[*itr].x;
+		y2 = inputPointCloud->points[*itr].y;
+		z2 = inputPointCloud->points[*itr].z;
+		itr++;
+		x3 = inputPointCloud->points[*itr].x;
+		y3 = inputPointCloud->points[*itr].y;
+		z3 = inputPointCloud->points[*itr].z;
 
-		// Use linear equasions to calculate the coefficients:
+		// Use linear equations to calculate the coefficients:
+		//(y1 -y2)x + (x2 -x1)y + (x1*y2 -x2*y1) = 0(y1−y2)x+(x2−x1)y+(x1∗y2−x2∗y1)=0
 		float a = (y1-y2);
 		float b = (x2-x1);
 		float c = (x1*y2-x2*y1);
 
 		// Iterate thru all the cloud points:
-		for(int index = 0; index < cloud->points.size(); index++)
+		for(int index = 0; index < inputPointCloud->points.size(); index++)
 		{
 			// if the inliers alrady contain the point index, then continue:
 			if(inliers.count(index) > 0)
@@ -77,7 +85,7 @@ Ransac(
 				continue;
 			}
 			// Get the point for a given index, to extract Z coordinates:
-			pcl::PointXYZ point = cloud->points[index];
+			pcl::PointXYZ point = inputPointCloud->points[index];
 			float x3 = point.x;
 			float y3 = point.y;
 
@@ -86,7 +94,7 @@ Ransac(
 			float d = fabs(a*x3+b*y3+c)/sqrt(a*a+b*b);
 
 			// if distance is less, or equal to the threshhold:
-			if( d<= distanceTol)
+			if( d<= distanceToline)
 				inliers.insert(index);
 		}
 
