@@ -43,3 +43,4 @@ Makefile
 src/quiz/ransac/quizRansac
 src/quiz/ransac/quizRansac
 SFND313 Lidar.cbp
+cmake_install.cmake
