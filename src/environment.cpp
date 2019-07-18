@@ -66,21 +66,21 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
      * scan() generates the Pointer object PointCloud of type PointXYZ named inputCloud
      * The Pointer - 32 bit integer that contains the memory address of your point cloud object
      */
-    pcl::PointCloud<pcl::PointXYZ>::Ptr inputCloud = lidar->scan(); 
-    //typename pcl::PointCloud<PointT>::Ptr inputCloud = lidar->scan(); // error: no type named 'Ptr' in the global namespace
+    pcl::PointCloud<pcl::PointXYZ>::Ptr lidarScanCloud = lidar->scan(); 
+    //typename pcl::PointCloud<PointT>::Ptr lidarScanCloud = lidar->scan(); // error: no type named 'Ptr' in the global namespace
 
     /** 
      * void renderRays is in src/render/render.cpp 
      * lidar->position is the ORGIN where the rays are cast from.
      * see: Vect3 position in lidar.h line 78
      */
-    //renderRays(viewer, lidar->position, inputCloud);
+    //renderRays(viewer, lidar->position, lidarScanCloud);
 
     /**
      * This method renders just the point cloud,
      * this is what you would receive from the Lidar.
      */
-    //renderPointCloud(viewer, inputCloud, "inputCloud");
+    //renderPointCloud(viewer, lidarScanCloud, "lidarScanCloud");
 
     /** 
      * TODO:: Create point processor
@@ -90,40 +90,45 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     ProcessPointClouds<pcl::PointXYZ>* 
         pointProcessor = new ProcessPointClouds<pcl::PointXYZ>(); // on heap
 
+    // Segmenting out the road PLANE
     int iterations = 1000;
-    float distanceTreshhold = 0.05; // meters
+    float distanceTreshhold = 0.1; // meters, increase by 0.05 if road surface (i.e. gravel?) is misimpreted as obstacles.
 
     std::pair<
         pcl::PointCloud<pcl::PointXYZ>::Ptr, 
         pcl::PointCloud<pcl::PointXYZ>::Ptr> 
-        segmentCloud = pointProcessor->SegmentPlane(inputCloud, iterations, distanceTreshhold);
+        segmentPlaneCloudPair = pointProcessor->SegmentPlane(lidarScanCloud, iterations, distanceTreshhold);
     
     
-    renderPointCloud(viewer, segmentCloud.first, "obstructions", Color(1,0,0)); // RED
+    renderPointCloud(viewer, segmentPlaneCloudPair.first, "obstructions", Color(1,0,0)); // RED
+    renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", Color(0,1,0)); // GREEN
 
-    pcl::PointCloud<pcl::PointXYZ>::Ptr segmentedCloud = segmentCloud.first;
-    float clusterTolerance = 1.0; 
-    int minClusterSize = 3;
-    int maxClusterSize = 30;
+    pcl::PointCloud<pcl::PointXYZ>::Ptr allObstructionsCloud = segmentPlaneCloudPair.first;
+    
+    float clusterTolerance = 1.5; // e.g. less than 1.5 divides the car in two
+    int minClusterSize = 1; // weed out the single point outliers (i.e. gravel)
+    int maxClusterSize = 500; // my biggest car is 278 points
 
+    // collection of clusters
     std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> 
-        cloudClusters = pointProcessor->Clustering(segmentedCloud, clusterTolerance, minClusterSize, maxClusterSize);
+        uniqueClustersClouds = pointProcessor->Clustering(allObstructionsCloud, clusterTolerance, minClusterSize, maxClusterSize);
 
-    // orange Color(255,153,51);
-    // fushia Color(255,153,51);
-    // orange Color(255,153,51);
+
+    //orange red Color(255,69,0)
+    //dark orange Color(255,140,0)
+    //orange Color(255,165,0)
+    //gold Color(255,215,0)
+
     int clusterId = 0;
-    std::vector<Color> colors = {Color(255,153,51), Color(255,153,51), Color(255,153,51)};
+    std::vector<Color> colors = {Color(0,0,1), Color(255,153,51), Color(255,215,0), Color(255,140,0)};
 
-    for(pcl::PointCloud<pcl::PointXYZ>::Ptr cluster : cloudClusters)
+    for(pcl::PointCloud<pcl::PointXYZ>::Ptr cluster : uniqueClustersClouds)
     {
         std::cout << "cluster size ";
         pointProcessor->numPoints(cluster);
         renderPointCloud(viewer,cluster,"obstCloud"+std::to_string(clusterId),colors[clusterId]);
         ++clusterId;
     }
-
-    renderPointCloud(viewer, segmentCloud.second, "road plane", Color(0,1,0)); // GREEN
 }
 
 

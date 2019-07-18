@@ -56,9 +56,17 @@ SFND313_Lidar_Obstacle_Detection/src/quiz/ransac/ $ make clean && make && ./quiz
 
 ##### Applying Euclidean Clustering and KD Tree
 
+I am correctly detecting all 3 cars and the road underneath.
+
+```
+float clusterTolerance = 1.5; *// e.g. less than 1.5 divides the car in two*
+int minClusterSize = 1; *// weed out the single point outliers (i.e. gravel)*
+int maxClusterSize = 500; *// my biggest car is 278 points*
+```
 
 
-Coming soon.
+
+<img src="media/Clustering 2019-07-18 at 5.35.06 PM.png"  />
 
 
 

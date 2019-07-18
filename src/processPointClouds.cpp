@@ -83,7 +83,10 @@ std::pair<
  * SegmentPlane function
  */
 template<typename PointT>
-std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::
+std::pair<
+    typename pcl::PointCloud<PointT>::Ptr, 
+    typename pcl::PointCloud<PointT>::Ptr> 
+    ProcessPointClouds<PointT>::
 SegmentPlane(
     typename pcl::PointCloud<PointT>::Ptr cloud, 
     int maxIterations, 
@@ -125,8 +128,15 @@ SegmentPlane(
 }
 
 
+
+
+
+
+
+
 template<typename PointT>
-std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::
+    std::vector<typename pcl::PointCloud<PointT>::Ptr>
+    ProcessPointClouds<PointT>::
 Clustering(
     typename pcl::PointCloud<PointT>::Ptr inputCloud, 
     float clusterTolerance, 
@@ -137,7 +147,6 @@ Clustering(
     auto startTime = std::chrono::steady_clock::now();
     /**
      * http://pointclouds.org/documentation/tutorials/cluster_extraction.php
-     * 
      */
     pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
     ec.setInputCloud (inputCloud);
@@ -155,8 +164,8 @@ Clustering(
     std::vector<pcl::PointIndices> cluster_indices;
     ec.extract (cluster_indices);
     
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZ>);
-    std::vector<typename pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters;
+    //pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZ>);
+    std::vector<typename pcl::PointCloud<PointT>::Ptr> uniqueClustersClouds;
 
     int j = 0;
     for (
@@ -167,27 +176,33 @@ Clustering(
         pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_cluster (new pcl::PointCloud<pcl::PointXYZ>);
         for (std::vector<int>::const_iterator pit = it->indices.begin (); pit != it->indices.end (); ++pit)
         {
-            cloud_cluster->points.push_back (cloud_filtered->points[*pit]); //*
-            //cloud_cluster->points.push_back (clusters->points[*pit]); //*
+            cloud_cluster->points.push_back(inputCloud->points[*pit]); //*
+            //cloud_cluster->points.push_back(cloud_filtered->points[*pit]); //*
+            //cloud_cluster->points.push_back (uniqueClustersClouds->points[*pit]); //*
         }
-        cloud_cluster->width = cloud_cluster->points.size ();
+        cloud_cluster->width = cloud_cluster->points.size();
         cloud_cluster->height = 1;
         cloud_cluster->is_dense = true;
 
-        std::cout << "PointCloud representing the Cluster: " << cloud_cluster->points.size () << " data points." << std::endl;
+        std::cout << "Unique PointCloud contains " << cloud_cluster->points.size () << " data points." << std::endl;
         //std::stringstream ss;
         //ss << "cloud_cluster_" << j << ".pcd";
         //writer.write<pcl::PointXYZ> (ss.str (), *cloud_cluster, false); //*
         j++;
-        clusters.push_back(cloud_cluster);
+        uniqueClustersClouds.push_back(cloud_cluster);
     }
    
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-    std::cout << "clustering took " << elapsedTime.count() << " milliseconds and found " << clusters.size() << " clusters" << std::endl;
+    std::cout << "clustering took " 
+        << elapsedTime.count() 
+        << " milliseconds and found " 
+        << uniqueClustersClouds.size() 
+        << " uniqueClustersClouds" 
+        << std::endl;
 
-    return clusters;
+    return uniqueClustersClouds;
 }
 
 
@@ -195,7 +210,7 @@ template<typename PointT>
 Box ProcessPointClouds<PointT>::BoundingBox(typename pcl::PointCloud<PointT>::Ptr cluster)
 {
 
-    // Find bounding box for one of the clusters
+    // Find bounding box for one of the uniqueClustersClouds
     PointT minPoint, maxPoint;
     pcl::getMinMax3D(*cluster, minPoint, maxPoint);
 
