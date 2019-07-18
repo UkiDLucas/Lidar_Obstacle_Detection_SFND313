@@ -18,21 +18,23 @@ In this course we will be talking about sensor fusion, whch is the process of ta
 
 #### Thursday, July 18, 2019
 
-Total class time spent: ~24.5 hours.
+Total class time spent: ~26 hours.
 
-Today, I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. Another happy milestone is that I am able to run it in Mac OS without Ubuntu (dual boot, or remote)
+Today, I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. 
 
-<img src="media/RANSAC 3D 2019-07-18 at 8.27.59 AM.png" width="700" />
-
-
+<img src="media/RANSAC 3D segmentation 2019-07-18 at 4.03.06 PM.png" width="800" />
 
 
 
-You can see that the plane (green dots) reach too high and encroach on obstacles, the following image is after adjusting iterations to 1,000 and the distance threshold down to 0.05 meters (5 cm). **I am temporarily out of ideas on how to fix that.**
+Another happy milestone is that I am able to run it in Mac OS without Ubuntu (dual boot, or remote)
+
+You can see that the plane (green dots) upper boundary mixes with obstacles (red dots), the following image is after adjusting iterations to 1,000 and the distance threshold down to 0.05 meters (5 cm).
+
+Happy medium is somewhere in between.
 
 
 
-<img src="media/RANSAC 3D 2019-07-18 at 8.58.20 AM.png" width="700" />
+<img src="media/RANSAC 3D 2019-07-18 at 4.50.36 PM.png"  />
 
 
 
@@ -54,29 +56,11 @@ SFND313_Lidar_Obstacle_Detection/src/quiz/ransac/ $ make clean && make && ./quiz
 
 ##### Applying Euclidean Clustering and KD Tree
 
-```
-pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
-ec.setInputCloud (inputCloud);
-ec.setClusterTolerance (clusterTolerance); *// e.g. 0.02 or 2cm*
-ec.setMinClusterSize (minClusterSize); *// e.g. 100*
-ec.setMaxClusterSize (maxClusterSize); *// 25000*
-
-*// Creating the KdTree object for the search method of the extraction*
-pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
-tree->setInputCloud (inputCloud);
-ec.setSearchMethod (tree);
-
-std::vector<typename pcl::PointCloud<PointT>::Ptr> clusters;
-ec.extract (clusters);
-```
 
 
-
-The green color is the road surface and red are the obstacles. You can see it is not perfect yet.
-
+Coming soon.
 
 
-<img src="media/Clustering 2019-07-18 at 1.16.32 PM.png" width="700" />
 
 
 
