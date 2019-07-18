@@ -29,7 +29,7 @@ std::unordered_set<int>
 Ransac(
 	pcl::PointCloud<pcl::PointXYZ>::Ptr inputPointCloud, 
 	int maxIterations, 
-	float distanceToline)
+	float distanceTreshhold)
 {
 	// Declare an unordered set of the best results:
 	std::unordered_set<int> inliersResult;
@@ -42,11 +42,11 @@ Ransac(
 	*/
 	while(maxIterations --)
 	{
-		// Declare an unordered set of random 2 points.
+		// Declare an unordered set of random 3 points.
 		std::unordered_set<int> inliers;
 
-		// Randomly select 2 points from the cloud set
-		while(inliers.size() < 2)
+		// Randomly select 3 inliers points from the inputPointCloud
+		while(inliers.size() < 3)
 		{
 			// mod of cloud's size: results between 0 and the cloud size:
 			// we are using a set so we will not be able to pick the same point.
@@ -55,9 +55,11 @@ Ransac(
 		// Declare points (x1, y1, z3), (x2, y2, z2), (x3, y3, z3)
 		// they  have XYZ coordinates and there are 3 sets needed for a plane
 		float x1, y1, z1, x2, y2, z2, x3, y3, z3;
-		auto itr = inliers.begin(); // start from the begining of the set (of 2)
 
-		// grab the values from the cloud:
+		// start selecting from the begining of the inliers set of 3
+		auto itr = inliers.begin(); 
+
+		// grab the XYZ values from the cloud that correspond to the randomly selected inliers
 		x1 = inputPointCloud->points[*itr].x;
 		y1 = inputPointCloud->points[*itr].y;
 		z1 = inputPointCloud->points[*itr].z;
@@ -70,31 +72,50 @@ Ransac(
 		y3 = inputPointCloud->points[*itr].y;
 		z3 = inputPointCloud->points[*itr].z;
 
-		// Use linear equations to calculate the coefficients:
-		//(y1 -y2)x + (x2 -x1)y + (x1*y2 -x2*y1) = 0(y1−y2)x+(x2−x1)y+(x1∗y2−x2∗y1)=0
-		float a = (y1-y2);
-		float b = (x2-x1);
-		float c = (x1*y2-x2*y1);
+		// PLANE: Ax+By+Cz+D=0
+		// v1 = < x2-x1, y2-y1, z2-z1 >
+		// v2 = < x3-x1, y3-y1, z3-z1 >
+
+		// Find normal vector to the plane by taking cross product of v1 x v2:
+		// Product of vectors v1, v2
+		// v1×v2 = <i, j, k>
+		float i = (y2-y1)*(z3-z1)-(z2-z1)*(y3-y1);
+		float j = (z2-z1)*(x3-x1)-(x2-x1)*(z3-z1);
+		float k = (x2-x1)*(y3-y1)-(y2-y1)*(x3-x1);
+
+		// then,
+		// i(x-x1)+j(y-y1)+k(z-z1) = 0 
+		// ix + jy + kz -( ix1 + jy1 + kz1 ) = 0 
+
+		float A = i;
+		float B = j;
+		float C = k;
+		// Calculate the coefficient D
+		float D = -(i*x1+j*y1+k*z1);
+		
 
 		// Iterate thru all the cloud points:
 		for(int index = 0; index < inputPointCloud->points.size(); index++)
 		{
-			// if the inliers alrady contain the point index, then continue:
+			// if the inliers alrady contain the point index
 			if(inliers.count(index) > 0)
 			{
+				// then continue to the next iteration of the for-loop
 				continue;
 			}
 			// Get the point for a given index, to extract Z coordinates:
 			pcl::PointXYZ point = inputPointCloud->points[index];
-			float x3 = point.x;
-			float y3 = point.y;
+			float xTest = point.x;
+			float yTest = point.y;
+			float zTest = point.z;
 
 			// Calculate distance of the point:
 			// fabs = float absolute value
-			float d = fabs(a*x3+b*y3+c)/sqrt(a*a+b*b);
+			// LINE:
+			float d = fabs(A * xTest + B * yTest + C * zTest + D) / sqrt(A*A + B*B + C*C);
 
 			// if distance is less, or equal to the threshhold:
-			if( d<= distanceToline)
+			if( d <= distanceTreshhold)
 				inliers.insert(index);
 		}
 
