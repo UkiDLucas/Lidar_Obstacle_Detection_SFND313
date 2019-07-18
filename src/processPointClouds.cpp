@@ -80,8 +80,8 @@ ProcessPointClouds<PointT>::SeparateClouds(
  * SegmentPlane function
  */
 template<typename PointT>
-std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> 
-ProcessPointClouds<PointT>::SegmentPlane(
+std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::
+SegmentPlane(
     typename pcl::PointCloud<PointT>::Ptr cloud, 
     int maxIterations, 
     float distanceThreshold)
@@ -123,15 +123,36 @@ ProcessPointClouds<PointT>::SegmentPlane(
 
 
 template<typename PointT>
-std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::Clustering(typename pcl::PointCloud<PointT>::Ptr cloud, float clusterTolerance, int minSize, int maxSize)
+std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::
+Clustering(
+    typename pcl::PointCloud<PointT>::Ptr inputCloud, 
+    float clusterTolerance, 
+    int minClusterSize, 
+    int maxClusterSize)
 {
-
     // Time clustering process
     auto startTime = std::chrono::steady_clock::now();
+    /**
+     * http://pointclouds.org/documentation/tutorials/cluster_extraction.php
+     * 
+     */
+    pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
+    ec.setInputCloud (inputCloud);
+
+    ec.setClusterTolerance (clusterTolerance); // e.g. 0.02 or 2cm
+    ec.setMinClusterSize (minClusterSize); // e.g. 100
+    ec.setMaxClusterSize (maxClusterSize); // 25000
+
+    // Creating the KdTree object for the search method of the extraction
+    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
+    tree->setInputCloud (inputCloud);
+    ec.setSearchMethod (tree);
+    
 
     std::vector<typename pcl::PointCloud<PointT>::Ptr> clusters;
-
-    // TODO:: Fill in the function to perform euclidean clustering to group detected obstacles
+    //std::vector<pcl::PointIndices> clusters;
+    ec.extract (clusters);
+   
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);

@@ -18,7 +18,7 @@ In this course we will be talking about sensor fusion, whch is the process of ta
 
 #### Thursday, July 18, 2019
 
-Total class time spent: ~24 hours.
+Total class time spent: ~24.5 hours.
 
 Today, I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. Another happy milestone is that I am able to run it in Mac OS without Ubuntu (dual boot, or remote)
 
@@ -47,6 +47,52 @@ You can see that the plane (green dots) reach too high and encroach on obstacles
 ```
 SFND313_Lidar_Obstacle_Detection/src/quiz/ransac/ $ make clean && make && ./quizRansac
 ```
+
+
+
+
+
+##### Applying Euclidean Clustering and KD Tree
+
+```
+pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
+ec.setInputCloud (inputCloud);
+ec.setClusterTolerance (clusterTolerance); *// e.g. 0.02 or 2cm*
+ec.setMinClusterSize (minClusterSize); *// e.g. 100*
+ec.setMaxClusterSize (maxClusterSize); *// 25000*
+
+*// Creating the KdTree object for the search method of the extraction*
+pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
+tree->setInputCloud (inputCloud);
+ec.setSearchMethod (tree);
+
+std::vector<typename pcl::PointCloud<PointT>::Ptr> clusters;
+ec.extract (clusters);
+```
+
+
+
+The green color is the road surface and red are the obstacles. You can see it is not perfect yet.
+
+
+
+<img src="media/Clustering 2019-07-18 at 1.16.32 PM.png" width="700" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -159,6 +205,10 @@ SFND313_Lidar_Obstacle_Detection $ cd build/
 -- Generating done
 
 -- Build files have been written to: /Volumes/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection
+
+
+build $ cd ..
+(turi) uki  13:09 SFND313_Lidar_Obstacle_Detection $ make clean && make
 ```
 
 
