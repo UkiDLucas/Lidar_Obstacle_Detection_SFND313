@@ -16,7 +16,7 @@ In this course we will be talking about sensor fusion, whch is the process of ta
 
 # Uki's Class Progress
 
-Thursday, July 18, 2019
+#### Thursday, July 18, 2019
 
 Today, I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. Another happy milestone is that I am able to run it in Mac OS without Ubuntu (dual boot, or remote)
 
