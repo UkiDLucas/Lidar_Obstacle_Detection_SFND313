@@ -34,6 +34,14 @@ You can see that the plane (green dots) reach too high and encroach on obstacles
 
 
 
+
+
+
+
+<img src="media/RANSAC 3D equations 2019-07-18 at 9.18.01 AM.png" />
+
+
+
 ```
 SFND313_Lidar_Obstacle_Detection/src/quiz/ransac/ $ make clean && make && ./quizRansac
 ```
