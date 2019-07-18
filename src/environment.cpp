@@ -7,6 +7,7 @@
 #include "processPointClouds.h"
 // using templates for processPointClouds so also include .cpp to help linker
 #include "processPointClouds.cpp"
+#include <pcl/point_cloud.h>
 
 std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer::Ptr& viewer)
 // viewer is passed in as a reference, any changes will persist outside of this funciton
@@ -66,6 +67,7 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
      * The Pointer - 32 bit integer that contains the memory address of your point cloud object
      */
     pcl::PointCloud<pcl::PointXYZ>::Ptr inputCloud = lidar->scan(); 
+    //typename pcl::PointCloud<PointT>::Ptr inputCloud = lidar->scan(); // error: no type named 'Ptr' in the global namespace
 
     /** 
      * void renderRays is in src/render/render.cpp 
@@ -85,18 +87,42 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
      */
     //auto pointProcessor = new ProcessPointClouds<pcl::PointXYZ>();
     //ProcessPointClouds<pcl::PointXYZ>* pointProcessor; // on the stack
-    ProcessPointClouds<pcl::PointXYZ>* pointProcessor = 
-        new ProcessPointClouds<pcl::PointXYZ>(); // on heap
-
+    ProcessPointClouds<pcl::PointXYZ>* 
+        pointProcessor = new ProcessPointClouds<pcl::PointXYZ>(); // on heap
 
     int iterations = 1000;
     float distanceTreshhold = 0.05; // meters
 
-    std::pair<pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr> 
-    segmentCloud = pointProcessor->SegmentPlane(inputCloud, iterations, distanceTreshhold);
+    std::pair<
+        pcl::PointCloud<pcl::PointXYZ>::Ptr, 
+        pcl::PointCloud<pcl::PointXYZ>::Ptr> 
+        segmentCloud = pointProcessor->SegmentPlane(inputCloud, iterations, distanceTreshhold);
     
     
     renderPointCloud(viewer, segmentCloud.first, "obstructions", Color(1,0,0)); // RED
+
+    pcl::PointCloud<pcl::PointXYZ>::Ptr segmentedCloud = segmentCloud.first;
+    float clusterTolerance = 1.0; 
+    int minClusterSize = 3;
+    int maxClusterSize = 30;
+
+    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> 
+        cloudClusters = pointProcessor->Clustering(segmentedCloud, clusterTolerance, minClusterSize, maxClusterSize);
+
+    // orange Color(255,153,51);
+    // fushia Color(255,153,51);
+    // orange Color(255,153,51);
+    int clusterId = 0;
+    std::vector<Color> colors = {Color(255,153,51), Color(255,153,51), Color(255,153,51)};
+
+    for(pcl::PointCloud<pcl::PointXYZ>::Ptr cluster : cloudClusters)
+    {
+        std::cout << "cluster size ";
+        pointProcessor->numPoints(cluster);
+        renderPointCloud(viewer,cluster,"obstCloud"+std::to_string(clusterId),colors[clusterId]);
+        ++clusterId;
+    }
+
     renderPointCloud(viewer, segmentCloud.second, "road plane", Color(0,1,0)); // GREEN
 }
 
