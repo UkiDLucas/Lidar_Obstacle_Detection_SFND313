@@ -20,7 +20,7 @@ Thursday, July 18, 2019
 
 Today, I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. Another happy milestone is that I am able to run it in Mac OS without Ubuntu (dual boot, or remote)
 
-<img src="/Volumes/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/media/RANSAC%203D%202019-07-18%20at%208.27.59%20AM.png" width="700" height="400" />
+<img src="media/RANSAC 3D 2019-07-18 at 8.27.59 AM.png" width="700" height="400" />
 
 
 
