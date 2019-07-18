@@ -37,3 +37,10 @@ Makefile
 SFND313 Lidar.cbp
 src/quiz/ransac/quizRansac
 Uki.code-workspace
+*.log
+*.make
+*.cmake
+*.make
+CMakeFiles/Makefile2
+CMakeFiles/TargetDirectories.txt
+Makefile

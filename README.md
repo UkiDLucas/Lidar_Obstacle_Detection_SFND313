@@ -102,7 +102,69 @@ http://www.pointclouds.org/downloads/windows.html
 	$> brew install pcl
 	```
 
+
+
+## Compilation on MacOS
+
+```
+$ pwd
+
+SFND313_Lidar_Obstacle_Detection/build
+build $ cmake ../CMakeLists.txt
+```
+
+Compilation results in ERROR:
+
+```
+-- Checking for module 'glew'
+
+--   No package 'glew' found
+
+CMake Error at /usr/local/share/pcl-1.9/PCLConfig.cmake:58 (message):
+
+  simulation is required but glew was not found
+```
+
+##### FIX for the "missing glew" problem (No package 'glew' found)
+
+```
+build $ cd ..
+
+(turi) uki  13:00 SFND313_Lidar_Obstacle_Detection $ edit CMakeCache.txt 
+```
+
+EDIT lines (~279) to look similar to:
+
+
+
+```
+//GLEW library for OSX
+GLEW_GLEW_LIBRARY:STRING=/usr/local/Cellar/glew/2.1.0
+
+//GLEW include dir for OSX
+GLEW_INCLUDE_DIR:STRING=/usr/local/Cellar/glew/2.1.0
+```
+
+
+
+```
+SFND313_Lidar_Obstacle_Detection $ cd build/
+
+(turi) uki  13:03 build $ cmake ../CMakeLists.txt
+
+...
+
+-- Configuring done
+
+-- Generating done
+
+-- Build files have been written to: /Volumes/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection
+```
+
+
+
 #### Prebuilt Binaries via Universal Installer
+
 http://www.pointclouds.org/downloads/macosx.html  
 NOTE: very old version 
 
