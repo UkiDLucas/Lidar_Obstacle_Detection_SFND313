@@ -13,6 +13,20 @@ In this course we will be talking about sensor fusion, whch is the process of ta
 **Sensor Fusion** by combing lidar's high resoultion imaging with radar's ability to measure velocity of objects we can get a better understanding of the sorrounding environment than we could using one of the sensors alone.
 
 
+
+# Uki's Class Progress
+
+Thursday, July 18, 2019
+
+Today, I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. Another happy milestone is that I am able to run it in Mac OS without Ubuntu (dual boot, or remote)
+
+<img src="/Volumes/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/media/RANSAC%203D%202019-07-18%20at%208.27.59%20AM.png" width="700" height="400" />
+
+
+
+
+
+
 ## Installation
 
 ### Ubuntu (Parallels on MacBook Pro, Radeon Pro 560 4 GB)
@@ -65,3 +79,6 @@ NOTE: very old version
 [PCL Source Github](https://github.com/PointCloudLibrary/pcl)
 
 [PCL Mac Compilation Docs](http://www.pointclouds.org/documentation/tutorials/compiling_pcl_macosx.php)
+
+
+
