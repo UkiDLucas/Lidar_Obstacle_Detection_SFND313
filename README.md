@@ -26,7 +26,7 @@ Today, I was able to implement the first version of RANSAC 3D that fits a plane 
 
 
 
-You can see that the plane (green dots) reach to high and encroach on obstacles, the following image is after adjusting iterations to 1,000 and the distance threshold down to 0.05 meters (5 cm).
+You can see that the plane (green dots) reach too high and encroach on obstacles, the following image is after adjusting iterations to 1,000 and the distance threshold down to 0.05 meters (5 cm). **I am temporarily out of ideas on how to fix that.**
 
 
 
