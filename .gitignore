@@ -1,47 +1,39 @@
-# Prerequisites
+*.a
+*.app
 *.d
-
-# Compiled Object files
-*.slo
+*.dll
+*.dylib
+*.exe
+*.gch
+*.la
+*.lai
+*.lib
 *.lo
+*.log
+*.mod
 *.o
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
 *.out
-*.app
+*.pch
+*.slo
+*.smod
+*.so
+# Compiled Dynamic libraries
+# Compiled Object files
+# Compiled Static libraries
+# Executables
+# Fortran module files
+# Precompiled Headers
+# Prerequisites
+cmake_install.cmake
 cmake_install.cmake
 cmake_install.cmake
 CMakeCache.txt
 CMakeFiles
-environment
-CMakeCache.txt
-CMakeFiles/CMakeOutput.log
 CMakeFiles/CMakeError.log
+CMakeFiles/CMakeOutput.log
+environment
 Makefile
-*.log
-src/quiz/ransac/quizRansac
-src/quiz/ransac/quizRansac
 SFND313 Lidar.cbp
-cmake_install.cmake
+src/quiz/ransac/quizRansac
 Uki.code-workspace
