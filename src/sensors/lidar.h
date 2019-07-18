@@ -92,29 +92,30 @@ struct Lidar
 		 */
 		minDistance = 4; // meters
 		maxDistance = 50;
-		resoultion = 0.2;
+		resoultion = 0.1;
 		
 		/**
 		 * TODO:: set sderr to 0.2 to get more interesting pcd files
 		 */
-		sderr = 0.2; // adding noise, meters
+		sderr = 0.1; // adding noise, meters
 		cars = setCars;
 		groundSlope = setGroundSlope;
 
 		/**
 		 * Class default is 8 - renders in 14 milliseconds
 		 * at 16 the Ubuntu on MacBook Pro starts failing 63 milliseconds, does not rotate
+		 * at 16 the Mac works fine - 976 data points
 		 * at 64 the Ubuntu on MacBook Pro starts failing 120 milliseconds
 		 */
-		int numLayers = 8;
+		int numLayers = 32;
 		// the steepest vertical angle
 		double steepestAngle =  30.0*(-pi/180);
 		double angleRange = 26.0*(pi/180);
 
 		/**: 
-		 * set to pi/64 to get higher resoultion pcd
+		 * set to pi/64 for class
 		 */
-		double horizontalAngleInc = pi/64;
+		double horizontalAngleInc = pi/128;
 
 		double angleIncrement = angleRange/numLayers;
 
