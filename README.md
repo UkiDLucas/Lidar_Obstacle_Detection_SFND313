@@ -18,6 +18,8 @@ In this course we will be talking about sensor fusion, whch is the process of ta
 
 #### Thursday, July 18, 2019
 
+Total class time spent: ~24 hours.
+
 Today, I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. Another happy milestone is that I am able to run it in Mac OS without Ubuntu (dual boot, or remote)
 
 <img src="media/RANSAC 3D 2019-07-18 at 8.27.59 AM.png" width="700" />
