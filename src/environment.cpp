@@ -127,6 +127,11 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
         std::cout << "cluster size ";
         pointProcessor->numPoints(cluster);
         renderPointCloud(viewer,cluster,"obstCloud"+std::to_string(clusterId),colors[clusterId]);
+
+        // member reference type 'ProcessPointClouds<pcl::PointXYZ> *' is a pointer; did you mean to use '->'?
+        Box box = pointProcessor->BoundingBox(cluster);
+        renderBox(viewer, box, clusterId);
+
         ++clusterId;
     }
 }
