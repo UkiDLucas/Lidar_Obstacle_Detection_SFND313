@@ -8,10 +8,12 @@
 struct Node
 {
 	std::vector<float> point;
-	int id;
-	Node* left;
-	Node* right;
+	int id; // unique identifier of the node
+	Node* left; // child node with lesser value
+	Node* right; // child node with bigger value
 
+	// function to construct a new node,
+	// takes a point and id
 	Node(std::vector<float> arr, int setId)
 	:	point(arr), id(setId), left(NULL), right(NULL)
 	{}
@@ -25,16 +27,21 @@ struct KdTree
 	: root(NULL)
 	{}
 
+	// Node** node -- double pointer, memory address
 	void insertHelper(Node** node, uint depth, std::vector<float> point, int id)
 	{
+		// dereference *node to see its actual value
 		if(*node == NULL)
-			// The tree is empty, populate it.
+			// if you encouter the NULL node (root, or child), 
+			// you assign this point in that place
+			// dereference *node to set the actual value
 			*node = new Node(point, id);
 		else
 		{
-			// Calculate current  dim
-			uint cd = depth % 2;
-			if(point[cd] < ((*node)->point[cd]))
+			// For 2D pointers,
+			// Depending on the depth (every second, even|odd, 0|1 using mod 2)
+			uint cd = depth % 2; // results in 0 or 1
+			if(point[cd] <= ((*node)->point[cd])) // it is possible that it is LESS OR EQUAL
 				insertHelper(&((*node)->left), depth+1, point, id);
 			else
 				insertHelper(&((*node)->right), depth+1, point, id);
@@ -44,7 +51,10 @@ struct KdTree
 
 	void insert(std::vector<float> point, int id)
 	{
-		insertHelper(&root,0,point,id);
+		uint depth = 0;
+		// insertHelper is a recursive function
+		// passing in memory address of root node - which is a global pointer in struct KdTree
+		insertHelper(&root, depth, point, id);
 	}
 
 
