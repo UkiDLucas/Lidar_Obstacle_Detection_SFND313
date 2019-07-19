@@ -155,7 +155,11 @@ Clustering(
     ec.setMinClusterSize (minClusterSize); // e.g. 100, if a cluster is really small, it’s probably just noise
     ec.setMaxClusterSize (maxClusterSize); // e.g. 25000, break up very large clusters
 
-    // Creating the KdTree object for the search method of the extraction
+    /** 
+     * Lesson 3.4
+     * Creating the KdTree object for the search method of the extraction
+     * KD Tree is a binary tree
+     * /
     pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
     tree->setInputCloud (inputCloud);
     ec.setSearchMethod (tree);

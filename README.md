@@ -20,13 +20,23 @@ In this course we will be talking about sensor fusion, which is the process of *
 
 #### Friday, July 19, 2019
 
-Total class time spent: ~27.5 hours.
+Total class time spent: ~29 hours.
 
 ##### Bounding Boxes
 
 
 
 <img src="media/Bounding Boxes 2019-07-19 at 7.40.46 AM.png" />
+
+
+
+##### KD Tree
+
+The KD Tree is used to drastically speed up a look up of points in space. 
+
+The KD Tree is a form of binary tree where you sort the e.g. points (X,Y), shown below, you take the median of X from all the points and insert it as a root node, then take median of all Y and insert it as first child, then continue recursively.
+
+<img src="media/KD Tree 2019-07-19 at 8.51.21 AM.png" />
 
 
 

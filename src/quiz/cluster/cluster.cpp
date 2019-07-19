@@ -5,7 +5,7 @@
 #include "../../render/box.h"
 #include <chrono>
 #include <string>
-#include "kdtree.h"
+#include "kdtree.h" // 2D
 
 // Arguments:
 // window is the region to draw box around
@@ -44,7 +44,12 @@ pcl::PointCloud<pcl::PointXYZ>::Ptr CreateData(std::vector<std::vector<float>> p
 }
 
 
-void render2DTree(Node* node, pcl::visualization::PCLVisualizer::Ptr& viewer, Box window, int& iteration, uint depth=0)
+void render2DTree(
+	Node* node, 
+	pcl::visualization::PCLVisualizer::Ptr& viewer, 
+	Box window, 
+	int& iteration, 
+	uint depth=0)
 {
 
 	if(node!=NULL)
@@ -106,9 +111,11 @@ int main ()
 
 	KdTree* tree = new KdTree;
   
-    for (int i=0; i<points.size(); i++) 
+    for (int i=0; i<points.size(); i++)
+	{
+		// insert points into the tree
     	tree->insert(points[i],i); 
-
+	}
   	int it = 0;
   	render2DTree(tree->root,viewer,window, it);
   
