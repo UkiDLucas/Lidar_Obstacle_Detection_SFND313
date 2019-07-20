@@ -1,6 +1,6 @@
 # Sensor Fusion Self-Driving Car Course
 
-<img src="media/ObstacleDetectionFPS.gif" width="700" height="400" />
+<img src="media/ObstacleDetectionFPS.gif"  />
 
 ### Welcome to the Sensor Fusion course for self-driving cars.
 
@@ -18,9 +18,22 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 # Uki's Class Progress
 
+## Saturday, July 20, 2019
+
+Total class time spent: start ~29.5 hours, end ~30 hours.
+
+- I have re-read documentation about Euclidean Cluster Extraction: http://pointclouds.org/documentation/tutorials/cluster_extraction.php
+- Added documentation to my project: 
 
 
-#### Friday, July 19, 2019
+
+
+
+
+
+
+
+## Friday, July 19, 2019
 
 Total class time spent: ~29.5 hours.
 
@@ -44,7 +57,7 @@ The KD Tree is a form of binary tree where you sort the e.g. points (X,Y), shown
 
 
 
-#### Thursday, July 18, 2019
+## Thursday, July 18, 2019
 
 Total class time spent: ~27 hours.
 
@@ -122,6 +135,8 @@ int maxClusterSize = 500; *// my biggest car is 278 points*
 
 - Euclidean Cluster Extraction: http://pointclouds.org/documentation/tutorials/cluster_extraction.php
 - pcl Namespace Reference: http://docs.pointclouds.org/1.0.0/namespacepcl.html
+- Distance between Point and a Line: https://brilliant.org/wiki/dot-product-distance-between-point-and-a-line/
+- Extracting indices from a PointCloud: http://pointclouds.org/documentation/tutorials/extract_indices.php#extract-indices
 
 
 
@@ -131,7 +146,7 @@ int maxClusterSize = 500; *// my biggest car is 278 points*
 
 
 
-## Installation
+# Installation
 
 ### Ubuntu (Parallels on MacBook Pro, Radeon Pro 560 4 GB)
 
