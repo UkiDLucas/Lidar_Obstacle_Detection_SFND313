@@ -23,7 +23,7 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 Total class time spent: start ~29.5 hours, end ~30 hours.
 
 - I have re-read documentation about Euclidean Cluster Extraction: http://pointclouds.org/documentation/tutorials/cluster_extraction.php
-- Added documentation to my project: 
+- Added documentation to my project: https://github.com/UkiDLucas/SFND313_Lidar_Obstacle_Detection#ukis-class-progress
 
 
 

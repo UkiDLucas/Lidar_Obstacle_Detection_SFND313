@@ -28,7 +28,7 @@ struct KdTree
 	{}
 
 	// Node** node -- double pointer, memory address
-	void insertHelper(Node** node, uint depth, std::vector<float> point, int id)
+	void insertHelper(Node** node, uint treeDepth, std::vector<float> point, int id)
 	{
 		// dereference *node to see its actual value
 		if(*node == NULL)
@@ -39,65 +39,65 @@ struct KdTree
 		else
 		{
 			// For 2D pointers,
-			// Depending on the depth (every second, even|odd, 0|1 using mod 2)
-			uint cd = depth % 2; // results in 0 or 1
+			// Depending on the treeDepth (every second, even|odd, 0|1 using mod 2)
+			uint cd = treeDepth % 2; // results in 0 or 1
 			if(point[cd] <= ((*node)->point[cd])) // it is possible that it is LESS OR EQUAL
-				insertHelper(&((*node)->left), depth+1, point, id);
+				insertHelper(&((*node)->left), treeDepth+1, point, id);
 			else
-				insertHelper(&((*node)->right), depth+1, point, id);
+				insertHelper(&((*node)->right), treeDepth+1, point, id);
 		}
 		
 	}
 
 	void insert(std::vector<float> point, int id)
 	{
-		uint depth = 0;
+		uint treeDepth = 0;
 		// insertHelper is a recursive function
 		// passing in memory address of root node - which is a global pointer in struct KdTree
-		insertHelper(&root, depth, point, id);
+		insertHelper(&root, treeDepth, point, id);
 	}
 
 
 	void searchHelper(
-		std::vector<float> target, 
-		Node* node, 
-		int depth, 
-		float distanceTol, 
+		std::vector<float> targetPoint, 
+		Node* currentNode, 
+		int treeDepth, 
+		float distanceTreshhold, 
 		std::vector<int> ids)
 	{
-		if(node != NULL)
+		if(currentNode != NULL)
 		{
-			if   ( node->point[0] >= (target[0] - distanceTol) 
-				&& node->point[0] <= (target[0] + distanceTol)
-				&& node->point[1] >= (target[0] - distanceTol)
-				&& node->point[1] <= (target[0] + distanceTol))
+			if   ( currentNode->point[0] >= (targetPoint[0] - distanceTreshhold) 
+				&& currentNode->point[0] <= (targetPoint[0] + distanceTreshhold)
+				&& currentNode->point[1] >= (targetPoint[0] - distanceTreshhold)
+				&& currentNode->point[1] <= (targetPoint[0] + distanceTreshhold))
 			{
 				float distance = sqrt(
-					( node->point[0] * target[0]) * (node->point[0] * target[0])
-					+(node->point[1] * target[1]) * (node->point[1] * target[1]));
-				if( distance <= distanceTol)
-					ids.push_back(node->id);
+					( currentNode->point[0] * targetPoint[0]) * (currentNode->point[0] * targetPoint[0])
+					+(currentNode->point[1] * targetPoint[1]) * (currentNode->point[1] * targetPoint[1]));
+				if( distance <= distanceTreshhold)
+					ids.push_back(currentNode->id);
 			}
 
 			//check accross bondries
-			if( (target[depth % 2] - distanceTol) <= node->point[depth % 2] )
-				searchHelper(target, node->left, depth+1, distanceTol, ids);
+			if( (targetPoint[treeDepth % 2] - distanceTreshhold) <= currentNode->point[treeDepth % 2] )
+				searchHelper(targetPoint, currentNode->left, treeDepth+1, distanceTreshhold, ids);
 
 			
-			if( (target[depth % 2] + distanceTol) > node->point[depth % 2] )
-				searchHelper(target, node->right, depth+1, distanceTol, ids);
+			if( (targetPoint[treeDepth % 2] + distanceTreshhold) > currentNode->point[treeDepth % 2] )
+				searchHelper(targetPoint, currentNode->right, treeDepth+1, distanceTreshhold, ids);
 		}
 	}
 
 
 
 
-	// return a list of point ids in the tree that are within distance of target
-	std::vector<int> search(std::vector<float> target, float distanceTol)
+	// return a list of point ids in the tree that are within distance of targetPoint
+	std::vector<int> search(std::vector<float> targetPoint, float distanceTreshhold)
 	{
 		std::vector<int> ids;
-		int depth = 0;
-		searchHelper(target, root, depth, distanceTol, ids);
+		int treeDepth = 0;
+		searchHelper(targetPoint, root, treeDepth, distanceTreshhold, ids);
 		return ids;
 	}
 	
