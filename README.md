@@ -118,6 +118,14 @@ int maxClusterSize = 500; *// my biggest car is 278 points*
 
 
 
+# Further Reading
+
+- Euclidean Cluster Extraction: http://pointclouds.org/documentation/tutorials/cluster_extraction.php
+- pcl Namespace Reference: http://docs.pointclouds.org/1.0.0/namespacepcl.html
+
+
+
+
 
 
 
@@ -148,23 +156,32 @@ http://www.pointclouds.org/downloads/windows.html
 ### MAC
 
 #### Install via Homebrew
+
 1. install [homebrew](https://brew.sh/)
+
 2. update homebrew 
-	```bash
-	$> brew update
-	```
+
+   ```bash
+   $> brew update
+   ```
+
 3. add  homebrew science [tap](https://docs.brew.sh/Taps) 
-	```bash
-	$> brew tap brewsci/science
-	```
+
+   ```bash
+   $> brew tap brewsci/science
+   ```
+
 4. view pcl install options
-	```bash
-	$> brew options pcl
-	```
+
+   ```bash
+   $> brew options pcl
+   ```
+
 5. install PCL 
-	```bash
-	$> brew install pcl
-	```
+
+   ```bash
+   $> brew install pcl
+   ```
 
 
 
@@ -241,6 +258,4 @@ NOTE: very old version
 [PCL Source Github](https://github.com/PointCloudLibrary/pcl)
 
 [PCL Mac Compilation Docs](http://www.pointclouds.org/documentation/tutorials/compiling_pcl_macosx.php)
-
-
 
