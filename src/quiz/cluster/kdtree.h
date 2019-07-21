@@ -66,28 +66,47 @@ struct KdTree
 		std::vector<int> resultIds)
 	{
 		std::cout 
-			<< "searchHelper" 
-			<< "targetPoint = ";
-		for (auto i: targetPoint)
-  			std::cout << i << " ";
-		std::cout 
-			<< "distanceTreshhold = " 
+			<< "searchHelper: " 
+			 
+			<< " distanceTreshhold = " 
 			<< distanceTreshhold 
 			<< " meters"
-			<< std::endl;
+			<< " targetPoint = ";
+		for (auto i: targetPoint)
+  			std::cout << i << " "; 
+		
 		if(currentNode != NULL)
 		{
-			if   ( currentNode->point[0] >= (targetPoint[0] - distanceTreshhold) // check if point is withing BOX. The 0 is X coordinate
-				&& currentNode->point[0] <= (targetPoint[0] + distanceTreshhold)
-				&& currentNode->point[1] >= (targetPoint[1] - distanceTreshhold) // The 1 is Y coordinate
-				&& currentNode->point[1] <= (targetPoint[1] + distanceTreshhold))
+			std::cout
+				<< " current point = ";
+			for (auto i: currentNode->point)
+  				std::cout << i << " ";
+			std::cout << std::endl;
+
+			std::cout << " current point X = " << currentNode->point[0] << std::endl;
+			std::cout << " target point X = " << targetPoint[0] << std::endl;
+
+			std::cout << " current point Y = " << currentNode->point[1] << std::endl;
+			std::cout << " target point Y = " << targetPoint[1] << std::endl;
+
+			// QUICK check if point is withing BOX. The 0 is X coordinate. The 1 is Y coordinate
+			if( (  currentNode->point[0] >= (targetPoint[0] - distanceTreshhold) 
+				|| currentNode->point[0] <= (targetPoint[0] + distanceTreshhold))
+				&& 
+				(  currentNode->point[1] >= (targetPoint[1] - distanceTreshhold)
+				|| currentNode->point[1] <= (targetPoint[1] + distanceTreshhold))
+			)
 			{
+				std::cout << " Quick scan found match!" << std::endl;
 				float distance = sqrt(
 					( currentNode->point[0] * targetPoint[0]) * (currentNode->point[0] * targetPoint[0])
 					+(currentNode->point[1] * targetPoint[1]) * (currentNode->point[1] * targetPoint[1]));
+				std::cout
+					<< " distance = " << distance;
 				if( distance <= distanceTreshhold)
 					resultIds.push_back(currentNode->id); // add this id to search results
 			}
+
 
 			// Mod % 2 to check if we are comparing X or Y coordinate
 			// flow LEFT on the tree
@@ -98,6 +117,8 @@ struct KdTree
 			if( (targetPoint[treeDepth % 2] + distanceTreshhold) > currentNode->point[treeDepth % 2] )
 				searchHelper(targetPoint, currentNode->right, treeDepth+1, distanceTreshhold, resultIds);
 		}
+		std::cout
+			<< std::endl;
 	}
 
 

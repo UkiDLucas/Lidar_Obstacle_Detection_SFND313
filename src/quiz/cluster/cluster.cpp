@@ -139,7 +139,7 @@ int main ()
   	//
   	auto endTime = std::chrono::steady_clock::now();
   	auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-  	std::cout << "clustering found " << clusters.size() << " and took " << elapsedTime.count() << " milliseconds" << std::endl;
+  	std::cout << "Clustering found " << clusters.size() << " and took " << elapsedTime.count() << " milliseconds" << std::endl;
 
   	// Render clusters
   	int clusterId = 0;
