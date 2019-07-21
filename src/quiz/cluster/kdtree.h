@@ -79,11 +79,12 @@ struct KdTree
 					resultIds.push_back(currentNode->id); // add this id to search results
 			}
 
-			//check accross bondries
+			// Mod % 2 to check if we are comparing X or Y coordinate
+			// flow LEFT on the tree
 			if( (targetPoint[treeDepth % 2] - distanceTreshhold) <= currentNode->point[treeDepth % 2] )
 				searchHelper(targetPoint, currentNode->left, treeDepth+1, distanceTreshhold, resultIds);
-
-			
+			// else?
+			// flow RIGHT on the tree
 			if( (targetPoint[treeDepth % 2] + distanceTreshhold) > currentNode->point[treeDepth % 2] )
 				searchHelper(targetPoint, currentNode->right, treeDepth+1, distanceTreshhold, resultIds);
 		}
