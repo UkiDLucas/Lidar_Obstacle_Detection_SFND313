@@ -1,15 +1,21 @@
+.vscode/settings.json
 *.a
 *.app
+*.cmake
 *.d
 *.dll
 *.dylib
 *.exe
 *.gch
+*.includecache
 *.la
 *.lai
 *.lib
 *.lo
 *.log
+*.log
+*.make
+*.make
 *.mod
 *.o
 *.obj
@@ -18,34 +24,18 @@
 *.slo
 *.smod
 *.so
-# Compiled Dynamic libraries
-# Compiled Object files
-# Compiled Static libraries
-# Executables
-# Fortran module files
-# Precompiled Headers
-# Prerequisites
-cmake_install.cmake
-cmake_install.cmake
 cmake_install.cmake
 CMakeCache.txt
 CMakeFiles
 CMakeFiles/*
 CMakeFiles/CMakeError.log
 CMakeFiles/CMakeOutput.log
+CMakeFiles/environment.dir/CXX.includecache
+CMakeFiles/Makefile2
+CMakeFiles/TargetDirectories.txt
 environment
 Makefile
 SFND313 Lidar.cbp
+src/quiz/cluster/quizCluster
 src/quiz/ransac/quizRansac
 Uki.code-workspace
-*.log
-*.make
-*.cmake
-*.make
-CMakeFiles/Makefile2
-CMakeFiles/TargetDirectories.txt
-Makefile
-*.includecache
-CMakeFiles/environment.dir/CXX.includecache
-.vscode/settings.json
-CMakeFiles/environment.dir/CXX.includecache

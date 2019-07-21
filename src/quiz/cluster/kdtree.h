@@ -63,29 +63,29 @@ struct KdTree
 		Node* currentNode, 
 		int treeDepth, 
 		float distanceTreshhold, 
-		std::vector<int> ids)
+		std::vector<int> resultIds)
 	{
 		if(currentNode != NULL)
 		{
-			if   ( currentNode->point[0] >= (targetPoint[0] - distanceTreshhold) 
+			if   ( currentNode->point[0] >= (targetPoint[0] - distanceTreshhold) // check if point is withing BOX. The 0 is X coordinate
 				&& currentNode->point[0] <= (targetPoint[0] + distanceTreshhold)
-				&& currentNode->point[1] >= (targetPoint[0] - distanceTreshhold)
-				&& currentNode->point[1] <= (targetPoint[0] + distanceTreshhold))
+				&& currentNode->point[1] >= (targetPoint[1] - distanceTreshhold) // The 1 is Y coordinate
+				&& currentNode->point[1] <= (targetPoint[1] + distanceTreshhold))
 			{
 				float distance = sqrt(
 					( currentNode->point[0] * targetPoint[0]) * (currentNode->point[0] * targetPoint[0])
 					+(currentNode->point[1] * targetPoint[1]) * (currentNode->point[1] * targetPoint[1]));
 				if( distance <= distanceTreshhold)
-					ids.push_back(currentNode->id);
+					resultIds.push_back(currentNode->id); // add this id to search results
 			}
 
 			//check accross bondries
 			if( (targetPoint[treeDepth % 2] - distanceTreshhold) <= currentNode->point[treeDepth % 2] )
-				searchHelper(targetPoint, currentNode->left, treeDepth+1, distanceTreshhold, ids);
+				searchHelper(targetPoint, currentNode->left, treeDepth+1, distanceTreshhold, resultIds);
 
 			
 			if( (targetPoint[treeDepth % 2] + distanceTreshhold) > currentNode->point[treeDepth % 2] )
-				searchHelper(targetPoint, currentNode->right, treeDepth+1, distanceTreshhold, ids);
+				searchHelper(targetPoint, currentNode->right, treeDepth+1, distanceTreshhold, resultIds);
 		}
 	}
 

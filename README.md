@@ -18,6 +18,29 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 # Uki's Class Progress
 
+## Sunday, July 21, 2019
+
+Total class time spent: start ~30 hours, end ~TBD hours.
+
+0800
+
+Read few articles on Machine Learning on MacOS, CUDA (NVidia) vs OpenCL (AMD) GPU.
+
+```
+$ pip install -U plaidml-keras
+Requirement already satisfied, skipping upgrade: keras==2.2.4 in /anaconda2/lib/python2.7/site-packages (from plaidml-keras) (2.2.4)
+Successfully installed plaidml-0.6.3 plaidml-keras-0.6.3
+$ plaidml-setup
+```
+
+- Installing [PlaidML](https://vertexai-plaidml.readthedocs-hosted.com/en/latest/index.html)
+
+0815
+
+Reviewing "Lesson 3.7 Searching Points in KD-Tree" and fixing bugs
+
+
+
 ## Saturday, July 20, 2019
 
 Total class time spent: start ~29.5 hours, end ~30 hours.
