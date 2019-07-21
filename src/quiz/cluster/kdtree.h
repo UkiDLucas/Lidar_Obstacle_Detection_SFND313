@@ -65,6 +65,16 @@ struct KdTree
 		float distanceTreshhold, 
 		std::vector<int> resultIds)
 	{
+		std::cout 
+			<< "searchHelper" 
+			<< "targetPoint = ";
+		for (auto i: targetPoint)
+  			std::cout << i << " ";
+		std::cout 
+			<< "distanceTreshhold = " 
+			<< distanceTreshhold 
+			<< " meters"
+			<< std::endl;
 		if(currentNode != NULL)
 		{
 			if   ( currentNode->point[0] >= (targetPoint[0] - distanceTreshhold) // check if point is withing BOX. The 0 is X coordinate
@@ -96,10 +106,10 @@ struct KdTree
 	// return a list of point ids in the tree that are within distance of targetPoint
 	std::vector<int> search(std::vector<float> targetPoint, float distanceTreshhold)
 	{
-		std::vector<int> ids;
+		std::vector<int> resultIds;
 		int treeDepth = 0;
-		searchHelper(targetPoint, root, treeDepth, distanceTreshhold, ids);
-		return ids;
+		searchHelper(targetPoint, root, treeDepth, distanceTreshhold, resultIds);
+		return resultIds;
 	}
 	
 

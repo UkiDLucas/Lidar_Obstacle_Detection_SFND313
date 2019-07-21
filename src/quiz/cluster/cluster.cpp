@@ -95,7 +95,6 @@ std::vector<std::vector<int>> euclideanCluster(const std::vector<std::vector<flo
 
 int main ()
 {
-
 	// Create viewer
 	Box window;
   	window.x_min = -10;
@@ -120,10 +119,15 @@ int main ()
     	tree->insert(points[i],i); 
 	}
   	int it = 0;
-  	render2DTree(tree->root,viewer,window, it);
+  	render2DTree(tree->root, viewer, window, it);
   
   	std::cout << "Test Search" << std::endl;
-  	std::vector<int> nearby = tree->search({-6,7},3.0);
+
+  	//std::vector<int> nearby = tree->search({-6,7}, 3.0);
+	std::vector<float> targetPoint = {-6, 7};
+	float distanceTreshhold = 3.0;
+  	std::vector<int> nearby = tree->search(targetPoint, distanceTreshhold);
+
   	for(int index : nearby)
       std::cout << index << ",";
   	std::cout << std::endl;
