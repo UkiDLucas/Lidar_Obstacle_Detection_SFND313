@@ -37,7 +37,22 @@ $ plaidml-setup
 
 0815
 
-Reviewing "Lesson 3.7 Searching Points in KD-Tree" and fixing bugs
+### Lesson 3.7 Searching Points in KD-Tree
+
+- fixing bugs
+- Cleaning and adding documentation to the code
+
+0900
+
+### Lesson 3.8 "Euclidean Clustering"
+
+
+
+
+
+
+
+
 
 
 
