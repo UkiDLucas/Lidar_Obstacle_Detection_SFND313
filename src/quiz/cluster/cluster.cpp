@@ -121,15 +121,16 @@ int main ()
   	int it = 0;
   	render2DTree(tree->root, viewer, window, it);
   
-  	std::cout << "Test Search" << std::endl;
+  	std::cout << "Start cluster.cpp:: search" << std::endl;
 
-  	//std::vector<int> nearby = tree->search({-6,7}, 3.0);
+  	//std::vector<int> nearbyPointIds = tree->search({-6,7}, 3.0);
 	std::vector<float> targetPoint = {-6, 7};
-	float distanceTreshhold = 3.0;
-  	std::vector<int> nearby = tree->search(targetPoint, distanceTreshhold);
+	float distanceTreshhold = 3.0; // meters
+  	std::vector<int> nearbyPointIds = tree->search(targetPoint, distanceTreshhold);
 
-  	for(int index : nearby)
-      std::cout << index << ",";
+	std::cout << " nearby point IDs: ";
+  	for(int index : nearbyPointIds)
+      std::cout << index << ", ";
   	std::cout << std::endl;
 
   	// Time segmentation process

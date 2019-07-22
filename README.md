@@ -25,7 +25,7 @@ Total class time spent: start ~30 hours, end ~TBD hours.
 0830 - ?
 
 - Still getting bad result Clustering found 0 and took 0 milliseconds
-- Cleaned up searchHelper, the bug is in the way I pass in resultIds
+- Cleaned up searchHelper, the bug is in the way I pass in resultIds: std::vector<int>& resultIds - fixed
 
 ### Lesson 3.8 "Euclidean Clustering"
 

@@ -63,7 +63,7 @@ struct KdTree
 		Node* currentNode, 
 		int treeDepth, 
 		float distanceTreshhold, 
-		std::vector<int> resultIds)
+		std::vector<int>& resultIds) // address reference so we can keep changes
 	{
 		std::cout 
 			<< std::endl 
@@ -96,7 +96,7 @@ struct KdTree
 				std::cout << " distance = " << distance;
 				if( distance <= distanceTreshhold)
 				{
-					std::cout << " adding current node to results <<<<<<<<<<<<<<<<<" ;
+					std::cout << " adding current node ID to results <<<<<<<<<<<<<<<<< " << currentNode->id ;
 					resultIds.push_back(currentNode->id); // add this id to search results
 				} 
 			}
