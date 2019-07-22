@@ -66,12 +66,13 @@ struct KdTree
 		std::vector<int> resultIds)
 	{
 		std::cout 
-			<< "searchHelper: " 
-			 
+			<< std::endl 
+			<< treeDepth
+			<< " searchHelper: "
 			<< " distanceTreshhold = " 
 			<< distanceTreshhold 
-			<< " meters"
-			<< " targetPoint = ";
+			<< " meters, "
+			<< "targetPoint = ";
 		for (auto i: targetPoint)
   			std::cout << i << " "; 
 		
@@ -81,48 +82,41 @@ struct KdTree
 				<< " current point = ";
 			for (auto i: currentNode->point)
   				std::cout << i << " ";
-			std::cout << std::endl;
+			//std::cout << std::endl;
 
-			std::cout << " current point X = " << currentNode->point[0] << std::endl;
-			std::cout << " target point X = " << targetPoint[0] << std::endl;
-
-			std::cout << " current point Y = " << currentNode->point[1] << std::endl;
-			std::cout << " target point Y = " << targetPoint[1] << std::endl;
-
-			// QUICK check if point is withing BOX. The 0 is X coordinate. The 1 is Y coordinate
-			if( (  currentNode->point[0] >= (targetPoint[0] - distanceTreshhold) 
-				|| currentNode->point[0] <= (targetPoint[0] + distanceTreshhold))
+			if( (  currentNode->point[0] > (targetPoint[0] - distanceTreshhold) 
+				|| currentNode->point[0] < (targetPoint[0] + distanceTreshhold))
 				&& 
-				(  currentNode->point[1] >= (targetPoint[1] - distanceTreshhold)
-				|| currentNode->point[1] <= (targetPoint[1] + distanceTreshhold))
-			)
+				(  currentNode->point[1] > (targetPoint[1] - distanceTreshhold)
+				|| currentNode->point[1] < (targetPoint[1] + distanceTreshhold)))
 			{
-				std::cout << " Quick scan found match!" << std::endl;
 				float distance = sqrt(
-					( currentNode->point[0] * targetPoint[0]) * (currentNode->point[0] * targetPoint[0])
-					+(currentNode->point[1] * targetPoint[1]) * (currentNode->point[1] * targetPoint[1]));
-				std::cout
-					<< " distance = " << distance;
+					( currentNode->point[0] - targetPoint[0]) * (currentNode->point[0] - targetPoint[0])
+					+(currentNode->point[1] - targetPoint[1]) * (currentNode->point[1] - targetPoint[1]));
+				std::cout << " distance = " << distance;
 				if( distance <= distanceTreshhold)
+				{
+					std::cout << " adding current node to results <<<<<<<<<<<<<<<<<" ;
 					resultIds.push_back(currentNode->id); // add this id to search results
+				} 
 			}
-
 
 			// Mod % 2 to check if we are comparing X or Y coordinate
 			// flow LEFT on the tree
 			if( (targetPoint[treeDepth % 2] - distanceTreshhold) <= currentNode->point[treeDepth % 2] )
+			{
+				std::cout << " choosing LEFT branch " << std::endl;
 				searchHelper(targetPoint, currentNode->left, treeDepth+1, distanceTreshhold, resultIds);
+			}
 			// else?
 			// flow RIGHT on the tree
-			if( (targetPoint[treeDepth % 2] + distanceTreshhold) > currentNode->point[treeDepth % 2] )
+			if( (targetPoint[treeDepth % 2] + distanceTreshhold) > currentNode->point[treeDepth % 2] )			
+			{
+				std::cout << " choosing RIGHT branch " << std::endl;
 				searchHelper(targetPoint, currentNode->right, treeDepth+1, distanceTreshhold, resultIds);
+			}
 		}
-		std::cout
-			<< std::endl;
 	}
-
-
-
 
 	// return a list of point ids in the tree that are within distance of targetPoint
 	std::vector<int> search(std::vector<float> targetPoint, float distanceTreshhold)
@@ -130,6 +124,13 @@ struct KdTree
 		std::vector<int> resultIds;
 		int treeDepth = 0;
 		searchHelper(targetPoint, root, treeDepth, distanceTreshhold, resultIds);
+		
+		std::cout << "search results: " << resultIds.size() << " ";
+		
+		for (auto i: resultIds)
+  			std::cout << i << " ";
+		std::cout << std::endl;
+
 		return resultIds;
 	}
 	

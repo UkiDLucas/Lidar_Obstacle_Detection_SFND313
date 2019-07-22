@@ -42,7 +42,9 @@ $ plaidml-setup
 - fixing bugs
 - Cleaning and adding documentation to the code
 
-0900
+0945 
+
+Still getting bad result Clustering found 0 and took 0 milliseconds
 
 ### Lesson 3.8 "Euclidean Clustering"
 
