@@ -22,6 +22,19 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 Total class time spent: start ~30 hours, end ~TBD hours.
 
+0830 - ?
+
+- Still getting bad result Clustering found 0 and took 0 milliseconds
+- Cleaned up searchHelper, the bug is in the way I pass in resultIds
+
+### Lesson 3.8 "Euclidean Clustering"
+
+
+
+## Sunday, July 21, 2019
+
+Total class time spent: start ~30 hours, end ~TBD hours.
+
 0800
 
 Read few articles on Machine Learning on MacOS, CUDA (NVidia) vs OpenCL (AMD) GPU.
@@ -35,18 +48,15 @@ $ plaidml-setup
 
 - Installing [PlaidML](https://vertexai-plaidml.readthedocs-hosted.com/en/latest/index.html)
 
-0815
+0815 - 0945
 
 ### Lesson 3.7 Searching Points in KD-Tree
 
 - fixing bugs
 - Cleaning and adding documentation to the code
+- Still getting bad result Clustering found 0 and took 0 milliseconds
 
-0945 
-
-Still getting bad result Clustering found 0 and took 0 milliseconds
-
-### Lesson 3.8 "Euclidean Clustering"
+### 
 
 
 
