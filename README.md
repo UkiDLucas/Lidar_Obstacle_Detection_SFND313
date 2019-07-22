@@ -18,12 +18,12 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 # Uki's Class Progress
 
-## Sunday, July 21, 2019
+## Maonda, July 22, 2019
 
 Total class time spent: start ~31.5 hours, end ~33 hours.
 
-- Still getting bad result Clustering found 0 and took 0 milliseconds
-- Cleaned up searchHelper, the bug is in the way I pass in resultIds: std::vector<int>& resultIds - fixed
+- Cleaned up searchHelper, the bug is in the way I pass in resultIds: 
+  - std::vector<int>& resultIds - fixed
 
 ### Lesson 3.8 "Euclidean Clustering"
 
