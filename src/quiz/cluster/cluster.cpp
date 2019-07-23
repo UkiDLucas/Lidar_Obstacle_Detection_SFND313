@@ -100,7 +100,7 @@ std::vector<std::vector<int>>
 euclideanCluster(
 	const std::vector<std::vector<float>>& points, 
 	KdTree* tree, 
-	float distanceTol)
+	float distanceThreshold)
 {
 
 	// TODO: Fill out this function to return list of indices for each cluster
@@ -154,7 +154,8 @@ int main ()
   	// Time segmentation process
   	auto startTime = std::chrono::steady_clock::now();
   	//
-  	std::vector<std::vector<int>> clusters = euclideanCluster(points, tree, 3.0);
+	float distanceThreshold = 3.0; // meters
+  	std::vector<std::vector<int>> clusters = euclideanCluster(points, tree, distanceThreshold);
   	//
   	auto endTime = std::chrono::steady_clock::now();
   	auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
