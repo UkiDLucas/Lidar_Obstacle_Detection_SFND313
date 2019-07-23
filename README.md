@@ -22,16 +22,35 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 Total class time spent: start ~33 hours, end ~34 hours.
 
-### Lesson 3.8 "Euclidean Clustering"
+### Lesson 4 "Working with Real PCD"
 
-- Implemented euclideanCluster and clusterHelper, but it finds 11 clusters for 11 points,
-- To be continued after work
+
+
+
+
+
+
+
 
 ### Lesson 3.9 "Bounding Boxes"
 
 - Implemented code
 
 <img src="media/environment 2019-07-23 at 4.25.55 PM.png" />
+
+
+
+### Lesson 3.8 "Euclidean Clustering"
+
+- Implemented euclideanCluster and clusterHelper, but it finds 11 clusters for 11 points,
+
+
+
+
+
+
+
+
 
 
 

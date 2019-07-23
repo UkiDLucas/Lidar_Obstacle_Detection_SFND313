@@ -1,4 +1,4 @@
-/* \author Aaron Brown */
+/* \author Aaron Brown, then Uki D. Lucas */
 // Quiz on implementing kd tree
 
 #include "../../render/render.h"

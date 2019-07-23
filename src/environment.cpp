@@ -1,4 +1,4 @@
-/* \author Aaron Brown */
+/* \author Aaron Brown, then Uki D. Lucas */
 // Create simple 3d highway enviroment using PCL
 // for exploring self-driving car sensors
 
@@ -141,20 +141,25 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     }
 }
 
+/* 
 void cityBlock(
     pcl::visualization::PCLVisualizer::Ptr& viewer,
     ProcessPointClouds<pcl::PointYXZI>* pointProcessor,
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cluster
-){
-    
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cluster)
+ */
+void cityBlock(
+    pcl::visualization::PCLVisualizer::Ptr& viewer )
+{
+    //ProcessPointClouds<pcl::PointYXZI>* pointProcessorI = new ProcessPointClouds<pcl::PointYXZI>(); // pointer on the heap
+    ProcessPointClouds<pcl::PointXYZI> pointProcessor;
+    pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessor.loadPcd("../src/sensors/data/pcd/data_1/0000000000.pcd");
+    renderPointCloud( viewer, inputCloud, "inputCloud");
 }
-
 
 //setAngle: SWITCH CAMERA ANGLE {XY, TopDown, Side, FPS}
 void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& viewer) 
 // viewer passed in as a reference, any changes will persist outside of this funciton
 {
-
     viewer->setBackgroundColor (0, 0, 0); // seting background color
     
     // set camera position and angle
@@ -182,7 +187,8 @@ int main (int argc, char** argv)
     pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
     CameraAngle setAngle = XY;
     initCamera(setAngle, viewer);
-    simpleHighway(viewer); // passing in viewer 
+    //simpleHighway(viewer); // passing in viewer 
+    cityBlock(viewer);
 
     while (!viewer->wasStopped ())
     {

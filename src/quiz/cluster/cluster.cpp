@@ -1,4 +1,4 @@
-/* \author Aaron Brown */
+/* \author Aaron Brown, then Uki D. Lucas */
 // Quiz on implementing simple RANSAC line fitting
 
 #include "../../render/render.h"

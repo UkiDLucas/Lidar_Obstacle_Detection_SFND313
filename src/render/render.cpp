@@ -1,4 +1,4 @@
-/* \author Aaron Brown */
+/* \author Aaron Brown, then Uki D. Lucas */
 // Functions and structs used to render the enviroment
 // such as cars and the highway
 
