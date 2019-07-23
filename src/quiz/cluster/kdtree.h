@@ -84,10 +84,10 @@ struct KdTree
   				std::cout << i << " ";
 
 			if( (  currentNode->point[0] >= (targetPoint[0] - distanceTreshhold) 
-				|| currentNode->point[0] <= (targetPoint[0] + distanceTreshhold)) // Aaron has && here ?!?
+				&& currentNode->point[0] <= (targetPoint[0] + distanceTreshhold)) // Aaron has && here ?!?
 				&& 
 				(  currentNode->point[1] >= (targetPoint[1] - distanceTreshhold)
-				|| currentNode->point[1] <= (targetPoint[1] + distanceTreshhold)))
+				&& currentNode->point[1] <= (targetPoint[1] + distanceTreshhold)))
 			{
 				float distance = sqrt(
 					( currentNode->point[0] - targetPoint[0]) * (currentNode->point[0] - targetPoint[0])
