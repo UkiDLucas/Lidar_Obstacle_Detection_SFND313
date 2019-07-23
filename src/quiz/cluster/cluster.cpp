@@ -82,7 +82,25 @@ void render2DTree(
 
 }
 
-std::vector<std::vector<int>> euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol)
+/**
+ * returns the list of cluster indices
+ * To perform the clustering, 
+ * iterate through each point in the cloud and keep track of which points have been processed already.
+ * For each point add it to a list of points defined as a cluster, 
+ * then get a list of all the points in close proximity to that point by using the search function.
+ * For each point in close proximity that hasn't already been processed, 
+ * add it to the cluster and repeat the process of calling proximity points.
+ * Once the recursion stops for the first cluster, 
+ * create a new cluster and move through the point list, repeating the above process for the new cluster. 
+ * Once all the points have been processed, 
+ * there will be a certain number of clusters found, 
+ * return as a list of clusters.
+ */
+std::vector<std::vector<int>> 
+euclideanCluster(
+	const std::vector<std::vector<float>>& points, 
+	KdTree* tree, 
+	float distanceTol)
 {
 
 	// TODO: Fill out this function to return list of indices for each cluster
