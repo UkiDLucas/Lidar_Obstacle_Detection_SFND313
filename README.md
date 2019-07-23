@@ -18,18 +18,25 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 # Uki's Class Progress
 
+## Tuesday, July 23, 2019
+
+Total class time spent: start ~33 hours, end ~34 hours.
+
+### Lesson 3.8 "Euclidean Clustering"
+
+- Implemented euclideanCluster and clusterHelper, but it finds 11 clusters for 11 points,
+- To be continued after work
+
+
+
+
+
 ## Monday, July 22, 2019
 
 Total class time spent: start ~31.5 hours, end ~33 hours.
 
 - Cleaned up searchHelper, the bug is in the way I pass in resultIds: 
   - std::vector<int>& resultIds - fixed
-
-### Lesson 3.8 "Euclidean Clustering"
-
-To be continued
-
-
 
 
 
@@ -38,8 +45,6 @@ To be continued
 ## Sunday, July 21, 2019
 
 Total class time spent: start ~30 hours, end ~31.5 hours.
-
-0800
 
 Read few articles on Machine Learning on MacOS, CUDA (NVidia) vs OpenCL (AMD) GPU.
 
