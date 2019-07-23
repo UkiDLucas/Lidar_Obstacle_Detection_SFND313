@@ -102,13 +102,22 @@ euclideanCluster(
 	KdTree* tree, 
 	float distanceThreshold)
 {
-
-	// TODO: Fill out this function to return list of indices for each cluster
-
 	std::vector<std::vector<int>> clusters;
- 
-	return clusters;
+	std::vector<bool> processed(points.size(), false);
 
+	int i = 0;
+	while(i < points.size())
+	{
+		if(processed[i])
+		{
+			i++;
+			continue;
+		}
+		std:vector<int> cluster;
+		clusterHelper(i, points, cluster, processed, tree, distanceThreshold);
+		clusters.push_back(cluster);
+	}
+	return clusters;
 }
 
 int main ()
