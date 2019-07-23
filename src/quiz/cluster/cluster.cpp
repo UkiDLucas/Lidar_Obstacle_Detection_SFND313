@@ -92,6 +92,20 @@ void clusterHelper(
 	KdTree* tree, 
 	float distanceThreshold)
 {
+	processed[index] = true;
+	cluster.push_back(index); // add this ipoint index as initial member of this cluster
+
+	// find points that are close.
+	std::vector<int> nearest = tree->search( points[index], distanceThreshold);
+
+	for( int id: nearest)
+	{
+		if( !processed[id] )
+		{
+			// the nearby point has not been processed yet
+			clusterHelper(id, points, cluster, processed, tree, distanceThreshold);
+		}
+	}
 
 }
 
