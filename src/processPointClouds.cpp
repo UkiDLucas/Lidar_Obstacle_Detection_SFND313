@@ -159,7 +159,7 @@ Clustering(
      * Lesson 3.4
      * Creating the KdTree object for the search method of the extraction
      * KD Tree is a binary tree
-     * /
+     */
     pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
     tree->setInputCloud (inputCloud);
     ec.setSearchMethod (tree);

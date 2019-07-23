@@ -38,18 +38,20 @@ std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer
 
 
 void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
-{
-    bool render_clusters = TRUE;
-    bool render_box = TRUE;
+{    /**
+     * This flag (true) allows you to render the whole scene (highway, cars),
+     * or just the cloud (false) - point cloud and rays
+     */
+    bool renderScene = true;
+    bool render_road_plane = true;
+    bool render_obstructions = true;
+    bool render_clusters = true;
+    bool render_box = true;
     // ----------------------------------------------------
     // -----Open 3D viewer and display simple highway -----
     // ----------------------------------------------------
     
-    /**
-     * This flag (true) allows you to render the whole scene (highway, cars),
-     * or just the cloud (false) - point cloud and rays
-     */
-    bool renderScene = false;
+
     std::vector<Car> cars = initHighway(renderScene, viewer);
     
     /**
@@ -101,9 +103,11 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
         pcl::PointCloud<pcl::PointXYZ>::Ptr> 
         segmentPlaneCloudPair = pointProcessor->SegmentPlane(lidarScanCloud, iterations, distanceTreshhold);
     
+    if(render_obstructions)
+        renderPointCloud(viewer, segmentPlaneCloudPair.first, "obstructions", Color(1,0,0)); // RED
     
-    renderPointCloud(viewer, segmentPlaneCloudPair.first, "obstructions", Color(1,0,0)); // RED
-    renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", Color(0,1,0)); // GREEN
+    if(render_road_plane)
+        renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", Color(0,1,0)); // GREEN
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr allObstructionsCloud = segmentPlaneCloudPair.first;
     
@@ -115,6 +119,7 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> 
         uniqueClustersClouds = pointProcessor->Clustering(allObstructionsCloud, clusterTolerance, minClusterSize, maxClusterSize);
 
+ 
 
     //orange red Color(255,69,0)
     //dark orange Color(255,140,0)
@@ -141,7 +146,7 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
         }
         ++clusterId;
     }
-    renderPointCloud(viewer, segmentCloud.second, "planetCloud");
+    //renderPointCloud(viewer, segmentCloud.second, "planetCloud");
 }
 
 

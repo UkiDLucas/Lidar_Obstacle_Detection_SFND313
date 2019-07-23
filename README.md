@@ -30,9 +30,8 @@ Total class time spent: start ~33 hours, end ~34 hours.
 ### Lesson 3.9 "Bounding Boxes"
 
 - Implemented code
-- Finish the video!!!!
 
-
+<img src="media/environment 2019-07-23 at 4.25.55 PM.png" />
 
 
 
