@@ -39,6 +39,8 @@ std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer
 
 void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
+    bool render_clusters = TRUE;
+    bool render_box = TRUE;
     // ----------------------------------------------------
     // -----Open 3D viewer and display simple highway -----
     // ----------------------------------------------------
@@ -124,16 +126,22 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 
     for(pcl::PointCloud<pcl::PointXYZ>::Ptr cluster : uniqueClustersClouds)
     {
-        std::cout << "cluster size ";
-        pointProcessor->numPoints(cluster);
-        renderPointCloud(viewer,cluster,"obstCloud"+std::to_string(clusterId),colors[clusterId]);
+        if(render_clusters)
+        {
+            std::cout << "cluster size ";
+            pointProcessor->numPoints(cluster);
+            renderPointCloud(viewer, cluster, "obstCloud"+std::to_string(clusterId), colors[clusterId]);
+        }
 
-        // member reference type 'ProcessPointClouds<pcl::PointXYZ> *' is a pointer; did you mean to use '->'?
-        Box box = pointProcessor->BoundingBox(cluster);
-        renderBox(viewer, box, clusterId);
-
+        if(render_box)
+        {
+            // member reference type 'ProcessPointClouds<pcl::PointXYZ> *' is a pointer; did you mean to use '->'?
+            Box box = pointProcessor->BoundingBox(cluster);
+            renderBox(viewer, box, clusterId);
+        }
         ++clusterId;
     }
+    renderPointCloud(viewer, segmentCloud.second, "planetCloud");
 }
 
 

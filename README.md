@@ -27,6 +27,11 @@ Total class time spent: start ~33 hours, end ~34 hours.
 - Implemented euclideanCluster and clusterHelper, but it finds 11 clusters for 11 points,
 - To be continued after work
 
+### Lesson 3.9 "Bounding Boxes"
+
+- Implemented code
+- Finish the video!!!!
+
 
 
 
