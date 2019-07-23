@@ -81,6 +81,19 @@ void render2DTree(
 	}
 
 }
+/**
+ * Recursive method
+ */
+void clusterHelper(
+	int index, 
+	const std::vector<std::vector<float>>& points, 
+	std::vector<int> cluster, 
+	std::vector<bool> processed, 
+	KdTree* tree, 
+	float distanceThreshold)
+{
+
+}
 
 /**
  * returns the list of cluster indices
@@ -103,17 +116,20 @@ euclideanCluster(
 	float distanceThreshold)
 {
 	std::vector<std::vector<int>> clusters;
-	std::vector<bool> processed(points.size(), false);
+	std::vector<bool> processed(points.size(), false); // same amount as incoming points, all default false.
 
 	int i = 0;
 	while(i < points.size())
 	{
-		if(processed[i])
+		if(processed[i]) // Was this point was processed?
 		{
+			// move to the next point
 			i++;
-			continue;
+			continue; 
 		}
-		std:vector<int> cluster;
+		// This point was NOT processed.
+		// Create a new cluster.
+		std::vector<int> cluster;
 		clusterHelper(i, points, cluster, processed, tree, distanceThreshold);
 		clusters.push_back(cluster);
 	}
