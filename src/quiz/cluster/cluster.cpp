@@ -146,6 +146,7 @@ euclideanCluster(
 		std::vector<int> cluster;
 		clusterHelper(i, points, cluster, processed, tree, distanceThreshold);
 		clusters.push_back(cluster);
+		i++; // move to the next point
 	}
 	return clusters;
 }
