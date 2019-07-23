@@ -51,18 +51,9 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     // -----Open 3D viewer and display simple highway -----
     // ----------------------------------------------------
     
-
     std::vector<Car> cars = initHighway(renderScene, viewer);
-    
-    /**
-     * TODO:: Create lidar sensor 
-     * src/sensors/lidar.h header file
-     * Lidar pointer object on the heap using "new" keyword, 
-     * stack has only about 2MB, 
-     * however it takes longer to look up objects on the heap.
-     * double setGroundSlope = 0.0 for flat surface
-     */
-    Lidar* lidar = new Lidar(cars, 0.0);
+    double setGroundSlope = 0.0;
+    Lidar* lidar = new Lidar(cars, setGroundSlope);
 
     /** 
      * scan() does the ray casting
@@ -102,12 +93,14 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
         pcl::PointCloud<pcl::PointXYZ>::Ptr, 
         pcl::PointCloud<pcl::PointXYZ>::Ptr> 
         segmentPlaneCloudPair = pointProcessor->SegmentPlane(lidarScanCloud, iterations, distanceTreshhold);
+
+    // render layers in order of importance of what you want to see in the final view        
+    if(render_road_plane)
+        renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", Color(0,1,0)); // GREEN
     
     if(render_obstructions)
         renderPointCloud(viewer, segmentPlaneCloudPair.first, "obstructions", Color(1,0,0)); // RED
-    
-    if(render_road_plane)
-        renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", Color(0,1,0)); // GREEN
+
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr allObstructionsCloud = segmentPlaneCloudPair.first;
     
@@ -146,7 +139,14 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
         }
         ++clusterId;
     }
-    //renderPointCloud(viewer, segmentCloud.second, "planetCloud");
+}
+
+void cityBlock(
+    pcl::visualization::PCLVisualizer::Ptr& viewer,
+    ProcessPointClouds<pcl::PointYXZI>* pointProcessor,
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cluster
+){
+    
 }
 
 

@@ -82,6 +82,13 @@ struct Lidar
 	double resoultion;
 	double sderr;
 
+	/**
+     * lidar sensor 
+     * Lidar pointer object on the heap using "new" keyword, 
+     * stack has only about 2MB, 
+     * however it takes longer to look up objects on the heap.
+     * double setGroundSlope = 0.0 for flat surface
+     */
 	Lidar(std::vector<Car> setCars, double setGroundSlope)
 		: cloud(new pcl::PointCloud<pcl::PointXYZ>()), position(0,0,2.6)
 	{
