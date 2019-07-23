@@ -83,6 +83,8 @@ void render2DTree(
 }
 /**
  * Recursive method
+ * Receives a point index that is determined to be nearby.
+ * 
  */
 void clusterHelper(
 	int index, 
@@ -93,20 +95,19 @@ void clusterHelper(
 	float distanceThreshold)
 {
 	processed[index] = true;
-	cluster.push_back(index); // add this ipoint index as initial member of this cluster
+	cluster.push_back(index); // add this point index as it is alrady associated with this clusterr
 
 	// find points that are close.
 	std::vector<int> nearest = tree->search( points[index], distanceThreshold);
 
-	for( int id: nearest)
+	for( int nearbyIndex: nearest)
 	{
-		if( !processed[id] )
+		if( !processed[nearbyIndex] )
 		{
-			// the nearby point has not been processed yet
-			clusterHelper(id, points, cluster, processed, tree, distanceThreshold);
+			// the nearby point has not been processed yet for this cluster
+			clusterHelper(nearbyIndex, points, cluster, processed, tree, distanceThreshold);
 		}
 	}
-
 }
 
 /**
