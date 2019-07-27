@@ -152,7 +152,7 @@ void cityBlock(
 {
     //ProcessPointClouds<pcl::PointYXZI>* pointProcessorI = new ProcessPointClouds<pcl::PointYXZI>(); // pointer on the heap
     ProcessPointClouds<pcl::PointXYZI> pointProcessor;
-    pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessor.loadPcd("../src/sensors/data/pcd/data_1/0000000000.pcd");
+    pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessor.loadPcd("src/sensors/data/pcd/data_1/0000000000.pcd");
     renderPointCloud( viewer, inputCloud, "inputCloud");
 }
 

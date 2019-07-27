@@ -18,11 +18,31 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 # Uki's Class Progress
 
+## Saturday, July 27, 2019
+
+Total class time spent: start ~34 hours, end ~TBD hours.
+
+### Lesson 4 "Working with Real PCD"
+
+- Rendring the cloud
+
+<img src="media/Real PCD 2019-07-27 at 7.22.15 PM.png" />
+
+
+
+
+
+
+
+
+
 ## Tuesday, July 23, 2019
 
 Total class time spent: start ~33 hours, end ~34 hours.
 
 ### Lesson 4 "Working with Real PCD"
+
+- Just started, but it is not rendering
 
 
 
