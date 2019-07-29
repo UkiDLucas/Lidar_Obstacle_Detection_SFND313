@@ -24,7 +24,8 @@ Total class time spent: start ~35 hours, end ~TBD hours.
 
 ### Lesson 4 "Working with Real PCD"
 
-- Downsampling/filtering the Point Cloud Data 
+- Downsampling/filtering the Point Cloud Data
+-  The streaming point cloud (animation) is working!
 
 
 
