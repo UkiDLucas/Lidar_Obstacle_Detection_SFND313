@@ -148,17 +148,17 @@ void cityBlock(
     ProcessPointClouds<pcl::PointXYZI> pointProcessor, // do not re-create every time
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) // inputCloud vary from frame to frame
 {
-    float filterRes = 0.3;
+    float downSampleTo = 0.06; // meters e.g. 6cm = 0.06
 
-    float seeForward = 65.0; // meters
-    float seeBackwards = -10.0; // meters
-    float seeRight = 12.0; // meters, right-hand side driving
-    float seeLeft = -12.0; // meters, right-hand side driving
-    float seeUp = 3.0; // meters, from the roof of the car
-    float seeDown = -2.0; // meters, from the roof of the car
-    Eigen::Vector4f minPoint = Eigen::Vector4f (seeBackwards, seeLeft, seeDown, 1);
-    Eigen::Vector4f maxPoint = Eigen::Vector4f (seeForward, seeRight, seeUp, 1);
-    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessor.FilterCloud(inputCloud, filterRes , minPoint, maxPoint);
+    float seeForward    = 50.0; // meters
+    float seeBackwards  = 10.0; // meters
+    float seeRight      = 8.0; // meters, right-hand side driving
+    float seeLeft       = 13.0; // meters, right-hand side driving
+    float seeUp         = 3.0; // meters, from the roof of the car
+    float seeDown       = 2.0; // meters, from the roof of the car
+    Eigen::Vector4f minPoint = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
+    Eigen::Vector4f maxPoint = Eigen::Vector4f (seeForward, seeLeft, seeUp, 1);
+    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessor.FilterCloud(inputCloud, downSampleTo , minPoint, maxPoint);
 
     renderPointCloud(viewer, filterCloud, "filterCloud");
 }
@@ -209,14 +209,14 @@ int main (int argc, char** argv)
     auto streamIterator = stream.begin();
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud;
 
-    while (!viewer->wasStopped ())
+    while (!viewer->wasStopped() )
     {
         // clear viewer
         viewer->removeAllPointClouds();
         viewer->removeAllShapes();
 
         // load PCD and run obstacle detection process
-        inputCloud = pointProcessor.loadPcd((*streamIterator).string());
+        inputCloud = pointProcessor.loadPcd((*streamIterator).string()); // dereference the iterator to get path
         cityBlock(viewer, pointProcessor, inputCloud);
         streamIterator++;
         if(streamIterator == stream.end())
