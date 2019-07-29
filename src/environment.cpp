@@ -141,12 +141,19 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     }
 }
 
+
 /* 
 void cityBlock(
     pcl::visualization::PCLVisualizer::Ptr& viewer,
-    ProcessPointClouds<pcl::PointYXZI>* pointProcessor,
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cluster)
+    ProcessPointClouds<pcl::PointYXZI>* pointProcessor, // do not re-create every time
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cluster) // inputCloud vary from frame to frame
+
+    void cityBlock(
+    pcl::visualization::PCLVisualizer::Ptr& viewer, 
+    ProcessPointClouds<pcl::PointXYZI>* pointProcessorI, // do not re-create every time
+    const pcl::PointCloud<pcl::PointXYZI>::Ptr& inputCloud) // inputCloud vary from frame to frame
  */
+
 void cityBlock(
     pcl::visualization::PCLVisualizer::Ptr& viewer )
 {
@@ -157,8 +164,16 @@ void cityBlock(
 
     float filterRes = 1.0;
 
-    Eigen::Vector4f minPoint = Eigen::Vector4f (-1.5, -1.7, -1, 1);
-    Eigen::Vector4f maxPoint = Eigen::Vector4f (2.6, 1.7, -0.4, 1);
+    //Eigen::Vector4f minPoint = Eigen::Vector4f (-1.5, -1.7, -1, 1);
+    //Eigen::Vector4f maxPoint = Eigen::Vector4f (2.6, 1.7, -0.4, 1);
+    float seeForward = 65.0; // meters
+    float seeBackwards = -15.0; // meters
+    float seeRight = 12.0; // meters
+    float seeLeft = -12.0; // meters
+    float seeUp = 3.0; // meters
+    float seeDown = -2.0; // meters
+    Eigen::Vector4f minPoint = Eigen::Vector4f (seeBackwards, seeLeft, seeDown, 1);
+    Eigen::Vector4f maxPoint = Eigen::Vector4f (seeForward, seeRight, seeUp, 1);
     pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessor.FilterCloud(inputCloud, filterRes , minPoint, maxPoint);
     renderPointCloud(viewer, filterCloud, "filterCloud");
 }

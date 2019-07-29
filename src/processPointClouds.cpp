@@ -33,7 +33,7 @@ FilterCloud(
     // voxel grid point reduction and region based filtering
     pcl::VoxelGrid<PointT> vg;
     typename pcl::PointCloud<PointT>::Ptr cloudFiltered( new pcl::PointCloud<PointT>);
-    std::cout << typeid(vg).name() << std::endl;
+    std::cout << "name of this VoxelGrid: " << typeid(vg).name() << std::endl;
     vg.setInputCloud(cloud);
     vg.setLeafSize(filterRes, filterRes, filterRes);
     vg.filter(*cloudFiltered);
@@ -42,6 +42,7 @@ FilterCloud(
     pcl::CropBox<PointT> region(true); // true - points insider the crop box
     region.setMin(minPoint);
     region.setMax(maxPoint);
+    //region.setInputCloud(cloud); // NOT downsampled
     region.setInputCloud(cloudFiltered); // already downsampled
     region.filter(*cloudRegion); // save results
 
@@ -65,7 +66,7 @@ FilterCloud(
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     std::cout << "filtering took " << elapsedTime.count() << " milliseconds" << std::endl;
-    return cloud;
+    return cloudRegion;
 }
 
 
