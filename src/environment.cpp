@@ -142,41 +142,31 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 }
 
 
-/* 
+
 void cityBlock(
     pcl::visualization::PCLVisualizer::Ptr& viewer,
-    ProcessPointClouds<pcl::PointYXZI>* pointProcessor, // do not re-create every time
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cluster) // inputCloud vary from frame to frame
-
-    void cityBlock(
-    pcl::visualization::PCLVisualizer::Ptr& viewer, 
-    ProcessPointClouds<pcl::PointXYZI>* pointProcessorI, // do not re-create every time
-    const pcl::PointCloud<pcl::PointXYZI>::Ptr& inputCloud) // inputCloud vary from frame to frame
- */
-
-void cityBlock(
-    pcl::visualization::PCLVisualizer::Ptr& viewer )
+    ProcessPointClouds<pcl::PointXYZI> pointProcessor, // do not re-create every time
+    pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) // inputCloud vary from frame to frame
 {
-    //ProcessPointClouds<pcl::PointYXZI>* pointProcessorI = new ProcessPointClouds<pcl::PointYXZI>(); // pointer on the heap
-    ProcessPointClouds<pcl::PointXYZI> pointProcessor;
-    pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessor.loadPcd("src/sensors/data/pcd/data_1/0000000000.pcd");
-    //renderPointCloud( viewer, inputCloud, "inputCloud");
+    float filterRes = 0.3;
 
-    float filterRes = 1.0;
-
-    //Eigen::Vector4f minPoint = Eigen::Vector4f (-1.5, -1.7, -1, 1);
-    //Eigen::Vector4f maxPoint = Eigen::Vector4f (2.6, 1.7, -0.4, 1);
     float seeForward = 65.0; // meters
-    float seeBackwards = -15.0; // meters
-    float seeRight = 12.0; // meters
-    float seeLeft = -12.0; // meters
-    float seeUp = 3.0; // meters
-    float seeDown = -2.0; // meters
+    float seeBackwards = -10.0; // meters
+    float seeRight = 12.0; // meters, right-hand side driving
+    float seeLeft = -12.0; // meters, right-hand side driving
+    float seeUp = 3.0; // meters, from the roof of the car
+    float seeDown = -2.0; // meters, from the roof of the car
     Eigen::Vector4f minPoint = Eigen::Vector4f (seeBackwards, seeLeft, seeDown, 1);
     Eigen::Vector4f maxPoint = Eigen::Vector4f (seeForward, seeRight, seeUp, 1);
     pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessor.FilterCloud(inputCloud, filterRes , minPoint, maxPoint);
+
     renderPointCloud(viewer, filterCloud, "filterCloud");
 }
+
+
+
+
+
 
 //setAngle: SWITCH CAMERA ANGLE {XY, TopDown, Side, FPS}
 void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& viewer) 
@@ -186,8 +176,8 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
     
     // set camera position and angle
     viewer->initCameraParameters();
-    // distance away in meters
-    int distance = 16;
+
+    int distance = 16; // distance away in meters
     
     switch(setAngle)
     {
@@ -209,11 +199,29 @@ int main (int argc, char** argv)
     pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
     CameraAngle setAngle = XY;
     initCamera(setAngle, viewer);
-    //simpleHighway(viewer); // passing in viewer 
-    cityBlock(viewer);
+    //simpleHighway(viewer);
+
+    //ProcessPointClouds<pcl::PointYXZI>* pointProcessorI = new ProcessPointClouds<pcl::PointYXZI>(); // pointer on the heap
+    ProcessPointClouds<pcl::PointXYZI> pointProcessor;
+
+    //pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessor.loadPcd("src/sensors/data/pcd/data_1/0000000000.pcd");
+    std::vector<boost::filesystem::path> stream = pointProcessor.streamPcd("src/sensors/data/pcd/data_1/");
+    auto streamIterator = stream.begin();
+    pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud;
 
     while (!viewer->wasStopped ())
     {
+        // clear viewer
+        viewer->removeAllPointClouds();
+        viewer->removeAllShapes();
+
+        // load PCD and run obstacle detection process
+        inputCloud = pointProcessor.loadPcd((*streamIterator).string());
+        cityBlock(viewer, pointProcessor, inputCloud);
+        streamIterator++;
+        if(streamIterator == stream.end())
+            streamIterator = stream.begin();
+
         viewer->spinOnce ();
     } 
 }
