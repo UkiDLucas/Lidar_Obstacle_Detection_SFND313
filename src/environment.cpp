@@ -153,7 +153,14 @@ void cityBlock(
     //ProcessPointClouds<pcl::PointYXZI>* pointProcessorI = new ProcessPointClouds<pcl::PointYXZI>(); // pointer on the heap
     ProcessPointClouds<pcl::PointXYZI> pointProcessor;
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessor.loadPcd("src/sensors/data/pcd/data_1/0000000000.pcd");
-    renderPointCloud( viewer, inputCloud, "inputCloud");
+    //renderPointCloud( viewer, inputCloud, "inputCloud");
+
+    float filterRes = 1.0;
+
+    Eigen::Vector4f minPoint = Eigen::Vector4f (-1.5, -1.7, -1, 1);
+    Eigen::Vector4f maxPoint = Eigen::Vector4f (2.6, 1.7, -0.4, 1);
+    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessor.FilterCloud(inputCloud, filterRes , minPoint, maxPoint);
+    renderPointCloud(viewer, filterCloud, "filterCloud");
 }
 
 //setAngle: SWITCH CAMERA ANGLE {XY, TopDown, Side, FPS}
