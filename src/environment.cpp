@@ -45,11 +45,8 @@ void processSingleFrame(
      * and precessed at higher resolution, i.e. tracking pedestrians, posts, street work obstacles
      * The rest of the cloud could be tracked in low resolution i.e. cars driving behind us.
      */
-    float downSampleTo = 0.06; // meters e.g. 6cm = 0.06
-
-
-
-    //pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
+    float downSampleTo = 0.15; // meters e.g. 6cm = 0.06
+    pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
 
     // REMOVE / CROP the roof points
     pointProcessor.cropVehicleRoof(inputCloud);
