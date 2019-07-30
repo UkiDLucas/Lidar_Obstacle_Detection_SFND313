@@ -208,7 +208,7 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     std::pair<
             pcl::PointCloud<pcl::PointXYZ>::Ptr,
             pcl::PointCloud<pcl::PointXYZ>::Ptr>
-            segmentPlaneCloudPair = pointProcessor->SegmentPlane(lidarScanCloud, iterations, distanceTreshhold);
+            segmentPlaneCloudPair = pointProcessor->pclSegmentPlane(lidarScanCloud, iterations, distanceTreshhold);
 
     // render layers in order of importance of what you want to see in the final view
     if(render_road_plane)
