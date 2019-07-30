@@ -36,7 +36,7 @@ template<typename PointT>
 typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
         downsizeUsingVoxelGrid(
         typename pcl::PointCloud<PointT>::Ptr inputCloud,
-        float filterRes)
+        float leafSize)
 {
     auto startTime = std::chrono::steady_clock::now();
 
