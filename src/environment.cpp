@@ -9,6 +9,17 @@
 #include "processPointClouds.cpp"
 #include <pcl/point_cloud.h>
 
+Color colorRed = Color(1,0,0); // boxes
+Color colorGray = Color(0.5,0.5,0.5);
+Color colorGreen = Color(0,1,0); // road plane
+Color colorBlue = Color(0,0,1);
+Color colorViolet = Color(1, 0, 1);
+Color colorTeal = Color(0, 1, 1);
+Color colorPink = Color(0.8, 0.3, 0.3);
+Color colorWhite = Color(0, 0, 0);
+Color colorOlive = Color(0.5, 0.5, 0.2); // obstacles
+
+std::vector<Color> colors = {colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorWhite};
 
 // IMPLEMENTATION
 
@@ -89,9 +100,9 @@ void processSingleFrame(
             segmentPlaneCloudPair = pointProcessor.pclSegmentPlane(inputCloud, iterations, distanceTreshhold);
 
     // render layers in order of importance of what you want to see in the final view
-    renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", Color(0,1,0)); // GREEN
+    renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", colorGreen);
 
-    renderPointCloud(viewer, segmentPlaneCloudPair.first, "obstructions", Color(1,0,0)); // RED
+    renderPointCloud(viewer, segmentPlaneCloudPair.first, "obstructions", colorOlive);
 
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr allObstructionsCloud = segmentPlaneCloudPair.first;
@@ -106,13 +117,8 @@ void processSingleFrame(
 
 
 
-    //orange red Color(255,69,0)
-    //dark orange Color(255,140,0)
-    //orange Color(255,165,0)
-    //gold Color(255,215,0)
 
     int clusterId = 0;
-    std::vector<Color> colors = {Color(0,0,1), Color(255,153,51), Color(255,215,0), Color(255,140,0)};
 
     for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
     {
@@ -127,7 +133,7 @@ void processSingleFrame(
         {
             // member reference type 'ProcessPointClouds<pcl::PointXYZ> *' is a pointer; did you mean to use '->'?
             Box box = pointProcessor.BoundingBox(cluster);
-            renderBox(viewer, box, clusterId);
+            renderBox(viewer, box, clusterId, colorRed, 0.5);
         }
         ++clusterId;
     }
