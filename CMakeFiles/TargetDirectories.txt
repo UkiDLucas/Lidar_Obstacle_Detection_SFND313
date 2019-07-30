@@ -1,3 +1,0 @@
-/Volumes/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/CMakeFiles/rebuild_cache.dir
-/Volumes/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/CMakeFiles/edit_cache.dir
-/Volumes/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/CMakeFiles/environment.dir
