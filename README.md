@@ -6,6 +6,8 @@
 
 [![YouTube video](media/tracking objects.gif)](https://www.youtube.com/watch?v=lGbHW8SMu24)
 
+
+
 In this course we will be talking about sensor fusion, which is the process of **taking data from multiple sensors and combining it to give us a better understanding of the world around us**. We will mostly be focusing on two sensors, lidar, and radar. By the end we will be fusing the data from these two sensors to track multiple cars on the road, estimating their positions and speed.
 
 Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D points in order to process the subsections rapidly**. When Lidar point clouds are **combined with camera images, this technique allows us to positively identify objects and provide their distance**, while Radar allows us to track their speed.
