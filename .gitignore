@@ -50,3 +50,9 @@ Makefile
 playback.cbp
 CMakeFiles/environment.dir/build.make
 Makefile
+*.make
+*.cmake
+CMakeFiles/environment.dir/cmake_clean.cmake
+CMakeFiles/*.*
+CMakeFiles/*
+CMakeFiles/progress.marks
