@@ -71,13 +71,7 @@ FilterCloud(
 {
     auto startTime = std::chrono::steady_clock::now();
 
-    // REDUCTION using voxel grid
-    pcl::VoxelGrid<PointT> vg;
-    typename pcl::PointCloud<PointT>::Ptr cloudFiltered( new pcl::PointCloud<PointT>);
-    //std::cout << "name of this VoxelGrid: " << typeid(vg).name() << std::endl;
-    vg.setInputCloud(cloud);
-    vg.setLeafSize(filterRes, filterRes, filterRes);
-    vg.filter(*cloudFiltered); // save
+
 
     // SELECT REGION
     typename pcl::PointCloud<PointT>::Ptr cloudRegion (new pcl::PointCloud<PointT>);

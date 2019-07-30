@@ -13,16 +13,20 @@
 
 
 /**
- * TODO Rename after the final.
+ * This method takes a single frame of Point Cloud Data,
+ * and processes it,
+ * then renders it.
  * @param viewer PCL PCLVisualizer
  * @param pointProcessor PCL ProcessPointClouds<pcl::PointXYZI>
  * @param inputCloud the raw PCD before processing
  */
-void cityBlock(
+void processSingleFrame(
     pcl::visualization::PCLVisualizer::Ptr& viewer,
     ProcessPointClouds<pcl::PointXYZI> pointProcessor, // do not re-create every time
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) // inputCloud vary from frame to frame
 {
+    auto startTime = std::chrono::steady_clock::now();
+
     /**
      * In practice, the area processed and the zoom could be adjusted from frame-to-frame.
      * The interesting sub-parts of the frame could be insulated into separate point clouds
@@ -47,6 +51,11 @@ void cityBlock(
             pointProcessor.FilterCloud(inputCloud, downSampleTo , minPoint, maxPoint);
 
     renderPointCloud(viewer, finalPointCloud, "finalPointCloud");
+
+    auto endTime = std::chrono::steady_clock::now();
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+    // TODO comment out in production
+    std::cout << " processing frame took " << elapsedTime.count() << " milliseconds" << std::endl;
 }
 
 
@@ -104,7 +113,7 @@ int main (int argc, char** argv)
         // load PCD
         inputCloud = pointProcessor.loadPcd((*streamIterator).string()); // dereference the iterator to get path
         //  obstacle detection process
-        cityBlock(viewer, pointProcessor, inputCloud);
+        processSingleFrame(viewer, pointProcessor, inputCloud);
 
         // move to the next frame
         streamIterator++;
