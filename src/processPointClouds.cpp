@@ -62,8 +62,8 @@ void downsizeUsingVoxelGrid(
  * @return
  */
 template<typename PointT>
-void cropRegion(
-        typename pcl::PointCloud<PointT>::Ptr& inputCloud,
+void ProcessPointClouds<PointT>:: cropRegion(
+        typename pcl::PointCloud<PointT>::Ptr &pointCloud,
         Eigen::Vector4f minRange,
         Eigen::Vector4f maxRange)
 {
@@ -71,9 +71,10 @@ void cropRegion(
     pcl::CropBox<PointT> region(true); // true - points insider the crop box
     region.setMin(minRange);
     region.setMax(maxRange);
-    region.setInputCloud(inputCloud);
-    region.filter(*cloudRegion); // write results
+    region.setInputCloud(pointCloud);
+    region.filter(*pointCloud); // write results
 }
+
 
 
 /**
@@ -337,6 +338,8 @@ std::vector<boost::filesystem::path> ProcessPointClouds<PointT>::streamPcd(std::
     return paths;
 
 }
+
+
 
 
 

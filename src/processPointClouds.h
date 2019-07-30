@@ -30,15 +30,12 @@ public:
 
     void numPoints(typename pcl::PointCloud<PointT>::Ptr cloud);
 
-    void cropVehicleRoof(
-            typename pcl::PointCloud<PointT>::Ptr& pointCloud, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint);
+    void cropVehicleRoof(typename pcl::PointCloud<PointT>::Ptr& pointCloud, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint);
 
 
-    void downsizeUsingVoxelGrid(
-            typename pcl::PointCloud<PointT>::Ptr& pointCloud, float leafSize);
+    void downsizeUsingVoxelGrid(typename pcl::PointCloud<PointT>::Ptr& pointCloud, float leafSize);
 
-    void cropRegion(
-            typename pcl::PointCloud<PointT>::Ptr& pointCloud, Eigen::Vector4f minRange, Eigen::Vector4f maxRange);
+    void cropRegion(typename pcl::PointCloud<PointT>::Ptr& pointCloud, Eigen::Vector4f minRange, Eigen::Vector4f maxRange);
 
 
 
