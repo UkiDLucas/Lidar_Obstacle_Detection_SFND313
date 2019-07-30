@@ -54,6 +54,7 @@ void processSingleFrame(
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+
     // TODO comment out in production
     std::cout << " processing frame took " << elapsedTime.count() << " milliseconds" << std::endl;
 }

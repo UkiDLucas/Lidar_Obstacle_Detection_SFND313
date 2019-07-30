@@ -52,6 +52,37 @@ typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
 }
 
 
+
+
+/**
+ *
+ * @tparam PointT
+ * @param cloud
+ * @param minPoint
+ * @param maxPoint
+ * @return
+ */
+template<typename PointT>
+typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
+cropRegion(
+        typename pcl::PointCloud<PointT>::Ptr inputCloud,
+        Eigen::Vector4f minRange,
+        Eigen::Vector4f maxRange)
+{
+    typename pcl::PointCloud<PointT>::Ptr cloudRegion(new pcl::PointCloud<PointT>);
+    pcl::CropBox<PointT> region(true); // true - points insider the crop box
+    region.setMin(minRange);
+    region.setMax(maxRange);
+    region.setInputCloud(inputCloud);
+    region.filter(*cloudRegion); // write results
+
+    return cloudRegion;
+}
+
+
+
+
+
 /**
  *
  * @tparam PointT
@@ -69,18 +100,6 @@ FilterCloud(
     Eigen::Vector4f minPoint, 
     Eigen::Vector4f maxPoint)
 {
-    auto startTime = std::chrono::steady_clock::now();
-
-
-
-    // SELECT REGION
-    typename pcl::PointCloud<PointT>::Ptr cloudRegion (new pcl::PointCloud<PointT>);
-    pcl::CropBox<PointT> region(true); // true - points insider the crop box
-    region.setMin(minPoint);
-    region.setMax(maxPoint);
-    //region.setInputCloud(cloud); // NOT downsampled
-    region.setInputCloud(cloudFiltered); // already downsampled
-    region.filter(*cloudRegion); // save results
 
     // REMOVE VEHICLE ROOF points, they are static and do not add value
     pcl::CropBox<PointT> roof(true);
@@ -123,10 +142,6 @@ FilterCloud(
 
     // BOUNDING BOXES
 
-    auto endTime = std::chrono::steady_clock::now();
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-    // TODO comment out in production
-    std::cout << "FilterCloud function took " << elapsedTime.count() << " milliseconds" << std::endl;
     return cloudRegion;
 }
 

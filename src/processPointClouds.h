@@ -52,5 +52,8 @@ public:
 
     typename pcl::PointCloud<PointT>::Ptr downsizeUsingVoxelGrid(
             typename pcl::PointCloud<PointT>::Ptr inputCloud, float filterRes);
+
+    typename pcl::PointCloud<PointT>::Ptr cropRegion(
+            typename pcl::PointCloud<PointT>::Ptr inputCloud, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint);
 };
 #endif /* PROCESSPOINTCLOUDS_H_ */
