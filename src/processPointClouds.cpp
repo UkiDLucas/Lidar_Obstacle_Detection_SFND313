@@ -112,7 +112,7 @@ std::pair<
     typename pcl::PointCloud<PointT>::Ptr, 
     typename pcl::PointCloud<PointT>::Ptr> 
     ProcessPointClouds<PointT>::
-    SeparateClouds(
+    separate2Clouds(
     pcl::PointIndices::Ptr inliers, 
     typename pcl::PointCloud<PointT>::Ptr cloud) 
 {
@@ -135,7 +135,10 @@ std::pair<
     << " data points." 
     << std::endl;
 
-    std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> segResult(obstaclesCloud, roadPlaneCloud);
+    std::pair<
+            typename pcl::PointCloud<PointT>::Ptr,
+            typename pcl::PointCloud<PointT>::Ptr>
+            segResult(obstaclesCloud, roadPlaneCloud);
     return segResult;
 }
 
@@ -186,8 +189,10 @@ pclSegmentPlane(
         std::cerr << "Could not fit the plane surface for this data set!" << std::endl;
     }
 
-    std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> segResult = 
-    SeparateClouds(inliers, cloud);
+    std::pair<
+            typename pcl::PointCloud<PointT>::Ptr,
+            typename pcl::PointCloud<PointT>::Ptr>
+            segResult = separate2Clouds(inliers, cloud);
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
