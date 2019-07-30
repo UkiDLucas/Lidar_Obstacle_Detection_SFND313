@@ -2,7 +2,7 @@
 
 
 
-### Welcome to the Sensor Fusion course for [ADAS](https://en.wikipedia.org/wiki/Advanced_driver-assistance_systems), autonomous driving.
+### Welcome to the Sensor Fusion course for [ADAS](https://en.wikipedia.org/wiki/Advanced_driver-assistance_systems) and autonomous driving.
 
 <img src="media/tracking objects.gif" />
 
