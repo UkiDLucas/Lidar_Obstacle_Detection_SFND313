@@ -54,11 +54,11 @@ void processSingleFrame(
     // REMOVE / CROP the roof points
     pointProcessor.cropVehicleRoof(inputCloud);
 
-    float seeForward    = 50.0; // in reality as much as 250m
+    float seeForward    = 40.0; // in reality as much as 250m
     float seeBackwards  = 10.0; // meters
-    float seeRight      = 8.0; // meters, right-hand side driving
-    float seeLeft       = 13.0; // meters, right-hand side driving
-    float seeUp         = 3.0; // meters, from the roof of the car
+    float seeRight      = 5.0; // meters, right-hand side driving e.g. 8.0
+    float seeLeft       = 8.3; // meters, right-hand side driving e.g. 13.0
+    float seeUp         = 2.0; // meters, from the roof of the car e.g. 3.0
     float seeDown       = 2.0; // meters, from the roof of the car
     Eigen::Vector4f minRange = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
     Eigen::Vector4f maxRange = Eigen::Vector4f (seeForward, seeLeft, seeUp, 1);
