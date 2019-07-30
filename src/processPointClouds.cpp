@@ -22,6 +22,36 @@ void ProcessPointClouds<PointT>::numPoints(typename pcl::PointCloud<PointT>::Ptr
 {
     std::cout << cloud->points.size() << std::endl;
 }
+
+/**
+ * This method takes to Point Cloud Data,
+ * and downsizes it to one point per BLOCK of leafSize.
+ *
+ * @tparam PointT
+ * @param inputCloud
+ * @param leafSize - meters, probably no less than 6cm, or 0.06
+ * @return downsizedCloud
+ */
+template<typename PointT>
+typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
+        downsizeUsingVoxelGrid(
+        typename pcl::PointCloud<PointT>::Ptr inputCloud,
+        float filterRes)
+{
+    auto startTime = std::chrono::steady_clock::now();
+
+    // REDUCTION using voxel grid
+    pcl::VoxelGrid<PointT> vg;
+    typename pcl::PointCloud<PointT>::Ptr downsizedCloud(new pcl::PointCloud<PointT>);
+    //std::cout << "name of this VoxelGrid: " << typeid(vg).name() << std::endl;
+    vg.setInputCloud(inputCloud);
+    vg.setLeafSize(leafSize, leafSize, leafSize);
+    vg.filter(*downsizedCloud); // save
+
+    return downsizedCloud;
+}
+
+
 /**
  *
  * @tparam PointT
