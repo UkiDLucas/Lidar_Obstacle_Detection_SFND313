@@ -9,8 +9,10 @@
 #include "processPointClouds.cpp"
 #include <pcl/point_cloud.h>
 
+// HEADER
+std::vector<Car> initHighway(bool scene, pcl::visualization::PCLVisualizer::Ptr &viewer);
 
-
+// IMPLEMENTATION
 
 /**
  * This method takes a single frame of Point Cloud Data,
@@ -26,6 +28,8 @@ void processSingleFrame(
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) // inputCloud vary from frame to frame
 {
     auto startTime = std::chrono::steady_clock::now();
+
+    renderPointCloud(viewer, inputCloud, "inputCloud");
 
     /**
      * In practice, the area processed and the zoom could be adjusted from frame-to-frame.
@@ -44,16 +48,15 @@ void processSingleFrame(
     Eigen::Vector4f minPoint = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
     Eigen::Vector4f maxPoint = Eigen::Vector4f (seeForward, seeLeft, seeUp, 1);
 
-    pcl::PointCloud<pcl::PointXYZI>::Ptr downsizedCloud =
-            pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
+    //pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
 
     // REMOVE / CROP the roof points
-    inputCloud = pointProcessor.cropVehicleRoof(inputCloud, minPoint, maxPoint);
+    pointProcessor.cropVehicleRoof(inputCloud, minPoint, maxPoint);
 
 
     // SEPARATE ROAD PLANE
     //roadPlanePointIndices =
-
+    /*
     typename pcl::PointCloud<PointT>::Ptr onRoadPlanePoints (new pcl::PointCloud<PointT>);
     typename pcl::PointCloud<PointT>::Ptr notRoadPlanePoints (new pcl::PointCloud<PointT>);
     //pcl::PointCloud<pcl::PointXYZ>::Ptr  roadPlanePoints(new pcl::PointCloud<pcl::PointXYZ>());
@@ -73,19 +76,7 @@ void processSingleFrame(
     {
         renderPointCloud(viewer, onRoadPlanePoints, "road plane", Color(0, 1, 0)); // green
     }
-
-    // BOUNDING BOXES
-
-    return cloudRegion;
-
-
-    renderPointCloud(viewer, finalPointCloud, "finalPointCloud");
-
-    auto endTime = std::chrono::steady_clock::now();
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-
-    // TODO comment out in production
-    std::cout << " processing frame took " << elapsedTime.count() << " milliseconds" << std::endl;
+     */
 }
 
 
@@ -165,10 +156,9 @@ int main (int argc, char** argv)
  * @param viewer
  */
 void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
-{    /**
-     * This flag (true) allows you to render the whole scene (highway, cars),
-     * or just the cloud (false) - point cloud and rays
-     */
+{    //This flag (true) allows you to render the whole scene (highway, cars),
+     //or just the cloud (false) - point cloud and rays
+
     bool renderScene = true;
     bool render_road_plane = true;
     bool render_obstructions = true;
@@ -182,12 +172,11 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     double setGroundSlope = 0.0;
     Lidar* lidar = new Lidar(cars, setGroundSlope);
 
-    /**
-     * scan() does the ray casting
-     * scan() function does not take any parameters
-     * scan() generates the Pointer object PointCloud of type PointXYZ named inputCloud
-     * The Pointer - 32 bit integer that contains the memory address of your point cloud object
-     */
+    //scan() does the ray casting
+    //scan() function does not take any parameters
+    //scan() generates the Pointer object PointCloud of type PointXYZ named inputCloud
+     // The Pointer - 32 bit integer that contains the memory address of your point cloud object
+
     pcl::PointCloud<pcl::PointXYZ>::Ptr lidarScanCloud = lidar->scan();
     //typename pcl::PointCloud<PointT>::Ptr lidarScanCloud = lidar->scan(); // error: no type named 'Ptr' in the global namespace
 
@@ -266,15 +255,13 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 }
 
 
+
 /**
- * The viewer is passed in as a reference, any changes will persist outside of this funciton
  * @param renderScene
  * @param viewer
  * @return
  */
-std::vector<Car> initHighway(
-        bool renderScene,
-        pcl::visualization::PCLVisualizer::Ptr& viewer)
+std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
     // create cars
     Car egoCar( Vect3(0,0,0), Vect3(4,2,2), Color(0,1,0), "egoCar");

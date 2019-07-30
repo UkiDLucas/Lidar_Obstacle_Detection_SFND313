@@ -51,6 +51,8 @@ void downsizeUsingVoxelGrid(
 
 
 
+
+
 /**
  *
  * @tparam PointT
@@ -74,42 +76,36 @@ void cropRegion(
 }
 
 
-
-
-
 /**
  *
  * @tparam PointT
- * @param inputCloud - passed by reference, any changes will be persisted.
- * @param minPoint
- * @param maxPoint
- * @return
+ * @param pointCloud - passed by reference, any changes will be persisted.
+ * @param minRange
+ * @param maxRange
  */
 template<typename PointT>
-void cropVehicleRoof(
-    typename pcl::PointCloud<PointT>::Ptr& inputCloud,
-    Eigen::Vector4f minPoint, 
-    Eigen::Vector4f maxPoint)
+void ProcessPointClouds<PointT>::cropVehicleRoof(
+        typename pcl::PointCloud<PointT>::Ptr &pointCloud,
+        Eigen::Vector4f minRange,
+        Eigen::Vector4f maxRange)
 {
     typename pcl::PointCloud<PointT>::Ptr returnCloud(new pcl::PointCloud<PointT>);
 
     // REMOVE VEHICLE ROOF points, they are static and do not add value
     pcl::CropBox<PointT> roof(true);
-    roof.setMin(Eigen::Vector4f (-1.5, -1.7, -1, 1));
+    roof.setMin(Eigen::Vector4f (-1.5, -1.7, -1, 1)); //TODO pass from outside minRange
     roof.setMax(Eigen::Vector4f (2.6, 1.7, -0.4, 1));
-    roof.setInputCloud(inputCloud); // previously cropped
+    roof.setInputCloud(pointCloud);
     std::vector<int> indices;
     roof.filter(indices);
     pcl::PointIndices::Ptr inliers {new pcl::PointIndices};
     for(int point: indices)
         inliers->indices.push_back(point);
     pcl::ExtractIndices<PointT> extract;
-    extract.setInputCloud(inputCloud);
+    extract.setInputCloud(pointCloud);
     extract.setIndices(inliers);
     extract.setNegative(true); // remove the roof points
-    extract.filter(*returnCloud);
-
-    return returnCloud;
+    extract.filter(*pointCloud);
 }
 
 
@@ -341,3 +337,7 @@ std::vector<boost::filesystem::path> ProcessPointClouds<PointT>::streamPcd(std::
     return paths;
 
 }
+
+
+
+
