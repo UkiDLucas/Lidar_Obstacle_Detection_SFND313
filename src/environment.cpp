@@ -38,19 +38,22 @@ void processSingleFrame(
      */
     float downSampleTo = 0.06; // meters e.g. 6cm = 0.06
 
+
+
+    //pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
+
+    // REMOVE / CROP the roof points
+    pointProcessor.cropVehicleRoof(inputCloud);
+
     float seeForward    = 50.0; // in reality as much as 250m
     float seeBackwards  = 10.0; // meters
     float seeRight      = 8.0; // meters, right-hand side driving
     float seeLeft       = 13.0; // meters, right-hand side driving
     float seeUp         = 3.0; // meters, from the roof of the car
     float seeDown       = 2.0; // meters, from the roof of the car
-    Eigen::Vector4f minPoint = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
-    Eigen::Vector4f maxPoint = Eigen::Vector4f (seeForward, seeLeft, seeUp, 1);
-
-    //pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
-
-    // REMOVE / CROP the roof points
-    pointProcessor.cropVehicleRoof(inputCloud, minPoint, maxPoint);
+    Eigen::Vector4f minRange = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
+    Eigen::Vector4f maxRange = Eigen::Vector4f (seeForward, seeLeft, seeUp, 1);
+    pointProcessor.cropRegion(inputCloud, minRange, maxRange);
     renderPointCloud(viewer, inputCloud, "inputCloud");
 
 

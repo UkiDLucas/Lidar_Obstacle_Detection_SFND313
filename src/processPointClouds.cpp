@@ -86,9 +86,7 @@ void ProcessPointClouds<PointT>:: cropRegion(
  */
 template<typename PointT>
 void ProcessPointClouds<PointT>::cropVehicleRoof(
-        typename pcl::PointCloud<PointT>::Ptr &pointCloud,
-        Eigen::Vector4f minRange,
-        Eigen::Vector4f maxRange)
+        typename pcl::PointCloud<PointT>::Ptr &pointCloud )
 {
     typename pcl::PointCloud<PointT>::Ptr returnCloud(new pcl::PointCloud<PointT>);
 
