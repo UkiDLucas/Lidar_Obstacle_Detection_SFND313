@@ -33,9 +33,8 @@ void ProcessPointClouds<PointT>::numPoints(typename pcl::PointCloud<PointT>::Ptr
  * @return downsizedCloud
  */
 template<typename PointT>
-typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
-        downsizeUsingVoxelGrid(
-        typename pcl::PointCloud<PointT>::Ptr inputCloud,
+void downsizeUsingVoxelGrid(
+        typename pcl::PointCloud<PointT>::Ptr& inputCloud,
         float leafSize)
 {
     auto startTime = std::chrono::steady_clock::now();
@@ -47,8 +46,6 @@ typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
     vg.setInputCloud(inputCloud);
     vg.setLeafSize(leafSize, leafSize, leafSize);
     vg.filter(*downsizedCloud); // save
-
-    return downsizedCloud;
 }
 
 
@@ -63,9 +60,8 @@ typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
  * @return
  */
 template<typename PointT>
-typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
-cropRegion(
-        typename pcl::PointCloud<PointT>::Ptr inputCloud,
+void cropRegion(
+        typename pcl::PointCloud<PointT>::Ptr& inputCloud,
         Eigen::Vector4f minRange,
         Eigen::Vector4f maxRange)
 {
@@ -75,8 +71,6 @@ cropRegion(
     region.setMax(maxRange);
     region.setInputCloud(inputCloud);
     region.filter(*cloudRegion); // write results
-
-    return cloudRegion;
 }
 
 
@@ -86,14 +80,14 @@ cropRegion(
 /**
  *
  * @tparam PointT
+ * @param inputCloud - passed by reference, any changes will be persisted.
  * @param minPoint
  * @param maxPoint
  * @return
  */
 template<typename PointT>
-typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
-cropVehicleRoof(
-    typename pcl::PointCloud<PointT>::Ptr inputCloud,
+void cropVehicleRoof(
+    typename pcl::PointCloud<PointT>::Ptr& inputCloud,
     Eigen::Vector4f minPoint, 
     Eigen::Vector4f maxPoint)
 {

@@ -272,7 +272,9 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
  * @param viewer
  * @return
  */
-std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer::Ptr& viewer)
+std::vector<Car> initHighway(
+        bool renderScene,
+        pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
     // create cars
     Car egoCar( Vect3(0,0,0), Vect3(4,2,2), Color(0,1,0), "egoCar");

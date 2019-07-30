@@ -30,8 +30,7 @@ public:
 
     void numPoints(typename pcl::PointCloud<PointT>::Ptr cloud);
 
-    typename pcl::PointCloud<PointT>::Ptr cropVehicleRoof(
-            typename pcl::PointCloud<PointT>::Ptr cloud, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint);
+    void cropVehicleRoof(typename pcl::PointCloud<PointT>::Ptr& pointCloud, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint);
 
     std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> SeparateClouds(
             pcl::PointIndices::Ptr inliers, typename pcl::PointCloud<PointT>::Ptr cloud);
@@ -50,11 +49,11 @@ public:
 
     std::vector<boost::filesystem::path> streamPcd(std::string dataPath);
 
-    typename pcl::PointCloud<PointT>::Ptr downsizeUsingVoxelGrid(
-            typename pcl::PointCloud<PointT>::Ptr inputCloud, float filterRes);
+    void downsizeUsingVoxelGrid(
+            typename pcl::PointCloud<PointT>::Ptr& pointCloud, float filterRes);
 
-    typename pcl::PointCloud<PointT>::Ptr cropRegion(
-            typename pcl::PointCloud<PointT>::Ptr inputCloud, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint);
+    void cropRegion(
+            typename pcl::PointCloud<PointT>::Ptr& pointCloud, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint);
 
 };
 #endif /* PROCESSPOINTCLOUDS_H_ */
