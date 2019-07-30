@@ -1,4 +1,9 @@
-// PCL lib Functions for processing point clouds 
+/*
+ * \author Aaron Brown,
+ * \author Uki D. Lucas UkiDLucas@gmail.com @UkiDLucas
+ *
+ * PCL lib Functions for processing point clouds
+ */
 
 #include "processPointClouds.h"
 
@@ -65,7 +70,8 @@ FilterCloud(
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-    std::cout << "FilterCloud took " << elapsedTime.count() << " milliseconds" << std::endl;
+    // TODO comment out in production
+    std::cout << "FilterCloud function took " << elapsedTime.count() << " milliseconds" << std::endl;
     return cloudRegion;
 }
 

@@ -77,9 +77,6 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
      */
     //renderPointCloud(viewer, lidarScanCloud, "lidarScanCloud");
 
-    /** 
-     * TODO:: Create point processor
-     */
     //auto pointProcessor = new ProcessPointClouds<pcl::PointXYZ>();
     //ProcessPointClouds<pcl::PointXYZ>* pointProcessor; // on the stack
     ProcessPointClouds<pcl::PointXYZ>* 
