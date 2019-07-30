@@ -29,7 +29,6 @@ void processSingleFrame(
 {
     auto startTime = std::chrono::steady_clock::now();
 
-    renderPointCloud(viewer, inputCloud, "inputCloud");
 
     /**
      * In practice, the area processed and the zoom could be adjusted from frame-to-frame.
@@ -52,6 +51,7 @@ void processSingleFrame(
 
     // REMOVE / CROP the roof points
     pointProcessor.cropVehicleRoof(inputCloud, minPoint, maxPoint);
+    renderPointCloud(viewer, inputCloud, "inputCloud");
 
 
     // SEPARATE ROAD PLANE
