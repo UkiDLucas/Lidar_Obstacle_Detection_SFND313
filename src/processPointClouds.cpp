@@ -91,8 +91,9 @@ void ProcessPointClouds<PointT>::cropVehicleRoof(
 
     // REMOVE VEHICLE ROOF points, they are static and do not add value
     pcl::CropBox<PointT> roof(true);
-    roof.setMin(Eigen::Vector4f (-1.5, -1.7, -1, 1)); //TODO pass from outside minRange
-    roof.setMax(Eigen::Vector4f (2.6, 1.7, -0.4, 1));
+    // TODO the roof is very specific to this car, consider extracting settings
+    roof.setMin(Eigen::Vector4f (-2.5, -1.6, -1.5, 1));
+    roof.setMax(Eigen::Vector4f (2.6, 1.6, 0.5, 1));
     roof.setInputCloud(pointCloud);
     std::vector<int> indices;
     roof.filter(indices);

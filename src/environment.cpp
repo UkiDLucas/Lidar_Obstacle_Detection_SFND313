@@ -16,10 +16,10 @@ Color colorBlue = Color(0,0,1);
 Color colorViolet = Color(1, 0, 1);
 Color colorTeal = Color(0, 1, 1);
 Color colorPink = Color(0.8, 0.3, 0.3);
-Color colorWhite = Color(0, 0, 0);
+Color colorWhite = Color(1, 1, 1);
 Color colorOlive = Color(0.5, 0.5, 0.2); // obstacles
 
-std::vector<Color> colors = {colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorWhite};
+std::vector<Color> colors = {colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive};
 
 // IMPLEMENTATION
 
@@ -45,16 +45,17 @@ void processSingleFrame(
      * and precessed at higher resolution, i.e. tracking pedestrians, posts, street work obstacles
      * The rest of the cloud could be tracked in low resolution i.e. cars driving behind us.
      */
-    float downSampleTo = 0.15; // meters e.g. 6cm = 0.06
+    float downSampleTo = 0.20; // meters e.g. 6cm = 0.06
     pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
 
     // REMOVE / CROP the roof points
     pointProcessor.cropVehicleRoof(inputCloud);
 
+    // TODO crop the obstacles AFTER segmentation
     float seeForward    = 40.0; // in reality as much as 250m
     float seeBackwards  = 10.0; // meters
     float seeRight      = 5.0; // meters, right-hand side driving e.g. 8.0
-    float seeLeft       = 8.3; // meters, right-hand side driving e.g. 13.0
+    float seeLeft       = 7.3; // meters, right-hand side driving e.g. 13.0
     float seeUp         = 2.0; // meters, from the roof of the car e.g. 3.0
     float seeDown       = 2.0; // meters, from the roof of the car
     Eigen::Vector4f minRange = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
@@ -99,14 +100,14 @@ void processSingleFrame(
     // render layers in order of importance of what you want to see in the final view
     renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", colorGreen);
 
-    renderPointCloud(viewer, segmentPlaneCloudPair.first, "obstructions", colorOlive);
+    renderPointCloud(viewer, segmentPlaneCloudPair.first, "obstructions", colorWhite);
 
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr allObstructionsCloud = segmentPlaneCloudPair.first;
 
-    float clusterTolerance = 1.5; // e.g. less than 1.5 divides the car in two
-    int minClusterSize = 1; // weed out the single point outliers (i.e. gravel)
-    int maxClusterSize = 500; // my biggest car is 278 points
+    float clusterTolerance = 0.4; // e.g. less than 1.5 divides the car in two
+    int minClusterSize = 15; // weed out the single point outliers (i.e. gravel)
+    int maxClusterSize = 650; // my biggest car is 278 points
 
     // collection of clusters
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>
