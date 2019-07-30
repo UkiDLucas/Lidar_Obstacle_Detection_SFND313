@@ -218,7 +218,7 @@ Clustering(
     /**
      * http://pointclouds.org/documentation/tutorials/cluster_extraction.php
      */
-    pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
+    pcl::EuclideanClusterExtraction<pcl::PointXYZI> ec;
     ec.setInputCloud (inputCloud);
 
     ec.setClusterTolerance (clusterTolerance); // e.g. 0.02 or 2cm
@@ -230,7 +230,7 @@ Clustering(
      * Creating the KdTree object for the search method of the extraction
      * KD Tree is a binary tree
      */
-    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
+    pcl::search::KdTree<pcl::PointXYZI>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZI>);
     tree->setInputCloud (inputCloud);
     ec.setSearchMethod (tree);
     
@@ -247,7 +247,7 @@ Clustering(
         it != cluster_indices.end (); 
         ++it)
     {
-        pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_cluster (new pcl::PointCloud<pcl::PointXYZ>);
+        pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_cluster (new pcl::PointCloud<pcl::PointXYZI>);
         for (std::vector<int>::const_iterator pit = it->indices.begin (); pit != it->indices.end (); ++pit)
         {
             cloud_cluster->points.push_back(inputCloud->points[*pit]); //*
