@@ -1,10 +1,10 @@
 # Sensor Fusion Self-Driving Car Course
 
-[![YouTube video](/Volumes/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/media/ObstacleDetectionFPS.gif)](https://www.youtube.com/watch?v=lGbHW8SMu24)
 
-https://www.youtube.com/watch?v=lGbHW8SMu24
 
 ### Welcome to the Sensor Fusion course for self-driving cars.
+
+[![YouTube video](media/tracking objects.gif)](https://www.youtube.com/watch?v=lGbHW8SMu24)
 
 In this course we will be talking about sensor fusion, which is the process of **taking data from multiple sensors and combining it to give us a better understanding of the world around us**. We will mostly be focusing on two sensors, lidar, and radar. By the end we will be fusing the data from these two sensors to track multiple cars on the road, estimating their positions and speed.
 
@@ -28,9 +28,15 @@ Total class time spent: start ~36 hours, end ~TBD hours.
 
 ### "Lidar Final Project"
 
+https://www.youtube.com/watch?v=lGbHW8SMu24
+
 In this project you will take everything that you have learned for processing point clouds, and use it to detect car and trucks on a narrow street using lidar. The detection pipeline should follow the covered methods, filtering, segmentation, clustering, and bounding boxes. Also the **segmentation, and clustering methods should be created from scratch** using the previous lesson’s guidelines for reference.
 
 - Final project
+
+
+
+[![YouTube video](media/ObstacleDetectionFPS.gif)](https://www.youtube.com/watch?v=lGbHW8SMu24)
 
 
 
