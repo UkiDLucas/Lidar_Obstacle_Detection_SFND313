@@ -22,7 +22,15 @@ void ProcessPointClouds<PointT>::numPoints(typename pcl::PointCloud<PointT>::Ptr
 {
     std::cout << cloud->points.size() << std::endl;
 }
-
+/**
+ *
+ * @tparam PointT
+ * @param cloud
+ * @param filterRes
+ * @param minPoint
+ * @param maxPoint
+ * @return
+ */
 template<typename PointT>
 typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
 FilterCloud(
@@ -67,6 +75,27 @@ FilterCloud(
     extract.filter(*cloudRegion);
 
     // SEPARATE ROAD PLANE
+    //roadPlanePointIndices =
+
+    typename pcl::PointCloud<PointT>::Ptr onRoadPlanePoints (new pcl::PointCloud<PointT>);
+    typename pcl::PointCloud<PointT>::Ptr notRoadPlanePoints (new pcl::PointCloud<PointT>);
+    //pcl::PointCloud<pcl::PointXYZ>::Ptr  roadPlanePoints(new pcl::PointCloud<pcl::PointXYZ>());
+    //pcl::PointCloud<pcl::PointXYZ>::Ptr notRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZ>());
+
+    // separate road and not road
+    for(int index = 0; index < cloud->points.size(); index++)
+    {
+        pcl::PointXYZ point = cloud->points[index];
+        if(inliers.count(index))
+            onRoadPlanePoints->points.push_back(point);
+        else
+            notRoadPlanePoints->points.push_back(point);
+    }
+
+    if(onRoadPlanePoints.size()) // road plane found
+    {
+        renderPointCloud(viewer, onRoadPlanePoints, "road plane", Color(0, 1, 0)); // green
+    }
 
     // BOUNDING BOXES
 
