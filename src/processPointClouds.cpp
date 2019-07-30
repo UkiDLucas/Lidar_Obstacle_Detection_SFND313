@@ -86,63 +86,36 @@ cropRegion(
 /**
  *
  * @tparam PointT
- * @param cloud
- * @param filterRes
  * @param minPoint
  * @param maxPoint
  * @return
  */
 template<typename PointT>
 typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::
-FilterCloud(
-    typename pcl::PointCloud<PointT>::Ptr cloud, 
-    float filterRes, 
+cropVehicleRoof(
+    typename pcl::PointCloud<PointT>::Ptr inputCloud,
     Eigen::Vector4f minPoint, 
     Eigen::Vector4f maxPoint)
 {
+    typename pcl::PointCloud<PointT>::Ptr returnCloud(new pcl::PointCloud<PointT>);
 
     // REMOVE VEHICLE ROOF points, they are static and do not add value
     pcl::CropBox<PointT> roof(true);
     roof.setMin(Eigen::Vector4f (-1.5, -1.7, -1, 1));
     roof.setMax(Eigen::Vector4f (2.6, 1.7, -0.4, 1));
-    roof.setInputCloud(cloudRegion); // previously cropped
+    roof.setInputCloud(inputCloud); // previously cropped
     std::vector<int> indices;
     roof.filter(indices);
     pcl::PointIndices::Ptr inliers {new pcl::PointIndices};
     for(int point: indices)
         inliers->indices.push_back(point);
     pcl::ExtractIndices<PointT> extract;
-    extract.setInputCloud(cloudRegion);
+    extract.setInputCloud(inputCloud);
     extract.setIndices(inliers);
     extract.setNegative(true); // remove the roof points
-    extract.filter(*cloudRegion);
+    extract.filter(*returnCloud);
 
-    // SEPARATE ROAD PLANE
-    //roadPlanePointIndices =
-
-    typename pcl::PointCloud<PointT>::Ptr onRoadPlanePoints (new pcl::PointCloud<PointT>);
-    typename pcl::PointCloud<PointT>::Ptr notRoadPlanePoints (new pcl::PointCloud<PointT>);
-    //pcl::PointCloud<pcl::PointXYZ>::Ptr  roadPlanePoints(new pcl::PointCloud<pcl::PointXYZ>());
-    //pcl::PointCloud<pcl::PointXYZ>::Ptr notRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZ>());
-
-    // separate road and not road
-    for(int index = 0; index < cloud->points.size(); index++)
-    {
-        pcl::PointXYZ point = cloud->points[index];
-        if(inliers.count(index))
-            onRoadPlanePoints->points.push_back(point);
-        else
-            notRoadPlanePoints->points.push_back(point);
-    }
-
-    if(onRoadPlanePoints.size()) // road plane found
-    {
-        renderPointCloud(viewer, onRoadPlanePoints, "road plane", Color(0, 1, 0)); // green
-    }
-
-    // BOUNDING BOXES
-
-    return cloudRegion;
+    return returnCloud;
 }
 
 

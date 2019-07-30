@@ -47,8 +47,37 @@ void processSingleFrame(
     pcl::PointCloud<pcl::PointXYZI>::Ptr downsizedCloud =
             pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
 
-    pcl::PointCloud<pcl::PointXYZI>::Ptr finalPointCloud =
-            pointProcessor.FilterCloud(inputCloud, downSampleTo , minPoint, maxPoint);
+    // REMOVE / CROP the roof points
+    inputCloud = pointProcessor.cropVehicleRoof(inputCloud, minPoint, maxPoint);
+
+
+    // SEPARATE ROAD PLANE
+    //roadPlanePointIndices =
+
+    typename pcl::PointCloud<PointT>::Ptr onRoadPlanePoints (new pcl::PointCloud<PointT>);
+    typename pcl::PointCloud<PointT>::Ptr notRoadPlanePoints (new pcl::PointCloud<PointT>);
+    //pcl::PointCloud<pcl::PointXYZ>::Ptr  roadPlanePoints(new pcl::PointCloud<pcl::PointXYZ>());
+    //pcl::PointCloud<pcl::PointXYZ>::Ptr notRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZ>());
+
+    // separate road and not road
+    for(int index = 0; index < inputCloud->points.size(); index++)
+    {
+        pcl::PointXYZ point = inputCloud->points[index];
+        if(inliers.count(index))
+            onRoadPlanePoints->points.push_back(point);
+        else
+            notRoadPlanePoints->points.push_back(point);
+    }
+
+    if(onRoadPlanePoints.size()) // road plane found
+    {
+        renderPointCloud(viewer, onRoadPlanePoints, "road plane", Color(0, 1, 0)); // green
+    }
+
+    // BOUNDING BOXES
+
+    return cloudRegion;
+
 
     renderPointCloud(viewer, finalPointCloud, "finalPointCloud");
 
