@@ -215,13 +215,15 @@ int main (int argc, char** argv)
         viewer->removeAllPointClouds();
         viewer->removeAllShapes();
 
-        // load PCD and run obstacle detection process
+        // load PCD
         inputCloud = pointProcessor.loadPcd((*streamIterator).string()); // dereference the iterator to get path
+        //  obstacle detection process
         cityBlock(viewer, pointProcessor, inputCloud);
+
+        // move to the next frame
         streamIterator++;
         if(streamIterator == stream.end())
             streamIterator = stream.begin();
-
         viewer->spinOnce ();
     } 
 }
