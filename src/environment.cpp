@@ -169,9 +169,10 @@ void cityBlock(
     float seeDown       = 2.0; // meters, from the roof of the car
     Eigen::Vector4f minPoint = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
     Eigen::Vector4f maxPoint = Eigen::Vector4f (seeForward, seeLeft, seeUp, 1);
-    pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud = pointProcessor.FilterCloud(inputCloud, downSampleTo , minPoint, maxPoint);
+    pcl::PointCloud<pcl::PointXYZI>::Ptr finalPointCloud =
+            pointProcessor.FilterCloud(inputCloud, downSampleTo , minPoint, maxPoint);
 
-    renderPointCloud(viewer, filterCloud, "filterCloud");
+    renderPointCloud(viewer, finalPointCloud, "finalPointCloud");
 }
 
 
