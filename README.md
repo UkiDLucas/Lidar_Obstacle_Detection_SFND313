@@ -1,6 +1,8 @@
 # Sensor Fusion Self-Driving Car Course
 
-<img src="media/ObstacleDetectionFPS.gif"  />
+[![YouTube video](/Volumes/DATA/_Drive/_REPOS/SFND313_Lidar_Obstacle_Detection/media/ObstacleDetectionFPS.gif)](https://www.youtube.com/watch?v=lGbHW8SMu24)
+
+https://www.youtube.com/watch?v=lGbHW8SMu24
 
 ### Welcome to the Sensor Fusion course for self-driving cars.
 
@@ -16,11 +18,27 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 
 
-# Uki's Class Progress
+# Class Progress
+
+
+
+## Tuesday, July 30, 2019
+
+Total class time spent: start ~36 hours, end ~TBD hours.
+
+### "Lidar Final Project"
+
+In this project you will take everything that you have learned for processing point clouds, and use it to detect car and trucks on a narrow street using lidar. The detection pipeline should follow the covered methods, filtering, segmentation, clustering, and bounding boxes. Also the **segmentation, and clustering methods should be created from scratch** using the previous lesson’s guidelines for reference.
+
+- Final project
+
+
+
+
 
 ## Monday, July 29, 2019
 
-Total class time spent: start ~35 hours, end ~TBD hours.
+Total class time spent: start ~35 hours, end ~36 hours.
 
 ### Lesson 4 "Working with Real PCD"
 
