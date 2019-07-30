@@ -89,13 +89,13 @@ void processSingleFrame(
 }
 
 
-
-
-
-
-//setAngle: SWITCH CAMERA ANGLE {XY, TopDown, Side, FPS}
-void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& viewer) 
-// viewer passed in as a reference, any changes will persist outside of this funciton
+/**
+ * The viewer passed in as a reference, any changes will persist outside of this funciton
+ * setAngle: SWITCH CAMERA ANGLE {XY, TopDown, Side, FPS}
+ * @param setAngle
+ * @param viewer
+ */
+void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
     viewer->setBackgroundColor (0, 0, 0); // seting background color
     
@@ -117,6 +117,12 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
 }
 
 
+/**
+ *
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main (int argc, char** argv)
 {
     std::cout << "starting enviroment" << std::endl;
@@ -154,13 +160,10 @@ int main (int argc, char** argv)
 }
 
 
-
-
-
-
-
-
-
+/**
+ *
+ * @param viewer
+ */
 void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 {    /**
      * This flag (true) allows you to render the whole scene (highway, cars),
@@ -263,9 +266,13 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 }
 
 
-
+/**
+ * The viewer is passed in as a reference, any changes will persist outside of this funciton
+ * @param renderScene
+ * @param viewer
+ * @return
+ */
 std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer::Ptr& viewer)
-// viewer is passed in as a reference, any changes will persist outside of this funciton
 {
     // create cars
     Car egoCar( Vect3(0,0,0), Vect3(4,2,2), Color(0,1,0), "egoCar");
