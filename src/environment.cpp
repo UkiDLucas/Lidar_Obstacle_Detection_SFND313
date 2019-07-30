@@ -142,15 +142,26 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 }
 
 
-
+/**
+ * Rename after the final.
+ * @param viewer PCL PCLVisualizer
+ * @param pointProcessor PCL ProcessPointClouds<pcl::PointXYZI>
+ * @param inputCloud the raw PCD before processing
+ */
 void cityBlock(
     pcl::visualization::PCLVisualizer::Ptr& viewer,
     ProcessPointClouds<pcl::PointXYZI> pointProcessor, // do not re-create every time
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) // inputCloud vary from frame to frame
 {
+    /**
+     * In practice, the area processed and the zoom could be adjusted from frame-to-frame.
+     * The interesting sub-parts of the frame could be insulated into separate point clouds
+     * and precessed at higher resolution, i.e. tracking pedestrians, posts, street work obstacles
+     * The rest of the cloud could be tracked in low resolution i.e. cars driving behind us.
+     */
     float downSampleTo = 0.06; // meters e.g. 6cm = 0.06
 
-    float seeForward    = 50.0; // meters
+    float seeForward    = 50.0; // in reality as much as 250m
     float seeBackwards  = 10.0; // meters
     float seeRight      = 8.0; // meters, right-hand side driving
     float seeLeft       = 13.0; // meters, right-hand side driving
