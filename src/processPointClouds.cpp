@@ -138,8 +138,8 @@ std::pair<
     std::pair<
             typename pcl::PointCloud<PointT>::Ptr,
             typename pcl::PointCloud<PointT>::Ptr>
-            segResult(obstaclesCloud, roadPlaneCloud);
-    return segResult;
+            resultingPairOfPointClouds(obstaclesCloud, roadPlaneCloud);
+    return resultingPairOfPointClouds;
 }
 
 
