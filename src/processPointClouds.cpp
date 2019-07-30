@@ -3,19 +3,17 @@
  * \author Uki D. Lucas UkiDLucas@gmail.com @UkiDLucas
  *
  * PCL lib Functions for processing point clouds
+ * http://docs.pointclouds.org/1.8.1/classpcl_1_1_point_cloud.html#a86473dec40d705190c6b2c2f795b9f15
  */
 
 #include "processPointClouds.h"
 
-/** 
- * http://docs.pointclouds.org/1.8.1/classpcl_1_1_point_cloud.html#a86473dec40d705190c6b2c2f795b9f15 
-*/
-//constructor:
+/**  constructor */
 template<typename PointT>
 ProcessPointClouds<PointT>::ProcessPointClouds() {}
 
 
-//de-constructor:
+/**  de-constructor */
 template<typename PointT>
 ProcessPointClouds<PointT>::~ProcessPointClouds() {}
 
@@ -35,14 +33,15 @@ FilterCloud(
 {
     auto startTime = std::chrono::steady_clock::now();
 
-    // voxel grid point reduction and region based filtering
+    // REDUCTION using voxel grid
     pcl::VoxelGrid<PointT> vg;
     typename pcl::PointCloud<PointT>::Ptr cloudFiltered( new pcl::PointCloud<PointT>);
     //std::cout << "name of this VoxelGrid: " << typeid(vg).name() << std::endl;
     vg.setInputCloud(cloud);
     vg.setLeafSize(filterRes, filterRes, filterRes);
-    vg.filter(*cloudFiltered);
+    vg.filter(*cloudFiltered); // save
 
+    // SELECT REGION
     typename pcl::PointCloud<PointT>::Ptr cloudRegion (new pcl::PointCloud<PointT>);
     pcl::CropBox<PointT> region(true); // true - points insider the crop box
     region.setMin(minPoint);
@@ -51,7 +50,7 @@ FilterCloud(
     region.setInputCloud(cloudFiltered); // already downsampled
     region.filter(*cloudRegion); // save results
 
-    // Remove VEHICLE ROOF points, they are static and do not add value
+    // REMOVE VEHICLE ROOF points, they are static and do not add value
     pcl::CropBox<PointT> roof(true);
     roof.setMin(Eigen::Vector4f (-1.5, -1.7, -1, 1));
     roof.setMax(Eigen::Vector4f (2.6, 1.7, -0.4, 1));
@@ -67,6 +66,9 @@ FilterCloud(
     extract.setNegative(true); // remove the roof points
     extract.filter(*cloudRegion);
 
+    // SEPARATE ROAD PLANE
+
+    // BOUNDING BOXES
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);

@@ -140,7 +140,7 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 
 
 /**
- * Rename after the final.
+ * TODO Rename after the final.
  * @param viewer PCL PCLVisualizer
  * @param pointProcessor PCL ProcessPointClouds<pcl::PointXYZI>
  * @param inputCloud the raw PCD before processing
