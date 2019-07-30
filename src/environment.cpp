@@ -110,10 +110,8 @@ void processSingleFrame(
 
     // collection of clusters
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>
-            uniqueClustersClouds = pointProcessor.Clustering(allObstructionsCloud, clusterTolerance, minClusterSize, maxClusterSize);
-
-
-
+            uniqueClustersClouds = pointProcessor.pclClustering(allObstructionsCloud, clusterTolerance, minClusterSize,
+                                                                maxClusterSize);
 
     int clusterId = 0;
 

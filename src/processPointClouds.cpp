@@ -206,7 +206,7 @@ pclSegmentPlane(
 template<typename PointT>
     std::vector<typename pcl::PointCloud<PointT>::Ptr>
     ProcessPointClouds<PointT>::
-Clustering(
+pclClustering(
     typename pcl::PointCloud<PointT>::Ptr inputCloud, 
     float clusterTolerance, 
     int minClusterSize, 

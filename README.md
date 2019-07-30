@@ -103,7 +103,7 @@ Total class time spent: start ~33 hours, end ~34 hours.
 
 
 
-### Lesson 3.8 "Euclidean Clustering"
+### Lesson 3.8 "Euclidean pclClustering"
 
 - Implemented euclideanCluster and clusterHelper, but it finds 11 clusters for 11 points,
 
@@ -149,7 +149,7 @@ $ plaidml-setup
 
 - fixing bugs
 - Cleaning and adding documentation to the code
-- Still getting bad result Clustering found 0 and took 0 milliseconds
+- Still getting bad result pclClustering found 0 and took 0 milliseconds
 
 ### 
 
@@ -241,7 +241,7 @@ SFND313_Lidar_Obstacle_Detection/src/quiz/ransac/ $ make clean && make && ./quiz
 
 
 
-##### Applying Euclidean Clustering and KD Tree
+##### Applying Euclidean pclClustering and KD Tree
 
 I am correctly detecting all 3 cars and the road underneath.
 
@@ -253,7 +253,7 @@ int maxClusterSize = 500; *// my biggest car is 278 points*
 
 
 
-<img src="media/Clustering 2019-07-18 at 5.35.06 PM.png"  />
+<img src="media/pclClustering 2019-07-18 at 5.35.06 PM.png"  />
 
 
 
