@@ -33,7 +33,6 @@ CMakeCache.txt
 CMakeFiles
 CMakeFiles/*
 CMakeFiles/*.*
-CMakeLists.txt
 environment
 Makefile
 playback.cbp
