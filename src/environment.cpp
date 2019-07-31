@@ -24,7 +24,7 @@ std::vector<Color> colors = {
         colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
         colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
         colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive
-}; // TODO figure out more colors
+}; // TODO figure out more colors, I have about 12 different clusters
 
 // IMPLEMENTATION
 
@@ -61,7 +61,7 @@ void processSingleFrame(
     float seeForward    = 40.0; // in reality as much as 250m
     float seeBackwards  = 10.0; // meters
     float seeRight      = 5.0; // meters, right-hand side driving e.g. 8.0
-    float seeLeft       = 7.3; // meters, right-hand side driving e.g. 13.0
+    float seeLeft       = 7.2; // meters, right-hand side driving e.g. 13.0
     float seeUp         = 2.0; // meters, from the roof of the car e.g. 3.0
     float seeDown       = 2.0; // meters, from the roof of the car
     Eigen::Vector4f minRange = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
@@ -92,7 +92,7 @@ void processSingleFrame(
 
     //
     float clusterTolerance = 0.4; // e.g. less than 1.5 divides the car in two
-    int minClusterSize = 15; // weed out the single point outliers (i.e. gravel)
+    int minClusterSize = 10; // weed out the single point outliers (i.e. gravel)
     int maxClusterSize = 650; // my biggest car is 278 points
 
     // collection of clusters
@@ -158,7 +158,7 @@ int main (int argc, char** argv)
     std::cout << "starting enviroment" << std::endl;
 
     pcl::visualization::PCLVisualizer::Ptr viewer (new pcl::visualization::PCLVisualizer ("3D Viewer"));
-    CameraAngle setAngle = XY;
+    CameraAngle setAngle = FPS;
     initCamera(setAngle, viewer);
     //simpleHighway(viewer);
 
