@@ -361,8 +361,9 @@ std::vector<boost::filesystem::path> ProcessPointClouds<PointT>::streamPcd(std::
  * @return unordered_set of point indices
  */
 template<typename PointT>
-std::unordered_set<int> findPlaneUsingRansac3D(
-        pcl::PointCloud<pcl::PointXYZI>::Ptr inputPointCloud,
+std::unordered_set<int>
+ProcessPointClouds<PointT>::findPlaneUsingRansac3D(
+        typename pcl::PointCloud<PointT>::Ptr inputPointCloud,
         int maxIterations,
         float distanceTreshold)
 {
