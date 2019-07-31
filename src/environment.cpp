@@ -19,7 +19,12 @@ Color colorPink = Color(0.8, 0.3, 0.3);
 Color colorWhite = Color(1, 1, 1);
 Color colorOlive = Color(0.5, 0.5, 0.2); // obstacles
 
-std::vector<Color> colors = {colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive};
+std::vector<Color> colors = {
+        colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
+        colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
+        colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
+        colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive
+}; // TODO figure out more colors
 
 // IMPLEMENTATION
 
@@ -62,65 +67,51 @@ void processSingleFrame(
     Eigen::Vector4f minRange = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
     Eigen::Vector4f maxRange = Eigen::Vector4f (seeForward, seeLeft, seeUp, 1);
     pointProcessor.cropRegion(inputCloud, minRange, maxRange);
-    renderPointCloud(viewer, inputCloud, "inputCloud");
+    //renderPointCloud(viewer, inputCloud, "inputCloud");
 
 
-    // SEPARATE ROAD PLANE
+    // FIND ROAD PLANE
     std::unordered_set<int> roadPlanePointIndices = pointProcessor.findPlaneUsingRansac3D(inputCloud,100,0.2);
+    //std::cout << "FOUND roadPlanePointIndices " << roadPlanePointIndices.size () << std::endl;
 
-    std::cout << "FOUND roadPlanePointIndices " << roadPlanePointIndices.size () << std::endl;
-
-
-    //typename pcl::PointCloud<PointT>::Ptr onRoadPlanePoints (new pcl::PointCloud<PointT>);
-    //typename pcl::PointCloud<PointT>::Ptr notRoadPlanePoints (new pcl::PointCloud<PointT>);
     pcl::PointCloud<pcl::PointXYZI>::Ptr onRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZI>());
-    pcl::PointCloud<pcl::PointXYZI>::Ptr notRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZI>());
+    pcl::PointCloud<pcl::PointXYZI>::Ptr obstaclesPointCloud(new pcl::PointCloud<pcl::PointXYZI>());
 
-    // separate road and not road
+    // separate road and obstacles
     for(int index = 0; index < inputCloud->points.size(); index++)
     {
         pcl::PointXYZI point = inputCloud->points[index];
         if(roadPlanePointIndices.count(index))
             onRoadPlanePoints->points.push_back(point);
         else
-            notRoadPlanePoints->points.push_back(point);
+            obstaclesPointCloud->points.push_back(point);
     }
 
-    //if(onRoadPlanePoints.size()) // road plane found
     renderPointCloud(viewer, onRoadPlanePoints, "road plane", colorGreen);
-    renderPointCloud(viewer, notRoadPlanePoints, "notRoadPlanePoints", colorWhite);
+    renderPointCloud(viewer, obstaclesPointCloud, "obstaclesPointCloud", colorWhite);
 
-
-    //pcl::PointCloud<pcl::PointXYZI>::Ptr allObstructionsCloud = segmentPlaneCloudPair.first;
-
+    //
     float clusterTolerance = 0.4; // e.g. less than 1.5 divides the car in two
     int minClusterSize = 15; // weed out the single point outliers (i.e. gravel)
     int maxClusterSize = 650; // my biggest car is 278 points
 
     // collection of clusters
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>
-            uniqueClustersClouds = pointProcessor.pclClustering(notRoadPlanePoints, clusterTolerance, minClusterSize,
+            uniqueClustersClouds = pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize,
                                                                 maxClusterSize);
 
 
     int clusterId = 0;
-
     for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
     {
-        if(true)
-        {
-            std::cout << "cluster size ";
-            pointProcessor.numPoints(cluster);
-            renderPointCloud(viewer, cluster, "obstCloud"+std::to_string(clusterId), colors[clusterId]);
-        }
+        std::cout << "cluster size ";
+        pointProcessor.numPoints(cluster);
+        renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[clusterId]);
 
-        if(true)
-        {
-            // member reference type 'ProcessPointClouds<pcl::PointXYZ> *' is a pointer; did you mean to use '->'?
-            Box box = pointProcessor.BoundingBox(cluster);
-            renderBox(viewer, box, clusterId, colorRed, 0.5);
-        }
-        ++clusterId;
+        Box box = pointProcessor.BoundingBox(cluster);
+        renderBox(viewer, box, clusterId, colorRed, 0.5);
+
+        ++clusterId; // to keep index of the color used
     }
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
