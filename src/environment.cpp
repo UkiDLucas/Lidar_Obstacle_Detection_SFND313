@@ -87,20 +87,7 @@ void processSingleFrame(
     }
 
     //if(onRoadPlanePoints.size()) // road plane found
-    renderPointCloud(viewer, onRoadPlanePoints, "road plane", colorGreen); // green
-
-    /*// Segmenting out the road PLANE
-    int iterations = 1000;
-    float distanceTreshhold = 0.1; // meters, increase by 0.05 if road surface (i.e. gravel?) is misimpreted as obstacles.
-
-    std::pair<
-            pcl::PointCloud<pcl::PointXYZI>::Ptr,
-            pcl::PointCloud<pcl::PointXYZI>::Ptr>
-            segmentPlaneCloudPair = pointProcessor.pclSegmentPlane(inputCloud, iterations, distanceTreshhold);*/
-
-    // render layers in order of importance of what you want to see in the final view
-    //renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", colorGreen);
-
+    renderPointCloud(viewer, onRoadPlanePoints, "road plane", colorGreen);
     renderPointCloud(viewer, notRoadPlanePoints, "notRoadPlanePoints", colorWhite);
 
 
@@ -135,7 +122,9 @@ void processSingleFrame(
         }
         ++clusterId;
     }
-
+    auto endTime = std::chrono::steady_clock::now();
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+    std::cout << "Processing a single frame took " << elapsedTime.count() << " milliseconds." << std::endl;
 }
 
 
