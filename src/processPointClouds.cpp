@@ -210,7 +210,15 @@ pclSegmentPlane(
 
 
 
-
+/**
+ * http://pointclouds.org/documentation/tutorials/cluster_extraction.php
+ * @tparam PointT
+ * @param inputCloud
+ * @param clusterTolerance
+ * @param minClusterSize
+ * @param maxClusterSize
+ * @return
+ */
 template<typename PointT>
     std::vector<typename pcl::PointCloud<PointT>::Ptr>
     ProcessPointClouds<PointT>::
@@ -222,10 +230,8 @@ pclClustering(
 {
     // Time clustering process
     auto startTime = std::chrono::steady_clock::now();
-    /**
-     * http://pointclouds.org/documentation/tutorials/cluster_extraction.php
-     */
-    pcl::EuclideanClusterExtraction<pcl::PointXYZI> ec;
+
+    pcl::EuclideanClusterExtraction<pcl::PointXYZI> ec; //TODO check if we can use this
     ec.setInputCloud (inputCloud);
 
     ec.setClusterTolerance (clusterTolerance); // e.g. 0.02 or 2cm

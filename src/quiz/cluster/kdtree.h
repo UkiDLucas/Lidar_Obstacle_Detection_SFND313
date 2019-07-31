@@ -132,8 +132,6 @@ struct KdTree
 
 		return resultIds;
 	}
-	
-
 };
 
 
