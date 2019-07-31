@@ -66,7 +66,7 @@ void processSingleFrame(
 
 
     // SEPARATE ROAD PLANE
-    std::unordered_set<int> roadPlanePointIndices = pointProcessor.findPlaneUsingRansac3D(inputCloud,1000,0.2);
+    std::unordered_set<int> roadPlanePointIndices = pointProcessor.findPlaneUsingRansac3D(inputCloud,100,0.2);
 
     std::cout << "FOUND roadPlanePointIndices " << roadPlanePointIndices.size () << std::endl;
 
