@@ -18,6 +18,7 @@
 #include <ctime>
 #include <chrono>
 #include "render/box.h"
+#include <unordered_set>
 
 template<typename PointT>
 class ProcessPointClouds {
@@ -37,6 +38,11 @@ public:
 
     void cropRegion(typename pcl::PointCloud<PointT>::Ptr& pointCloud, Eigen::Vector4f minRange, Eigen::Vector4f maxRange);
 
+
+    std::unordered_set<int> findPlaneUsingRansac3D(
+            typename pcl::PointCloud<PointT>::Ptr inputPointCloud,
+            int maxIterations,
+            float distanceTreshold);
 
 
     std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> separate2Clouds(

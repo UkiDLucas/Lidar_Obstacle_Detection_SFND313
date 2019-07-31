@@ -51,6 +51,7 @@ void processSingleFrame(
     // REMOVE / CROP the roof points
     pointProcessor.cropVehicleRoof(inputCloud);
 
+    // CROP REGION
     // TODO crop the obstacles AFTER segmentation
     float seeForward    = 40.0; // in reality as much as 250m
     float seeBackwards  = 10.0; // meters
