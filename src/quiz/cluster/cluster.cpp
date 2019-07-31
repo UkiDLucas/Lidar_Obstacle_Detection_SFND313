@@ -81,6 +81,10 @@ void render2DTree(
 	}
 
 }
+
+
+
+
 /**
  * Recursive method
  * Receives a point index that is determined to be nearby.
@@ -95,7 +99,7 @@ void clusterHelper(
 	float distanceThreshold)
 {
 	processed[index] = true;
-	cluster.push_back(index); // add this point index as it is alrady associated with this clusterr
+	cluster.push_back(index); // add this point index as it is already associated with this cluster
 
 	// find points that are close.
 	std::vector<int> nearest = tree->search( points[index], distanceThreshold);
@@ -138,8 +142,7 @@ euclideanCluster(
 	{
 		if(processed[i]) // Was this point was processed?
 		{
-			// move to the next point
-			i++;
+			i++; // move to the next point index
 			continue; 
 		}
 		// This point was NOT processed.
@@ -147,7 +150,7 @@ euclideanCluster(
 		std::vector<int> cluster;
 		clusterHelper(i, points, cluster, processed, tree, distanceThreshold);
 		clusters.push_back(cluster);
-		i++; // move to the next point
+		i++; // move to the next point index
 	}
 	return clusters;
 }
@@ -223,7 +226,7 @@ int main ()
   		++clusterId;
   	}
   	if(clusters.size()==0)
-  		renderPointCloud(viewer, cloud,"data");
+  		renderPointCloud(viewer, cloud,"data"); // render if no seperate cluster were found
 	
   	while (!viewer->wasStopped ())
   	{
