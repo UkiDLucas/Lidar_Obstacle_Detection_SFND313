@@ -41,3 +41,4 @@ SFND313 Lidar.cbp
 src/quiz/cluster/quizCluster
 src/quiz/ransac/quizRansac
 Uki.code-workspace
+ubuntu_packages.txt
