@@ -362,7 +362,7 @@ std::vector<boost::filesystem::path> ProcessPointClouds<PointT>::streamPcd(std::
  */
 template<typename PointT>
 std::unordered_set<int>
-ProcessPointClouds<PointT>::findPlaneUsingRansac3D(
+        ProcessPointClouds<PointT>::findPlaneUsingRansac3D(
         typename pcl::PointCloud<PointT>::Ptr inputPointCloud,
         int maxIterations,
         float distanceTreshold)
@@ -462,7 +462,7 @@ ProcessPointClouds<PointT>::findPlaneUsingRansac3D(
     }
     //TODO: add timer
 
-    // Return the PLANE taht correspond to the biggest set of points on that plane.
+    // Return the PLANE that correspond to the biggest set of points on that plane.
     return inliersResult;
 }
 

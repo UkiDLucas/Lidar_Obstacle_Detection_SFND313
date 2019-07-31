@@ -68,46 +68,43 @@ void processSingleFrame(
     // SEPARATE ROAD PLANE
     std::unordered_set<int> roadPlanePointIndices = pointProcessor.findPlaneUsingRansac3D(inputCloud,1000,0.2);
 
-    std::cout << "roadPlanePointIndices " << roadPlanePointIndices.size () << std::endl;
+    std::cout << "FOUND roadPlanePointIndices " << roadPlanePointIndices.size () << std::endl;
 
-    /*
-    typename pcl::PointCloud<PointT>::Ptr onRoadPlanePoints (new pcl::PointCloud<PointT>);
-    typename pcl::PointCloud<PointT>::Ptr notRoadPlanePoints (new pcl::PointCloud<PointT>);
-    //pcl::PointCloud<pcl::PointXYZ>::Ptr  roadPlanePoints(new pcl::PointCloud<pcl::PointXYZ>());
-    //pcl::PointCloud<pcl::PointXYZ>::Ptr notRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZ>());
+
+    //typename pcl::PointCloud<PointT>::Ptr onRoadPlanePoints (new pcl::PointCloud<PointT>);
+    //typename pcl::PointCloud<PointT>::Ptr notRoadPlanePoints (new pcl::PointCloud<PointT>);
+    pcl::PointCloud<pcl::PointXYZI>::Ptr onRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZI>());
+    pcl::PointCloud<pcl::PointXYZI>::Ptr notRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZI>());
 
     // separate road and not road
     for(int index = 0; index < inputCloud->points.size(); index++)
     {
-        pcl::PointXYZ point = inputCloud->points[index];
-        if(inliers.count(index))
+        pcl::PointXYZI point = inputCloud->points[index];
+        if(roadPlanePointIndices.count(index))
             onRoadPlanePoints->points.push_back(point);
         else
             notRoadPlanePoints->points.push_back(point);
     }
 
-    if(onRoadPlanePoints.size()) // road plane found
-    {
-        renderPointCloud(viewer, onRoadPlanePoints, "road plane", Color(0, 1, 0)); // green
-    }
-     */
+    //if(onRoadPlanePoints.size()) // road plane found
+    renderPointCloud(viewer, onRoadPlanePoints, "road plane", colorGreen); // green
 
-    // Segmenting out the road PLANE
+    /*// Segmenting out the road PLANE
     int iterations = 1000;
     float distanceTreshhold = 0.1; // meters, increase by 0.05 if road surface (i.e. gravel?) is misimpreted as obstacles.
 
     std::pair<
             pcl::PointCloud<pcl::PointXYZI>::Ptr,
             pcl::PointCloud<pcl::PointXYZI>::Ptr>
-            segmentPlaneCloudPair = pointProcessor.pclSegmentPlane(inputCloud, iterations, distanceTreshhold);
+            segmentPlaneCloudPair = pointProcessor.pclSegmentPlane(inputCloud, iterations, distanceTreshhold);*/
 
     // render layers in order of importance of what you want to see in the final view
-    renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", colorGreen);
+    //renderPointCloud(viewer, segmentPlaneCloudPair.second, "road plane", colorGreen);
 
-    renderPointCloud(viewer, segmentPlaneCloudPair.first, "obstructions", colorWhite);
+    renderPointCloud(viewer, notRoadPlanePoints, "notRoadPlanePoints", colorWhite);
 
 
-    pcl::PointCloud<pcl::PointXYZI>::Ptr allObstructionsCloud = segmentPlaneCloudPair.first;
+    //pcl::PointCloud<pcl::PointXYZI>::Ptr allObstructionsCloud = segmentPlaneCloudPair.first;
 
     float clusterTolerance = 0.4; // e.g. less than 1.5 divides the car in two
     int minClusterSize = 15; // weed out the single point outliers (i.e. gravel)
@@ -115,8 +112,9 @@ void processSingleFrame(
 
     // collection of clusters
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>
-            uniqueClustersClouds = pointProcessor.pclClustering(allObstructionsCloud, clusterTolerance, minClusterSize,
+            uniqueClustersClouds = pointProcessor.pclClustering(notRoadPlanePoints, clusterTolerance, minClusterSize,
                                                                 maxClusterSize);
+
 
     int clusterId = 0;
 
