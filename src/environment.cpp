@@ -8,6 +8,7 @@
 #include "processPointClouds.h"
 #include "processPointClouds.cpp"
 #include <pcl/point_cloud.h>
+#include "kdtree3D.h"
 
 Color colorRed = Color(1,0,0); // boxes
 Color colorGray = Color(0.5,0.5,0.5);

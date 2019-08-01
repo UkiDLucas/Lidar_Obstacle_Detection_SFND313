@@ -98,20 +98,21 @@ struct KdTree3D
 
             // TODO most of the time X and Y point are enough to establish proximity,
             //  however you can run into problems under the bridges, trees, street wires, etc.
-            float currentPointX = currentNode->point[0];
-            float currentPointY = currentNode->point[1];
-            float targetPointX = targetPoint[0];
-            float targetPointY = targetPoint[1];
 
-			if( (  currentPointX >= (targetPointX - distanceTreshhold)
-				&& currentPointX <= (targetPointX + distanceTreshhold)) // Aaron has && here not || ?!?
+            float nodeX = currentNode->point[0];
+            float nodeY = currentNode->point[1];
+            float targetX = targetPoint[0];
+            float targetY = targetPoint[1];
+
+			if((   nodeX >= (targetX - distanceTreshhold)
+                && nodeX <= (targetX + distanceTreshhold)) // Aaron has && here not || ?!?
 				&&
-				(  currentPointY >= (targetPointY - distanceTreshhold)
-				&& currentPointY <= (targetPointY + distanceTreshhold)))
+               (   nodeY >= (targetY - distanceTreshhold)
+                && nodeY <= (targetY + distanceTreshhold)))
 			{
 				float distance = sqrt(
-					( currentPointX - targetPointX) * (currentPointX - targetPointX)
-					+(currentPointY - targetPointY) * (currentPointY - targetPointY));
+                        (nodeX - targetX) * (nodeX - targetX)
+					+ (nodeY - targetY) * (nodeY - targetY));
 				std::cout << " distance = " << distance;
 				if( distance <= distanceTreshhold)
 				{
