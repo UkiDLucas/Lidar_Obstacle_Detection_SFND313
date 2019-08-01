@@ -104,12 +104,12 @@ struct KdTree3D
             float targetX = targetPoint[0];
             float targetY = targetPoint[1];
 
-			if((   nodeX >= (targetX - distanceTreshhold)
-                && nodeX <= (targetX + distanceTreshhold)) // Aaron has && here not || ?!?
+            // QUICK CHECK node is within target treshhold bounding box
+			if((   nodeX >= (targetX - distanceTreshhold) && nodeX <= (targetX + distanceTreshhold))
 				&&
-               (   nodeY >= (targetY - distanceTreshhold)
-                && nodeY <= (targetY + distanceTreshhold)))
+               (   nodeY >= (targetY - distanceTreshhold) && nodeY <= (targetY + distanceTreshhold)))
 			{
+			    // DETAILED CHECK for distance of circum-sphere
 				float distance = sqrt(
                         (nodeX - targetX) * (nodeX - targetX)
 					+ (nodeY - targetY) * (nodeY - targetY));
