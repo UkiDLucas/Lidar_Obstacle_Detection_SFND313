@@ -1,8 +1,14 @@
 # CODE REUSE LICENSE
 
+## Udacity Honor Code
+
 This code repository is authored by **Uki D. Lucas** and is a part of the **Udacity.com classwork**.
 
 As part of **Udacity Honor Code**, your submissions must be your own work, hence, **submitting this project, or any parts of it**, as your own will cause you to break the **Udacity Honor Code guidelines** and the suspension of your account.
+
+
+
+## When reusing this code
 
 Any part of this **code that is reused should contain**:
 
@@ -10,7 +16,7 @@ Any part of this **code that is reused should contain**:
 
 
 
-
+## No Warranty
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
