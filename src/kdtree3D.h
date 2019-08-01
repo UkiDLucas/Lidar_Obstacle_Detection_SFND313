@@ -1,13 +1,14 @@
-/**
- * The KD Tree is a data structure that organizes the Point Cloud Data by proximity,
- * therefore, it allows for a very fast look-up times.
- *
- * 2D tree:
- * @author Aaron Brown https://www.linkedin.com/in/awbrown90/
- *
- * 3D tree implementation:
- * @author Uki D. Lucas https://www.linkedin.com/in/ukidlucas/
+/*!
+ *  \brief     KD Tree
+ *  \details   The KD Tree is a data structure that organizes the Point Cloud Data by proximity, therefore, it allows for a very fast look-up times.
+ *  \author    Aaron Brown https://www.linkedin.com/in/awbrown90/
+ *  \author    Uki D. Lucas https://www.linkedin.com/in/ukidlucas/
+ *  \date      August 1, 2019
+ *  \bug       It is still 2D implementation
+ *  \warning   It is still 2D implementation
+ *  \copyright code_reuse_license.md
  */
+
 //#include "../../render/render.h"
 
 
@@ -94,7 +95,7 @@ struct KdTree3D
 				<< " current point = ";
 			for (auto i: currentNode->point)
   				std::cout << i << " ";
-			
+
             // TODO most of the time X and Y point are enough to establish proximity,
             //  however you can run into problems under the bridges, trees, street wires, etc.
             float currentPointX = currentNode->point[0];
