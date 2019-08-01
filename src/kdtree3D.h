@@ -12,8 +12,8 @@ struct Node
 {
 	std::vector<float> point;
 	int pointCloudIndex; // unique identifier of the node
-	Node* left; // child node with lesser value
-	Node* right; // child node with bigger value
+	Node* leftNode; // child node with lesser value
+	Node* rightNode; // child node with bigger value
 
 	/**
 	 * Constructor for a new node
@@ -21,15 +21,15 @@ struct Node
 	 * @param setId
 	 */
 	Node(std::vector<float> point3D, int originalPointCloudIndex)
-	:	point(point3D), pointCloudIndex(originalPointCloudIndex), left(NULL), right(NULL)
+	:	point(point3D), pointCloudIndex(originalPointCloudIndex), leftNode(NULL), rightNode(NULL)
 	{}
 };
 
-struct KdTree
+struct KdTree3D
 {
 	Node* root;
 
-	KdTree()
+    KdTree3D()
 	: root(NULL)
 	{}
 
@@ -48,9 +48,9 @@ struct KdTree
 			// Depending on the treeDepth (every second, even|odd, 0|1 using mod 2)
 			uint cd = treeDepth % 2; // results in 0 or 1
 			if(point[cd] <= ((*node)->point[cd])) // it is possible that it is LESS OR EQUAL
-				insertHelper(&((*node)->left), treeDepth+1, point, pointCloudIndex);
+				insertHelper(&((*node)->leftNode), treeDepth+1, point, pointCloudIndex);
 			else
-				insertHelper(&((*node)->right), treeDepth+1, point, pointCloudIndex);
+				insertHelper(&((*node)->rightNode), treeDepth+1, point, pointCloudIndex);
 		}
 		
 	}
@@ -59,7 +59,7 @@ struct KdTree
 	{
 		uint treeDepth = 0;
 		// insertHelper is a recursive function
-		// passing in memory address of root node - which is a global pointer in struct KdTree
+		// passing in memory address of root node - which is a global pointer in struct KdTree3D
 		insertHelper(&root, treeDepth, point, pointCloudIndex);
 	}
 
@@ -111,14 +111,14 @@ struct KdTree
 			if( (targetPoint[treeDepth % 2] - distanceTreshhold) <= currentNode->point[treeDepth % 2] )
 			{
 				std::cout << " choosing LEFT branch " << std::endl;
-				searchHelper(targetPoint, currentNode->left, treeDepth+1, distanceTreshhold, resultIds);
+				searchHelper(targetPoint, currentNode->leftNode, treeDepth+1, distanceTreshhold, resultIds);
 			}
 			// else?
 			// flow RIGHT on the tree
 			if( (targetPoint[treeDepth % 2] + distanceTreshhold) > currentNode->point[treeDepth % 2] )			
 			{
 				std::cout << " choosing RIGHT branch " << std::endl;
-				searchHelper(targetPoint, currentNode->right, treeDepth+1, distanceTreshhold, resultIds);
+				searchHelper(targetPoint, currentNode->rightNode, treeDepth+1, distanceTreshhold, resultIds);
 			}
 		}
 	}
