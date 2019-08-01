@@ -1,0 +1,302 @@
+\hypertarget{autotoc_md4_autotoc_md5}{}\doxysubsection{Welcome to the Sensor Fusion course for $<$a href=\char`\"{}https\+://en.\+wikipedia.\+org/wiki/\+Advanced\+\_\+driver-\/assistance\+\_\+systems\char`\"{}$>$\+A\+D\+A\+S$<$/a$>$ and autonomous driving.}\label{autotoc_md4_autotoc_md5}
+
+
+In this course we will be talking about sensor fusion, which is the process of {\bfseries{taking data from multiple sensors and combining it to give us a better understanding of the world around us}}. We will mostly be focusing on three sensors, lidar, camera and radar. By the end we will be fusing the data from these sensors to track multiple cars on the road, estimating their positions and speed.
+
+Point Cloud Library (P\+CL) allows us to {\bfseries{divide an unorganized collection of 3D points in order to process the subsections rapidly}}. When \mbox{\hyperlink{struct_lidar}{Lidar}} point clouds are {\bfseries{combined with camera images, this technique allows us to positively identify objects and provide their distance}}, while Radar allows us to track their speed.
+
+{\bfseries{\mbox{\hyperlink{struct_lidar}{Lidar}}}} sensing gives us high resolution data by sending out thousands of laser signals. These lasers bounce off objects, returning to the sensor where we can then determine how far away objects are by timing how long it takes for the signal to return. Also we can tell a little bit about the object that was hit by measuring the intesity of the returned signal. Each laser ray is in the infrared spectrum, and is sent out at many different angles, usually in a 360 degree range. While lidar sensors gives us very high accurate models for the world around us in 3D, they are currently still very expensive, upwards of \$60,000 for a standard unit.
+
+{\bfseries{Radar}} data is typically very sparse and in a limited range, however it can directly tell us how fast an object is moving in a certain direction. This ability makes radars a very pratical sensor for doing things like cruise control where its important to know how fast the car infront of you is traveling. Radar sensors are also very affordable and common now of days in newer cars.
+
+{\bfseries{Sensor Fusion}} by combing lidar\textquotesingle{}s high resolution imaging with radar\textquotesingle{}s ability to measure velocity of objects we can get a better understanding of the surrounding environment than we could using one of the sensors alone.\hypertarget{autotoc_md4_autotoc_md6}{}\doxysection{Class Progress}\label{autotoc_md4_autotoc_md6}
+\hypertarget{autotoc_md4_autotoc_md7}{}\doxysubsection{Wednesday, July 31, 2019}\label{autotoc_md4_autotoc_md7}
+Total class time spent\+: start $\sim$40 hours, end $\sim$43 hours.
+
+
+\begin{DoxyItemize}
+\item Implemented my own 3D KD Tree
+\end{DoxyItemize}\hypertarget{autotoc_md4_autotoc_md8}{}\doxysubsection{Wednesday, July 31, 2019}\label{autotoc_md4_autotoc_md8}
+Total class time spent\+: start $\sim$37 hours, end $\sim$40 hours.
+
+
+\begin{DoxyItemize}
+\item Implemented Road Plane separation from the Obstacle Cloud
+\item Bounding Boxes
+\item The project runs well
+\end{DoxyItemize}\hypertarget{autotoc_md4_autotoc_md9}{}\doxysubsection{Tuesday, July 30, 2019}\label{autotoc_md4_autotoc_md9}
+Total class time spent\+: start $\sim$36 hours, end $\sim$37 hours.\hypertarget{autotoc_md4_autotoc_md10}{}\doxysubsubsection{\char`\"{}\+Lidar Final Project\char`\"{}}\label{autotoc_md4_autotoc_md10}
+\href{https://www.youtube.com/watch?v=lGbHW8SMu24}{\texttt{ https\+://www.\+youtube.\+com/watch?v=l\+Gb\+H\+W8\+S\+Mu24}}
+
+In this project you will take everything that you have learned for processing point clouds, and use it to detect car and trucks on a narrow street using lidar. The detection pipeline should follow the covered methods, filtering, segmentation, clustering, and bounding boxes. Also the {\bfseries{segmentation, and clustering methods should be created from scratch}} using the previous lesson’s guidelines for reference.
+
+
+\begin{DoxyItemize}
+\item Final project
+\end{DoxyItemize}
+
+\href{https://www.youtube.com/watch?v=lGbHW8SMu24}{\texttt{ }}\hypertarget{autotoc_md4_autotoc_md11}{}\doxysubsection{Monday, July 29, 2019}\label{autotoc_md4_autotoc_md11}
+Total class time spent\+: start $\sim$35 hours, end $\sim$36 hours.\hypertarget{autotoc_md4_autotoc_md12}{}\doxysubsubsection{Lesson 4 \char`\"{}\+Working with Real P\+C\+D\char`\"{}}\label{autotoc_md4_autotoc_md12}
+
+\begin{DoxyItemize}
+\item Downsampling/filtering the Point Cloud Data
+\item The streaming point cloud (animation) is working!
+\end{DoxyItemize}\hypertarget{autotoc_md4_autotoc_md13}{}\doxysubsection{Saturday, July 27, 2019}\label{autotoc_md4_autotoc_md13}
+Total class time spent\+: start $\sim$34 hours, end $\sim$35 hours.\hypertarget{autotoc_md4_autotoc_md14}{}\doxysubsubsection{Lesson 4 \char`\"{}\+Working with Real P\+C\+D\char`\"{}}\label{autotoc_md4_autotoc_md14}
+
+\begin{DoxyItemize}
+\item Rendring the cloud
+\end{DoxyItemize}
+
+\hypertarget{autotoc_md4_autotoc_md15}{}\doxysubsection{Tuesday, July 23, 2019}\label{autotoc_md4_autotoc_md15}
+Total class time spent\+: start $\sim$33 hours, end $\sim$34 hours.\hypertarget{autotoc_md4_autotoc_md16}{}\doxysubsubsection{Lesson 4 \char`\"{}\+Working with Real P\+C\+D\char`\"{}}\label{autotoc_md4_autotoc_md16}
+
+\begin{DoxyItemize}
+\item Just started, but it is not rendering
+\end{DoxyItemize}\hypertarget{autotoc_md4_autotoc_md17}{}\doxysubsubsection{Lesson 3.\+9 \char`\"{}\+Bounding Boxes\char`\"{}}\label{autotoc_md4_autotoc_md17}
+
+\begin{DoxyItemize}
+\item Implemented code
+\end{DoxyItemize}
+
+\hypertarget{autotoc_md4_autotoc_md18}{}\doxysubsubsection{Lesson 3.\+8 \char`\"{}\+Euclidean pcl\+Clustering\char`\"{}}\label{autotoc_md4_autotoc_md18}
+
+\begin{DoxyItemize}
+\item Implemented euclidean\+Cluster and cluster\+Helper, but it finds 11 clusters for 11 points,
+\end{DoxyItemize}\hypertarget{autotoc_md4_autotoc_md19}{}\doxysubsection{Monday, July 22, 2019}\label{autotoc_md4_autotoc_md19}
+Total class time spent\+: start $\sim$31.5 hours, end $\sim$33 hours.
+
+
+\begin{DoxyItemize}
+\item Cleaned up search\+Helper, the bug is in the way I pass in result\+Ids\+:
+\begin{DoxyItemize}
+\item std\+::vector$<$int$>$\& result\+Ids -\/ fixed
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{autotoc_md4_autotoc_md20}{}\doxysubsection{Sunday, July 21, 2019}\label{autotoc_md4_autotoc_md20}
+Total class time spent\+: start $\sim$30 hours, end $\sim$31.5 hours.
+
+Read few articles on Machine Learning on Mac\+OS, C\+U\+DA (N\+Vidia) vs Open\+CL (A\+MD) G\+PU.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$ pip install -\/U plaidml-\/keras}
+\DoxyCodeLine{Requirement already satisfied, skipping upgrade: keras==2.2.4 in /anaconda2/lib/python2.7/site-\/packages (from plaidml-\/keras) (2.2.4)}
+\DoxyCodeLine{Successfully installed plaidml-\/0.6.3 plaidml-\/keras-\/0.6.3}
+\DoxyCodeLine{\$ plaidml-\/setup}
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item Installing \href{https://vertexai-plaidml.readthedocs-hosted.com/en/latest/index.html}{\texttt{ Plaid\+ML}}
+\end{DoxyItemize}
+
+0815 -\/ 0945\hypertarget{autotoc_md4_autotoc_md21}{}\doxysubsubsection{Lesson 3.\+7 Searching Points in K\+D-\/\+Tree}\label{autotoc_md4_autotoc_md21}
+
+\begin{DoxyItemize}
+\item fixing bugs
+\item Cleaning and adding documentation to the code
+\item Still getting bad result pcl\+Clustering found 0 and took 0 milliseconds
+\end{DoxyItemize}\hypertarget{autotoc_md4_autotoc_md22}{}\doxysubsubsection{autotoc\+\_\+md22}\label{autotoc_md4_autotoc_md22}
+\hypertarget{autotoc_md4_autotoc_md23}{}\doxysubsection{Saturday, July 20, 2019}\label{autotoc_md4_autotoc_md23}
+Total class time spent\+: start $\sim$29.5 hours, end $\sim$30 hours.
+
+
+\begin{DoxyItemize}
+\item I have re-\/read documentation about Euclidean Cluster Extraction\+: \href{http://pointclouds.org/documentation/tutorials/cluster_extraction.php}{\texttt{ http\+://pointclouds.\+org/documentation/tutorials/cluster\+\_\+extraction.\+php}}
+\item Added documentation to my project\+: \href{https://github.com/UkiDLucas/SFND313_Lidar_Obstacle_Detection\#ukis-class-progress}{\texttt{ https\+://github.\+com/\+Uki\+D\+Lucas/\+S\+F\+N\+D313\+\_\+\+Lidar\+\_\+\+Obstacle\+\_\+\+Detection\#ukis-\/class-\/progress}}
+\item Renamed variables in \mbox{\hyperlink{kdtree_8h_source}{kdtree.\+h}} to make code easier to read and understand.
+\end{DoxyItemize}\hypertarget{autotoc_md4_autotoc_md24}{}\doxysubsection{Friday, July 19, 2019}\label{autotoc_md4_autotoc_md24}
+Total class time spent\+: $\sim$29.5 hours.
+
+\label{autotoc_md4_autotoc_md25}%
+\Hypertarget{autotoc_md4_autotoc_md25}%
+\doxysubparagraph*{Bounding Boxes}
+
+
+
+\label{autotoc_md4_autotoc_md26}%
+\Hypertarget{autotoc_md4_autotoc_md26}%
+\doxysubparagraph*{KD Tree}
+
+The KD Tree is used to drastically speed up a look up of points in space.
+
+The KD Tree is a form of binary tree where you sort the e.\+g. points (X,Y), shown below, you take the median of X from all the points and insert it as a root node, then take median of all Y and insert it as first child, then continue recursively.
+
+\hypertarget{autotoc_md4_autotoc_md27}{}\doxysubsection{Thursday, July 18, 2019}\label{autotoc_md4_autotoc_md27}
+Total class time spent\+: $\sim$27 hours.
+
+Today, I was able to implement the first version of R\+A\+N\+S\+AC 3D that fits a plane (e.\+g. road surface) to a Point Cloud data.
+
+
+
+Another happy milestone is that I am able to run it in Mac OS without Ubuntu (dual boot, or remote)
+
+You can see that the plane (green dots) upper boundary mixes with obstacles (red dots), the following image is after adjusting iterations to 1,000 and the distance threshold down to 0.\+05 meters (5 cm).
+
+Happy medium is somewhere in between.
+
+
+
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{SFND313\_Lidar\_Obstacle\_Detection/src/quiz/ransac/ \$ make clean \&\& make \&\& ./quizRansac}
+\end{DoxyCode}
+
+
+\label{autotoc_md4_autotoc_md28}%
+\Hypertarget{autotoc_md4_autotoc_md28}%
+\doxysubparagraph*{Applying Euclidean pcl\+Clustering and KD Tree}
+
+I am correctly detecting all 3 cars and the road underneath.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{float clusterTolerance = 1.5; *// e.g. less than 1.5 divides the car in two*}
+\DoxyCodeLine{int minClusterSize = 1; *// weed out the single point outliers (i.e. gravel)*}
+\DoxyCodeLine{int maxClusterSize = 500; *// my biggest car is 278 points*}
+\end{DoxyCode}
+
+
+\hypertarget{autotoc_md4_autotoc_md29}{}\doxysection{Further Reading}\label{autotoc_md4_autotoc_md29}
+
+\begin{DoxyItemize}
+\item Euclidean Cluster Extraction\+: \href{http://pointclouds.org/documentation/tutorials/cluster_extraction.php}{\texttt{ http\+://pointclouds.\+org/documentation/tutorials/cluster\+\_\+extraction.\+php}}
+\item pcl Namespace Reference\+: \href{http://docs.pointclouds.org/1.0.0/namespacepcl.html}{\texttt{ http\+://docs.\+pointclouds.\+org/1.\+0.\+0/namespacepcl.\+html}}
+\item Distance between Point and a Line\+: \href{https://brilliant.org/wiki/dot-product-distance-between-point-and-a-line/}{\texttt{ https\+://brilliant.\+org/wiki/dot-\/product-\/distance-\/between-\/point-\/and-\/a-\/line/}}
+\item Extracting indices from a Point\+Cloud\+: \href{http://pointclouds.org/documentation/tutorials/extract_indices.php\#extract-indices}{\texttt{ http\+://pointclouds.\+org/documentation/tutorials/extract\+\_\+indices.\+php\#extract-\/indices}}
+\end{DoxyItemize}\hypertarget{autotoc_md4_autotoc_md30}{}\doxysection{Installation}\label{autotoc_md4_autotoc_md30}
+\hypertarget{autotoc_md4_autotoc_md31}{}\doxysubsubsection{Ubuntu (\+Parallels on Mac\+Book Pro, Radeon Pro 560 4 G\+B)}\label{autotoc_md4_autotoc_md31}
+See my blog post\+: \href{https://ukidlucas.blogspot.com/2019/07/ubuntu-cmake.html}{\texttt{ https\+://ukidlucas.\+blogspot.\+com/2019/07/ubuntu-\/cmake.\+html}}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$> sudo apt install libpcl-\/dev}
+\DoxyCodeLine{\$> cd ~}
+\DoxyCodeLine{\$> git clone https://github.com/udacity/SFND\_Lidar\_Obstacle\_Detection.git}
+\DoxyCodeLine{\$> cd SFND\_Lidar\_Obstacle\_Detection}
+\DoxyCodeLine{\$> mkdir build \&\& cd build}
+\DoxyCodeLine{\$> cmake ..}
+\DoxyCodeLine{\$> make}
+\DoxyCodeLine{\$> ./environment}
+\end{DoxyCode}
+\hypertarget{autotoc_md4_autotoc_md32}{}\doxysubsubsection{Windows}\label{autotoc_md4_autotoc_md32}
+\href{http://www.pointclouds.org/downloads/windows.html}{\texttt{ http\+://www.\+pointclouds.\+org/downloads/windows.\+html}}\hypertarget{autotoc_md4_autotoc_md33}{}\doxysubsubsection{M\+AC}\label{autotoc_md4_autotoc_md33}
+\hypertarget{autotoc_md4_autotoc_md34}{}\doxyparagraph{Install via Homebrew}\label{autotoc_md4_autotoc_md34}
+
+\begin{DoxyEnumerate}
+\item install \href{https://brew.sh/}{\texttt{ homebrew}}
+\item update homebrew
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$> brew update}
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item add homebrew science \href{https://docs.brew.sh/Taps}{\texttt{ tap}}
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$> brew tap brewsci/science}
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item view pcl install options
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$> brew options pcl}
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item install P\+CL
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$> brew install pcl}
+\end{DoxyCode}
+\hypertarget{autotoc_md4_autotoc_md35}{}\doxysubsection{Compilation on Mac\+OS}\label{autotoc_md4_autotoc_md35}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$ pwd}
+\DoxyCodeLine{}
+\DoxyCodeLine{SFND313\_Lidar\_Obstacle\_Detection/build}
+\DoxyCodeLine{build \$ cmake ../CMakeLists.txt}
+\end{DoxyCode}
+
+
+Compilation results in E\+R\+R\+OR\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/-\/ Checking for module 'glew'}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/   No package 'glew' found}
+\DoxyCodeLine{}
+\DoxyCodeLine{CMake Error at /usr/local/share/pcl-\/1.9/PCLConfig.cmake:58 (message):}
+\DoxyCodeLine{}
+\DoxyCodeLine{  simulation is required but glew was not found}
+\end{DoxyCode}
+
+
+\label{autotoc_md4_autotoc_md36}%
+\Hypertarget{autotoc_md4_autotoc_md36}%
+\doxysubparagraph*{F\+IX for the \char`\"{}missing glew\char`\"{} problem (No package \textquotesingle{}glew\textquotesingle{} found)}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{build \$ cd ..}
+\DoxyCodeLine{}
+\DoxyCodeLine{(turi) uki  13:00 SFND313\_Lidar\_Obstacle\_Detection \$ edit CMakeCache.txt }
+\end{DoxyCode}
+
+
+E\+D\+IT lines ($\sim$279) to look similar to\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{//GLEW library for OSX}
+\DoxyCodeLine{GLEW\_GLEW\_LIBRARY:STRING=/usr/local/Cellar/glew/2.1.0}
+\DoxyCodeLine{}
+\DoxyCodeLine{//GLEW include dir for OSX}
+\DoxyCodeLine{GLEW\_INCLUDE\_DIR:STRING=/usr/local/Cellar/glew/2.1.0}
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{SFND313\_Lidar\_Obstacle\_Detection \$ cd build/}
+\DoxyCodeLine{}
+\DoxyCodeLine{(turi) uki  13:03 build \$ cmake ../CMakeLists.txt}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ Configuring done}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ Generating done}
+\DoxyCodeLine{}
+\DoxyCodeLine{-\/-\/ Build files have been written to: /Volumes/DATA/\_Drive/\_REPOS/SFND313\_Lidar\_Obstacle\_Detection}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{build \$ cd ..}
+\DoxyCodeLine{(turi) uki  13:09 SFND313\_Lidar\_Obstacle\_Detection \$ make clean \&\& make}
+\end{DoxyCode}
+\hypertarget{autotoc_md4_autotoc_md37}{}\doxyparagraph{Prebuilt Binaries via Universal Installer}\label{autotoc_md4_autotoc_md37}
+\href{http://www.pointclouds.org/downloads/macosx.html}{\texttt{ http\+://www.\+pointclouds.\+org/downloads/macosx.\+html}} ~\newline
+N\+O\+TE\+: very old version\hypertarget{autotoc_md4_autotoc_md38}{}\doxyparagraph{Build from Source}\label{autotoc_md4_autotoc_md38}
+\href{https://github.com/PointCloudLibrary/pcl}{\texttt{ P\+CL Source Github}}
+
+\href{http://www.pointclouds.org/documentation/tutorials/compiling_pcl_macosx.php}{\texttt{ P\+CL Mac Compilation Docs}} 

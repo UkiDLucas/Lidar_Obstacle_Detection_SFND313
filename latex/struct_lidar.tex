@@ -1,0 +1,60 @@
+\hypertarget{struct_lidar}{}\doxysection{Lidar Struct Reference}
+\label{struct_lidar}\index{Lidar@{Lidar}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_lidar_ab75bea3d8ce82e22b73ce73e2dc4173d}{Lidar}} (std\+::vector$<$ \mbox{\hyperlink{struct_car}{Car}} $>$ set\+Cars, double set\+Ground\+Slope)
+\item 
+\mbox{\Hypertarget{struct_lidar_a2e7d7bdb0b9d296895dba8866dfb48c5}\label{struct_lidar_a2e7d7bdb0b9d296895dba8866dfb48c5}} 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr {\bfseries scan} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_lidar_ab9fd898665176ceb3d139c9c758e7cda}\label{struct_lidar_ab9fd898665176ceb3d139c9c758e7cda}} 
+std\+::vector$<$ \mbox{\hyperlink{struct_ray}{Ray}} $>$ {\bfseries rays}
+\item 
+\mbox{\Hypertarget{struct_lidar_a7a59f24c3e4e5b7dca3593ef26d5a0f1}\label{struct_lidar_a7a59f24c3e4e5b7dca3593ef26d5a0f1}} 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr {\bfseries cloud}
+\item 
+\mbox{\Hypertarget{struct_lidar_abf48e92d493d4ec63550cdff04986977}\label{struct_lidar_abf48e92d493d4ec63550cdff04986977}} 
+std\+::vector$<$ \mbox{\hyperlink{struct_car}{Car}} $>$ {\bfseries cars}
+\item 
+\mbox{\Hypertarget{struct_lidar_aa90305236a6dcbe1e98307854ee39fbc}\label{struct_lidar_aa90305236a6dcbe1e98307854ee39fbc}} 
+\mbox{\hyperlink{struct_vect3}{Vect3}} {\bfseries position}
+\item 
+\mbox{\Hypertarget{struct_lidar_a193bc26567934c30f6b993f7ab5bec7b}\label{struct_lidar_a193bc26567934c30f6b993f7ab5bec7b}} 
+double {\bfseries ground\+Slope}
+\item 
+\mbox{\Hypertarget{struct_lidar_ab2a2832b2c69452f76cb3ce049aa2cd3}\label{struct_lidar_ab2a2832b2c69452f76cb3ce049aa2cd3}} 
+double {\bfseries min\+Distance}
+\item 
+\mbox{\Hypertarget{struct_lidar_a437aac9ff05c5da9218b701983aef59c}\label{struct_lidar_a437aac9ff05c5da9218b701983aef59c}} 
+double {\bfseries max\+Distance}
+\item 
+\mbox{\Hypertarget{struct_lidar_a8007165690a7e24dd5bf7669dbfff708}\label{struct_lidar_a8007165690a7e24dd5bf7669dbfff708}} 
+double {\bfseries resoultion}
+\item 
+\mbox{\Hypertarget{struct_lidar_a03ec9b8c19b68e746f5405c280386b1d}\label{struct_lidar_a03ec9b8c19b68e746f5405c280386b1d}} 
+double {\bfseries sderr}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_lidar_ab75bea3d8ce82e22b73ce73e2dc4173d}\label{struct_lidar_ab75bea3d8ce82e22b73ce73e2dc4173d}} 
+\index{Lidar@{Lidar}!Lidar@{Lidar}}
+\index{Lidar@{Lidar}!Lidar@{Lidar}}
+\doxysubsubsection{\texorpdfstring{Lidar()}{Lidar()}}
+{\footnotesize\ttfamily Lidar\+::\+Lidar (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{struct_car}{Car}} $>$}]{set\+Cars,  }\item[{double}]{set\+Ground\+Slope }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+lidar sensor \mbox{\hyperlink{struct_lidar}{Lidar}} pointer object on the heap using \char`\"{}new\char`\"{} keyword, stack has only about 2MB, however it takes longer to look up objects on the heap. double set\+Ground\+Slope = 0.\+0 for flat surface set\+Ground\+Slope = 0.\+0 when flat surface Instanciate in enviroment.\+cpp on the H\+E\+AP (keyword N\+EW) as it can be too larege for the S\+T\+A\+CK T\+O\+DO\+:\+: set min\+Distance to 5 to remove points from roof of ego car
+
+T\+O\+DO\+:\+: set sderr to 0.\+2 to get more interesting pcd files
+
+Class default is 8 -\/ renders in 14 milliseconds at 16 the Ubuntu on Mac\+Book Pro starts failing 63 milliseconds, does not rotate at 16 the Mac works fine -\/ 976 data points at 64 the Ubuntu on Mac\+Book Pro starts failing 120 milliseconds
+
+\+: set to pi/64 for class
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/sensors/lidar.\+h\end{DoxyCompactItemize}

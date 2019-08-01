@@ -1,0 +1,188 @@
+\hypertarget{class_process_point_clouds}{}\doxysection{Process\+Point\+Clouds$<$ PointT $>$ Class Template Reference}
+\label{class_process_point_clouds}\index{ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_process_point_clouds_a5aea324e74a6a8a7eabbce1c8a2487de}{Process\+Point\+Clouds}} ()
+\item 
+\mbox{\hyperlink{class_process_point_clouds_a976f8178ea50cb91c36de0e4ec1fecaa}{$\sim$\+Process\+Point\+Clouds}} ()
+\item 
+\mbox{\Hypertarget{class_process_point_clouds_ae41ac8ee2265c5a6289ea0f559006640}\label{class_process_point_clouds_ae41ac8ee2265c5a6289ea0f559006640}} 
+void {\bfseries num\+Points} (typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr cloud)
+\item 
+void \mbox{\hyperlink{class_process_point_clouds_a2efd7340be13f56279d090954e83a900}{crop\+Vehicle\+Roof}} (typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr \&point\+Cloud)
+\item 
+void \mbox{\hyperlink{class_process_point_clouds_aa3767731218dbbdb8c170be08d7c41dd}{downsize\+Using\+Voxel\+Grid}} (typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr \&point\+Cloud, float leaf\+Size)
+\item 
+void \mbox{\hyperlink{class_process_point_clouds_a8ea33a1712001f558f2cd39b701eb2fe}{crop\+Region}} (typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr \&point\+Cloud, Eigen\+::\+Vector4f min\+Range, Eigen\+::\+Vector4f max\+Range)
+\item 
+std\+::unordered\+\_\+set$<$ int $>$ \mbox{\hyperlink{class_process_point_clouds_a091f35f94af404d6f74484ffb570fdca}{find\+Plane\+Using\+Ransac3D}} (typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr input\+Point\+Cloud, int max\+Iterations, float distance\+Treshold)
+\item 
+\mbox{\Hypertarget{class_process_point_clouds_a931fcdadc5a613d70466720f03454141}\label{class_process_point_clouds_a931fcdadc5a613d70466720f03454141}} 
+std\+::pair$<$ typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr, typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr $>$ {\bfseries separate2\+Clouds} (pcl\+::\+Point\+Indices\+::\+Ptr inliers, typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr cloud)
+\item 
+std\+::pair$<$ typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr, typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr $>$ \mbox{\hyperlink{class_process_point_clouds_af29ee1f71ce51b0d209ec7a88a4584fa}{pcl\+Segment\+Plane}} (typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr cloud, int max\+Iterations, float distance\+Threshold)
+\item 
+std\+::vector$<$ typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr $>$ \mbox{\hyperlink{class_process_point_clouds_a2eefc9166ff7ca39869f18c157134378}{pcl\+Clustering}} (typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr cloud, float cluster\+Tolerance, int min\+Size, int max\+Size)
+\item 
+\mbox{\Hypertarget{class_process_point_clouds_ad622f937dc738ec686fb47798baccbbd}\label{class_process_point_clouds_ad622f937dc738ec686fb47798baccbbd}} 
+\mbox{\hyperlink{struct_box}{Box}} {\bfseries Bounding\+Box} (typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr cluster)
+\item 
+\mbox{\Hypertarget{class_process_point_clouds_a90e84ec12415822a78bce5829818a250}\label{class_process_point_clouds_a90e84ec12415822a78bce5829818a250}} 
+void {\bfseries save\+Pcd} (typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr cloud, std\+::string file)
+\item 
+\mbox{\Hypertarget{class_process_point_clouds_a5752b8b0ededb9125cc07e30d1e76604}\label{class_process_point_clouds_a5752b8b0ededb9125cc07e30d1e76604}} 
+pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr {\bfseries load\+Pcd} (std\+::string file)
+\item 
+\mbox{\Hypertarget{class_process_point_clouds_a2c9403b2e0b9865f061d6d92ff39d916}\label{class_process_point_clouds_a2c9403b2e0b9865f061d6d92ff39d916}} 
+std\+::vector$<$ boost\+::filesystem\+::path $>$ {\bfseries stream\+Pcd} (std\+::string data\+Path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_process_point_clouds_a5aea324e74a6a8a7eabbce1c8a2487de}\label{class_process_point_clouds_a5aea324e74a6a8a7eabbce1c8a2487de}} 
+\index{ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}!ProcessPointClouds@{ProcessPointClouds}}
+\index{ProcessPointClouds@{ProcessPointClouds}!ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}}
+\doxysubsubsection{\texorpdfstring{ProcessPointClouds()}{ProcessPointClouds()}}
+{\footnotesize\ttfamily template$<$typename PointT $>$ \\
+\mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}}$<$ PointT $>$\+::\mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+constructor \mbox{\Hypertarget{class_process_point_clouds_a976f8178ea50cb91c36de0e4ec1fecaa}\label{class_process_point_clouds_a976f8178ea50cb91c36de0e4ec1fecaa}} 
+\index{ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}!````~ProcessPointClouds@{$\sim$ProcessPointClouds}}
+\index{````~ProcessPointClouds@{$\sim$ProcessPointClouds}!ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$ProcessPointClouds()}{~ProcessPointClouds()}}
+{\footnotesize\ttfamily template$<$typename PointT $>$ \\
+\mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}}$<$ PointT $>$\+::$\sim$\mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+de-\/constructor 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_process_point_clouds_a8ea33a1712001f558f2cd39b701eb2fe}\label{class_process_point_clouds_a8ea33a1712001f558f2cd39b701eb2fe}} 
+\index{ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}!cropRegion@{cropRegion}}
+\index{cropRegion@{cropRegion}!ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}}
+\doxysubsubsection{\texorpdfstring{cropRegion()}{cropRegion()}}
+{\footnotesize\ttfamily template$<$typename PointT $>$ \\
+void \mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}}$<$ PointT $>$\+::crop\+Region (\begin{DoxyParamCaption}\item[{typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr \&}]{point\+Cloud,  }\item[{Eigen\+::\+Vector4f}]{min\+Range,  }\item[{Eigen\+::\+Vector4f}]{max\+Range }\end{DoxyParamCaption})}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em PointT} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em cloud} & \\
+\hline
+{\em min\+Point} & \\
+\hline
+{\em max\+Point} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_process_point_clouds_a2efd7340be13f56279d090954e83a900}\label{class_process_point_clouds_a2efd7340be13f56279d090954e83a900}} 
+\index{ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}!cropVehicleRoof@{cropVehicleRoof}}
+\index{cropVehicleRoof@{cropVehicleRoof}!ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}}
+\doxysubsubsection{\texorpdfstring{cropVehicleRoof()}{cropVehicleRoof()}}
+{\footnotesize\ttfamily template$<$typename PointT $>$ \\
+void \mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}}$<$ PointT $>$\+::crop\+Vehicle\+Roof (\begin{DoxyParamCaption}\item[{typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr \&}]{point\+Cloud }\end{DoxyParamCaption})}
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em PointT} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em point\+Cloud} & -\/ passed by reference, any changes will be persisted. \\
+\hline
+{\em min\+Range} & \\
+\hline
+{\em max\+Range} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_process_point_clouds_aa3767731218dbbdb8c170be08d7c41dd}\label{class_process_point_clouds_aa3767731218dbbdb8c170be08d7c41dd}} 
+\index{ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}!downsizeUsingVoxelGrid@{downsizeUsingVoxelGrid}}
+\index{downsizeUsingVoxelGrid@{downsizeUsingVoxelGrid}!ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}}
+\doxysubsubsection{\texorpdfstring{downsizeUsingVoxelGrid()}{downsizeUsingVoxelGrid()}}
+{\footnotesize\ttfamily template$<$typename PointT $>$ \\
+void \mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}}$<$ PointT $>$\+::downsize\+Using\+Voxel\+Grid (\begin{DoxyParamCaption}\item[{typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr \&}]{point\+Cloud,  }\item[{float}]{leaf\+Size }\end{DoxyParamCaption})}
+
+This method takes to Point Cloud Data, and downsizes it to one point per B\+L\+O\+CK of leaf\+Size.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em PointT} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Cloud} & \\
+\hline
+{\em leaf\+Size} & -\/ meters, probably no less than 6cm, or 0.\+06 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+downsized\+Cloud 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_process_point_clouds_a091f35f94af404d6f74484ffb570fdca}\label{class_process_point_clouds_a091f35f94af404d6f74484ffb570fdca}} 
+\index{ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}!findPlaneUsingRansac3D@{findPlaneUsingRansac3D}}
+\index{findPlaneUsingRansac3D@{findPlaneUsingRansac3D}!ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}}
+\doxysubsubsection{\texorpdfstring{findPlaneUsingRansac3D()}{findPlaneUsingRansac3D()}}
+{\footnotesize\ttfamily template$<$typename PointT $>$ \\
+std\+::unordered\+\_\+set$<$ int $>$ \mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}}$<$ PointT $>$\+::find\+Plane\+Using\+Ransac3D (\begin{DoxyParamCaption}\item[{typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr}]{input\+Point\+Cloud,  }\item[{int}]{max\+Iterations,  }\item[{float}]{distance\+Treshold }\end{DoxyParamCaption})}
+
+The method takes 3 random points from the Point Cloud Data (P\+CD), and fits the P\+L\+A\+NE to these 3 points, then checks the distance of other points from this P\+L\+A\+NE, counting how many remaining points are close enough. This is repeated for max\+Iterations. The P\+L\+A\+NE with most close points wins and is returned. In case of automotive, the largest plan is usually the R\+O\+AD.
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Point\+Cloud} & -\/ Point Cloud Data (P\+CD) \\
+\hline
+{\em max\+Iterations} & -\/ how many random planes to try \\
+\hline
+{\em distance\+Treshold} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+unordered\+\_\+set of point indices 
+\end{DoxyReturn}
+Looping down from max\+Iterations\mbox{\Hypertarget{class_process_point_clouds_a2eefc9166ff7ca39869f18c157134378}\label{class_process_point_clouds_a2eefc9166ff7ca39869f18c157134378}} 
+\index{ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}!pclClustering@{pclClustering}}
+\index{pclClustering@{pclClustering}!ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}}
+\doxysubsubsection{\texorpdfstring{pclClustering()}{pclClustering()}}
+{\footnotesize\ttfamily template$<$typename PointT $>$ \\
+std\+::vector$<$ typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr $>$ \mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}}$<$ PointT $>$\+::pcl\+Clustering (\begin{DoxyParamCaption}\item[{typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr}]{input\+Cloud,  }\item[{float}]{cluster\+Tolerance,  }\item[{int}]{min\+Cluster\+Size,  }\item[{int}]{max\+Cluster\+Size }\end{DoxyParamCaption})}
+
+\href{http://pointclouds.org/documentation/tutorials/cluster_extraction.php}{\texttt{ http\+://pointclouds.\+org/documentation/tutorials/cluster\+\_\+extraction.\+php}} 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em PointT} & \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Cloud} & \\
+\hline
+{\em cluster\+Tolerance} & \\
+\hline
+{\em min\+Cluster\+Size} & \\
+\hline
+{\em max\+Cluster\+Size} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Lesson 3.\+4 Creating the \mbox{\hyperlink{struct_kd_tree}{Kd\+Tree}} object for the search method of the extraction KD Tree is a binary tree\mbox{\Hypertarget{class_process_point_clouds_af29ee1f71ce51b0d209ec7a88a4584fa}\label{class_process_point_clouds_af29ee1f71ce51b0d209ec7a88a4584fa}} 
+\index{ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}!pclSegmentPlane@{pclSegmentPlane}}
+\index{pclSegmentPlane@{pclSegmentPlane}!ProcessPointClouds$<$ PointT $>$@{ProcessPointClouds$<$ PointT $>$}}
+\doxysubsubsection{\texorpdfstring{pclSegmentPlane()}{pclSegmentPlane()}}
+{\footnotesize\ttfamily template$<$typename PointT $>$ \\
+std\+::pair$<$ typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr, typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr $>$ \mbox{\hyperlink{class_process_point_clouds}{Process\+Point\+Clouds}}$<$ PointT $>$\+::pcl\+Segment\+Plane (\begin{DoxyParamCaption}\item[{typename pcl\+::\+Point\+Cloud$<$ PointT $>$\+::Ptr}]{cloud,  }\item[{int}]{max\+Iterations,  }\item[{float}]{distance\+Threshold }\end{DoxyParamCaption})}
+
+Segment\+Plane function 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/process\+Point\+Clouds.\+h\item 
+src/process\+Point\+Clouds.\+cpp\end{DoxyCompactItemize}

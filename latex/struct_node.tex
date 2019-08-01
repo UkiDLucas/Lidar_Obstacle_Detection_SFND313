@@ -1,0 +1,71 @@
+\hypertarget{struct_node}{}\doxysection{Node Struct Reference}
+\label{struct_node}\index{Node@{Node}}
+
+
+{\ttfamily \#include $<$kdtree3\+D.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_node_ac828bbb10cf4028ec0087b1d7ac10902}{Node}} (std\+::vector$<$ float $>$ point3D, int original\+Point\+Cloud\+Index)
+\item 
+\mbox{\Hypertarget{struct_node_a59993e9aa17c75507c5d1419b3069da5}\label{struct_node_a59993e9aa17c75507c5d1419b3069da5}} 
+{\bfseries Node} (std\+::vector$<$ float $>$ arr, int set\+Id)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_node_a3cf0f3d3c63cb004b06292c3ac38f591}\label{struct_node_a3cf0f3d3c63cb004b06292c3ac38f591}} 
+std\+::vector$<$ float $>$ {\bfseries point}
+\item 
+\mbox{\Hypertarget{struct_node_afc3abd990ff12c45cb66acdbc4eb4cad}\label{struct_node_afc3abd990ff12c45cb66acdbc4eb4cad}} 
+int {\bfseries point\+Cloud\+Index}
+\item 
+\mbox{\Hypertarget{struct_node_a7a1f65b666e7f504ecb1d4462cfc88b5}\label{struct_node_a7a1f65b666e7f504ecb1d4462cfc88b5}} 
+\mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries left\+Node}
+\item 
+\mbox{\Hypertarget{struct_node_afe4014ab41c9ac2e062e07dcd80e00da}\label{struct_node_afe4014ab41c9ac2e062e07dcd80e00da}} 
+\mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries right\+Node}
+\item 
+\mbox{\Hypertarget{struct_node_a59a543130a10c95f1e8642cf8c5645e8}\label{struct_node_a59a543130a10c95f1e8642cf8c5645e8}} 
+int {\bfseries id}
+\item 
+\mbox{\Hypertarget{struct_node_ab8c667ac8fdb120ed4c031682a9cdaee}\label{struct_node_ab8c667ac8fdb120ed4c031682a9cdaee}} 
+\mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries left}
+\item 
+\mbox{\Hypertarget{struct_node_a7328862eaa6dea28018326549b3294d3}\label{struct_node_a7328862eaa6dea28018326549b3294d3}} 
+\mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries right}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The KD Tree is a data structure that organizes the Point Cloud Data by proximity, therefore, it allows for a very fast look-\/up times.
+
+2D tree\+: \begin{DoxyAuthor}{Author}
+Aaron Brown \href{https://www.linkedin.com/in/awbrown90/}{\texttt{ https\+://www.\+linkedin.\+com/in/awbrown90/}}
+\end{DoxyAuthor}
+3D tree implementation\+: \begin{DoxyAuthor}{Author}
+Uki D. Lucas \href{https://www.linkedin.com/in/ukidlucas/Structure}{\texttt{ https\+://www.\+linkedin.\+com/in/ukidlucas/\+Structure}} representing a node of the KD tree 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_node_ac828bbb10cf4028ec0087b1d7ac10902}\label{struct_node_ac828bbb10cf4028ec0087b1d7ac10902}} 
+\index{Node@{Node}!Node@{Node}}
+\index{Node@{Node}!Node@{Node}}
+\doxysubsubsection{\texorpdfstring{Node()}{Node()}}
+{\footnotesize\ttfamily Node\+::\+Node (\begin{DoxyParamCaption}\item[{std\+::vector$<$ float $>$}]{point3D,  }\item[{int}]{original\+Point\+Cloud\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructor for a new node 
+\begin{DoxyParams}{Parameters}
+{\em point3D} & e.\+g. \{-\/6.\+2, 7, 8\} // meters \\
+\hline
+{\em set\+Id} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/kdtree3\+D.\+h\item 
+src/quiz/cluster/kdtree.\+h\end{DoxyCompactItemize}

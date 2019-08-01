@@ -1,0 +1,28 @@
+\hypertarget{struct_kd_tree3_d}{}\doxysection{Kd\+Tree3D Struct Reference}
+\label{struct_kd_tree3_d}\index{KdTree3D@{KdTree3D}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_kd_tree3_d_aac55dbdec59d0ed873fb1246c0122690}\label{struct_kd_tree3_d_aac55dbdec59d0ed873fb1246c0122690}} 
+void {\bfseries insert\+Helper} (\mbox{\hyperlink{struct_node}{Node}} $\ast$$\ast$node, uint tree\+Depth, std\+::vector$<$ float $>$ point, int point\+Cloud\+Index)
+\item 
+\mbox{\Hypertarget{struct_kd_tree3_d_a283f8331462d4c60e5913a15b2f8d379}\label{struct_kd_tree3_d_a283f8331462d4c60e5913a15b2f8d379}} 
+void {\bfseries insert} (std\+::vector$<$ float $>$ point, int point\+Cloud\+Index)
+\item 
+\mbox{\Hypertarget{struct_kd_tree3_d_a3702fde86ac3e1fa70454ffbc39cfff1}\label{struct_kd_tree3_d_a3702fde86ac3e1fa70454ffbc39cfff1}} 
+void {\bfseries search\+Helper} (std\+::vector$<$ float $>$ target\+Point, \mbox{\hyperlink{struct_node}{Node}} $\ast$current\+Node, int tree\+Depth, float distance\+Treshhold, std\+::vector$<$ int $>$ \&result\+Ids)
+\item 
+\mbox{\Hypertarget{struct_kd_tree3_d_a070bd235f111a0d2f079dd24515aa66f}\label{struct_kd_tree3_d_a070bd235f111a0d2f079dd24515aa66f}} 
+std\+::vector$<$ int $>$ {\bfseries search} (std\+::vector$<$ float $>$ target\+Point, float distance\+Treshhold)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_kd_tree3_d_aff4eb9a07d7da025a74fda10ca36090e}\label{struct_kd_tree3_d_aff4eb9a07d7da025a74fda10ca36090e}} 
+\mbox{\hyperlink{struct_node}{Node}} $\ast$ {\bfseries root}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/kdtree3\+D.\+h\end{DoxyCompactItemize}

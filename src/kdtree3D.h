@@ -2,8 +2,11 @@
  * The KD Tree is a data structure that organizes the Point Cloud Data by proximity,
  * therefore, it allows for a very fast look-up times.
  *
- * 3D tree implementation: @author Uki D. Lucas UkiDLucas@gmail.com @UkiDLucas
- * 2D tree: @author Aaron Brown
+ * 2D tree:
+ * @author Aaron Brown https://www.linkedin.com/in/awbrown90/
+ *
+ * 3D tree implementation:
+ * @author Uki D. Lucas https://www.linkedin.com/in/ukidlucas/
  */
 //#include "../../render/render.h"
 
