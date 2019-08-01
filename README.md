@@ -24,11 +24,29 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 # Class Progress
 
+## Wednesday, July 31, 2019
+
+Total class time spent: start ~40 hours, end ~43 hours.
+
+- Implemented my own 3D KD Tree 
+
+
+
+
+
+## Wednesday, July 31, 2019
+
+Total class time spent: start ~37 hours, end ~40 hours.
+
+- Implemented Road Plane separation from the Obstacle Cloud
+- Bounding Boxes
+- The project runs well 
+
 
 
 ## Tuesday, July 30, 2019
 
-Total class time spent: start ~36 hours, end ~TBD hours.
+Total class time spent: start ~36 hours, end ~37 hours.
 
 ### "Lidar Final Project"
 
