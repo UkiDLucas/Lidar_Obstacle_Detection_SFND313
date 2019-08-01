@@ -88,7 +88,8 @@ struct KdTree3D
 				<< " current point = ";
 			for (auto i: currentNode->point)
   				std::cout << i << " ";
-
+            // TODO most of the time X and Y point are enough to establish proximity,
+            //  however you can run into problems under bridges
 			if( (  currentNode->point[0] >= (targetPoint[0] - distanceTreshhold) 
 				&& currentNode->point[0] <= (targetPoint[0] + distanceTreshhold)) // Aaron has && here ?!?
 				&&
