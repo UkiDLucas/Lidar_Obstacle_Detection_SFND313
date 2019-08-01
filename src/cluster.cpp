@@ -1,5 +1,13 @@
-/* \author Aaron Brown, then Uki D. Lucas */
-// Quiz on implementing simple RANSAC line fitting
+/*!
+ *  \brief     Euclidean Distance Clustering
+ *  \details   https://en.wikipedia.org/wiki/Euclidean_distance
+ *  \author    Aaron Brown https://www.linkedin.com/in/awbrown90/
+ *  \author    Uki D. Lucas https://www.linkedin.com/in/ukidlucas/
+ *  \date      August 1, 2019
+ *  \bug       TBD
+ *  \warning   TBD
+ *  \copyright code_reuse_license.md
+ */
 
 #include "../../render/render.h"
 #include "../../render/box.h"
@@ -7,112 +15,6 @@
 #include <string>
 #include "kdtree.h" // 2D
 
-// Arguments:
-// window is the region to draw box around
-// increase zoom to see more of the area
-pcl::visualization::PCLVisualizer::Ptr initScene(Box window, int zoom)
-{
-	pcl::visualization::PCLVisualizer::Ptr viewer(new pcl::visualization::PCLVisualizer ("2D Viewer"));
-	viewer->setBackgroundColor (0, 0, 0);
-  	viewer->initCameraParameters();
-  	viewer->setCameraPosition(0, 0, zoom, 0, 1, 0);
-  	viewer->addCoordinateSystem (1.0);
-
-  	viewer->addCube(window.x_min, window.x_max, window.y_min, window.y_max, 0, 0, 1, 1, 1, "window");
-  	return viewer;
-}
-
-pcl::PointCloud<pcl::PointXYZ>::Ptr CreateData(std::vector<std::vector<float>> points)
-{
-	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>());
-  	
-  	for(int i = 0; i < points.size(); i++)
-  	{
-  		pcl::PointXYZ point;
-  		point.x = points[i][0];
-  		point.y = points[i][1];
-  		point.z = 0;
-
-  		cloud->points.push_back(point);
-
-  	}
-  	cloud->width = cloud->points.size();
-  	cloud->height = 1;
-
-  	return cloud;
-
-}
-
-
-void render2DTree(
-	Node* node, 
-	pcl::visualization::PCLVisualizer::Ptr& viewer, 
-	Box window, 
-	int& iteration, 
-	uint depth=0)
-{
-
-	if(node!=NULL)
-	{
-		Box upperWindow = window;
-		Box lowerWindow = window;
-		// split on x axis
-		if(depth%2==0)
-		{
-			viewer->addLine(pcl::PointXYZ(node->point[0], window.y_min, 0),
-				pcl::PointXYZ(node->point[0], window.y_max, 0),0,0,1,"line"+std::to_string(iteration));
-			lowerWindow.x_max = node->point[0];
-			upperWindow.x_min = node->point[0];
-		}
-		// split on y axis
-		else
-		{
-			viewer->addLine(pcl::PointXYZ(window.x_min, node->point[1], 0),
-				pcl::PointXYZ(window.x_max, node->point[1], 0),1,0,0,"line"+std::to_string(iteration));
-			lowerWindow.y_max = node->point[1];
-			upperWindow.y_min = node->point[1];
-		}
-		iteration++;
-
-		render2DTree(node->left,viewer, lowerWindow, iteration, depth+1);
-		render2DTree(node->right,viewer, upperWindow, iteration, depth+1);
-
-
-	}
-
-}
-
-
-
-
-/**
- * Recursive method
- * Receives a point index that is determined to be nearby.
- * 
- */
-void clusterHelper(
-	int index, 
-	const std::vector<std::vector<float>>& points, 
-	std::vector<int> cluster, 
-	std::vector<bool> processed, 
-	KdTree* tree, 
-	float distanceThreshold)
-{
-	processed[index] = true;
-	cluster.push_back(index); // add this point index as it is already associated with this cluster
-
-	// find points that are close.
-	std::vector<int> nearest = tree->search( points[index], distanceThreshold);
-
-	for( int nearbyIndex: nearest)
-	{
-		if( !processed[nearbyIndex] )
-		{
-			// the nearby point has not been processed yet for this cluster
-			clusterHelper(nearbyIndex, points, cluster, processed, tree, distanceThreshold);
-		}
-	}
-}
 
 /**
  * returns the list of cluster indices
@@ -130,7 +32,7 @@ void clusterHelper(
  * return as a list of clusters.
  */
 std::vector<std::vector<int>> 
-euclideanCluster(
+findPointCloudClusters(
 	const std::vector<std::vector<float>>& points, 
 	KdTree* tree, 
 	float distanceThreshold)
@@ -158,7 +60,7 @@ euclideanCluster(
 
 int main ()
 {
-
+    /**
 	float distanceThreshold = 3.0; // meters
 	// Create viewer
 	Box window;
@@ -197,15 +99,10 @@ int main ()
 	//std::cout << "End TEST SEARCH cluster.cpp" << std::endl;
 
 
-
-
-
-
-
   	// Time segmentation process
   	auto startTime = std::chrono::steady_clock::now();
   	
-  	std::vector<std::vector<int>> clusters = euclideanCluster(points, tree, distanceThreshold);
+  	std::vector<std::vector<int>> clusters = findPointCloudClusters(points, tree, distanceThreshold);
 
   	auto endTime = std::chrono::steady_clock::now();
   	auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
@@ -233,5 +130,35 @@ int main ()
   	{
   	  viewer->spinOnce ();
   	}
-  	
+  	*/
+}
+
+
+/**
+ * Recursive method
+ * Receives a point index that is determined to be nearby.
+ *
+ */
+void clusterHelper(
+        int index,
+        const std::vector<std::vector<float>>& points,
+        std::vector<int> cluster,
+        std::vector<bool> processed,
+        KdTree* tree,
+        float distanceThreshold)
+{
+    processed[index] = true;
+    cluster.push_back(index); // add this point index as it is already associated with this cluster
+
+    // find points that are close.
+    std::vector<int> nearest = tree->search( points[index], distanceThreshold);
+
+    for( int nearbyIndex: nearest)
+    {
+        if( !processed[nearbyIndex] )
+        {
+            // the nearby point has not been processed yet for this cluster
+            clusterHelper(nearbyIndex, points, cluster, processed, tree, distanceThreshold);
+        }
+    }
 }
