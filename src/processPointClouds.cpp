@@ -205,7 +205,18 @@ pclSegmentPlane(
 }
 
 
+template<typename PointT>
+std::vector<typename pcl::PointCloud<PointT>::Ptr>
+ProcessPointClouds<PointT>::
+findUniquePointCloudClusters(
+        typename pcl::PointCloud<PointT>::Ptr inputCloud)
+{
+    std::vector<typename pcl::PointCloud<PointT>::Ptr> uniqueClustersClouds;
 
+
+    uniqueClustersClouds.push_back(inputCloud);
+    return uniqueClustersClouds;
+}
 
 
 

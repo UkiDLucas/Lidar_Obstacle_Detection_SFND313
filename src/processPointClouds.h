@@ -56,6 +56,8 @@ public:
     pclClustering(
             typename pcl::PointCloud<PointT>::Ptr cloud, float clusterTolerance, int minSize, int maxSize);
 
+    std::vector<typename pcl::PointCloud<PointT>::Ptr> findUniquePointCloudClusters( typename pcl::PointCloud<PointT>::Ptr cloud);
+
     Box BoundingBox(typename pcl::PointCloud<PointT>::Ptr cluster);
 
     void savePcd(typename pcl::PointCloud<PointT>::Ptr cloud, std::string file);

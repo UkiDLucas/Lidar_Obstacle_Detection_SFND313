@@ -91,17 +91,18 @@ void processSingleFrame(
     renderPointCloud(viewer, onRoadPlanePoints, "road plane", colorGreen);
     renderPointCloud(viewer, obstaclesPointCloud, "obstaclesPointCloud", colorWhite);
 
-    //
+    // CLUSTERING
+    KdTree3D* tree3D = new KdTree3D;
+
+
     float clusterTolerance = 0.4; // e.g. less than 1.5 divides the car in two
     int minClusterSize = 10; // weed out the single point outliers (i.e. gravel)
     int maxClusterSize = 650; // my biggest car is 278 points
 
     // collection of clusters
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr>
-            uniqueClustersClouds = pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize,
-                                                                maxClusterSize);
+    // std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize, maxClusterSize);
 
-
+    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.findUniquePointCloudClusters(obstaclesPointCloud);
     int clusterId = 0;
     for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
     {
