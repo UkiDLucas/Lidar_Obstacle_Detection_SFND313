@@ -9,6 +9,7 @@
 #include "processPointClouds.h"
 #include "render/render.h"
 #include "kdtree3D.h"
+#include <chrono>
 
 using namespace std;
 using namespace pcl;
@@ -208,6 +209,92 @@ pclSegmentPlane(
 }
 
 
+
+
+
+/**
+ * Recursive method
+ * Receives a point index that is determined to be nearby.
+ */
+void clusterHelper(
+        int index,
+        const std::vector<std::vector<float>>& points,
+        std::vector<int> cluster,
+        std::vector<bool> processed,
+        KdTree3D* tree,
+        float distanceThreshold)
+{
+    processed[index] = true;
+    cluster.push_back(index); // add this point index as it is already associated with this cluster
+
+    // find points that are close.
+    std::vector<int> nearest = tree->search( points[index], distanceThreshold);
+
+    for( int nearbyIndex: nearest)
+    {
+        if( !processed[nearbyIndex] )
+        {
+            // the nearby point has not been processed yet for this cluster
+            clusterHelper(nearbyIndex, points, cluster, processed, tree, distanceThreshold);
+        }
+    }
+}
+
+
+
+
+
+
+
+/**
+ * returns the list of cluster indices
+ * To perform the clustering,
+ * iterate through each point in the cloud,
+ * keep track of which points have been processed already.
+ * For each point add it to a list of points defined as a cluster,
+ * then get a list of all the points in close proximity to that point by using the search function.
+ * For each point in close proximity that hasn't already been processed,
+ * add it to the cluster and repeat the process of calling proximity points.
+ * Once the recursion stops for the first cluster,
+ * create a new cluster and move through the point list, repeating the above process for the new cluster.
+ * Once all the points have been processed,
+ * there will be a certain number of clusters found,
+ * return as a list of clusters.
+ */
+std::vector<std::vector<int>>
+euclideanCluster(
+        const std::vector<std::vector<float>>& points,
+        KdTree3D* tree,
+        float distanceThreshold)
+{
+    std::vector<std::vector<int>> clusters;
+    std::vector<bool> processed(points.size(), false); // same amount as incoming points, all default false.
+
+    int i = 0;
+    while(i < points.size())
+    {
+        if(processed[i]) // Was this point was processed?
+        {
+            i++; // move to the next point index
+            continue;
+        }
+        // This point was NOT processed.
+        // Create a new cluster.
+        std::vector<int> cluster;
+        clusterHelper(i, points, cluster, processed, tree, distanceThreshold);
+        clusters.push_back(cluster);
+        i++; // move to the next point index
+    }
+    return clusters;
+}
+
+
+
+
+
+
+
+
 template<typename PointT>
 std::vector<typename pcl::PointCloud<PointT>::Ptr>
 ProcessPointClouds<PointT>::
@@ -219,30 +306,48 @@ findUniquePointCloudClusters(const typename pcl::PointCloud<PointT>::Ptr inputCl
 
     std::vector<float> point = {1.0, 2.0};
     tree->insert(point, 1); // works
-    std::vector<PointT, Eigen::aligned_allocator<PointT> > points = inputCloud->points;
-    std::cout << "findUniquePointCloudClusters inputCloud has  " << points.size() << " points" << std::endl;
+    std::vector<PointT, Eigen::aligned_allocator<PointT> > cloudPoints = inputCloud->points;
+    std::cout << "findUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
 
-
+    std::vector<std::vector<float>> points;
 
     // insert points into the tree
-    for (int index = 0; index < points.size(); index++) // iterate thru ever point
+    for (int index = 0; index < cloudPoints.size(); index++) // iterate thru ever point
     {
         // example point (3.81457,2.23129,-0.890143 - 0.571429)
         // cout << "findUniquePointCloudClusters points for index = " << points[index] << " points" << endl;
-        std::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple (points[index]);
+        std::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple (cloudPoints[index]);
         pcl::PointXYZI pointXYZI = std::get<0>(pointTuple); // because C++ is not Python :(
-        cout << "findUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
+        //cout << "findUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
 
         vector<float> point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
+        points.push_back(point);
 
         // void insert(std::vector<float> point, int pointCloudIndex)
         tree->insert(point, index); // actual point and original index
     }
 
+    // find clusters using the tree
+
+    // Time segmentation process
+    auto startTime = std::chrono::steady_clock::now();
+
+
+
+    std::vector<std::vector<int>> clusters = euclideanCluster(points, tree, 0.2);
+
+    auto endTime = std::chrono::steady_clock::now();
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+    std::cout
+            << "For point cloud of  " << cloudPoints.size() << " points, "
+            << "clustering method found " << clusters.size()
+            << " and took " << elapsedTime.count() << " milliseconds"
+            << std::endl;
+
+
     uniqueClustersClouds.push_back(inputCloud); // temporarily add whole cloud
     return uniqueClustersClouds;
 }
-
 
 
 

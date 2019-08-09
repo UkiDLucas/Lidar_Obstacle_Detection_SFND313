@@ -30,6 +30,7 @@ Total class time spent: start ~43 hours, end TBD hours.
 
 - Implementing my own PointProcessor.findUniquePointCloudClusters(obstaclesPointCloud)
 - Inserting cloud points into the KdTree3D
+- Added Euclidean Clustering function
 
 
 
