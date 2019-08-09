@@ -12,13 +12,12 @@
 //#include "../../render/render.h"
 
 
-/** \brief Provide a pointer to the input dataset.
-  * \param[in] cloud the const boost shared pointer to a PointCloud message
-  * \param[in] indices the point indices subset that is to be used from \a cloud
-  */
-void
-setInputCloud (const pcl::PCLPointCloud2ConstPtr cloud,
-               const pcl::IndicesConstPtr indices = IndicesConstPtr ());
+/**
+ * \brief Provide a pointer to the input dataset.
+ * \param[in] cloud the const boost shared pointer to a PointCloud message
+ * \param[in] indices the point indices subset that is to be used from \a cloud
+ **/
+void setInputCloud (const pcl::PCLPointCloud2ConstPtr cloud, const pcl::IndicesConstPtr indices);
 
 
 /**
@@ -71,7 +70,7 @@ struct KdTree3D
 		
 	}
 
-    setInputCloud
+
 
 	void insert(std::vector<float> point, int pointCloudIndex)
 	{

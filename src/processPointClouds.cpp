@@ -215,7 +215,7 @@ findUniquePointCloudClusters(
     std::vector<typename pcl::PointCloud<PointT>::Ptr> uniqueClustersClouds;
 
     KdTree3D* tree = new KdTree3D;
-    std::cout << "findUniquePointCloudClusters has  " << inputCloud.size() << " elements" << std::endl;
+    //std::cout << "findUniquePointCloudClusters has  " << inputCloud.size() << " elements" << std::endl;
 
     //for (int i=0; i < points.size(); i++)
     {
