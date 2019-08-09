@@ -219,15 +219,17 @@ findUniquePointCloudClusters(const typename pcl::PointCloud<PointT>::Ptr inputCl
 
     std::vector<float> point = {1.0, 2.0};
     tree->insert(point, 1); // works
-    std::cout << "findUniquePointCloudClusters inputCloud has  " << inputCloud->points.size() << " points" << std::endl;
+    std::vector<PointT, Eigen::aligned_allocator<PointT> > points = inputCloud->points;
+    std::cout << "findUniquePointCloudClusters inputCloud has  " << points.size() << " points" << std::endl;
 
-    //std::vector<PointT, Eigen::aligned_allocator<PointT> > points = inputCloud->points;
-    for (int index = 0; index < inputCloud->points.size(); index++) // iterate thru ever point
+
+    for (int index = 0; index < points.size(); index++) // iterate thru ever point
     {
-        //std::cout << "findUniquePointCloudClusters point  " << inputCloud->points[index] << " points" << std::endl;
         // example point (3.81457,2.23129,-0.890143 - 0.571429)
-        // std::vector<PointT, Eigen::aligned_allocator<PointT> > points;
-        cout << "findUniquePointCloudClusters point for index = " << inputCloud->points[index] << " points" << endl;
+        // cout << "findUniquePointCloudClusters points for index = " << points[index] << " points" << endl;
+        std::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> point (points[index]);
+        pcl::PointXYZI pointXYZI = std::get<0>(point); // because C++ is not Python :(
+        cout << "findUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
 
         // insert points into the tree
         // error: no viable conversion
