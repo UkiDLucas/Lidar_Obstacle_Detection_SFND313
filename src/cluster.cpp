@@ -60,7 +60,6 @@ findPointCloudClusters(
 
 int main ()
 {
-    /**
 	float distanceThreshold = 3.0; // meters
 	// Create viewer
 	Box window;

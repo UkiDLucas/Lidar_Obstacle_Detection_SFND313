@@ -24,6 +24,14 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 # Class Progress
 
+## Friday, Aug 9, 2019
+
+Total class time spent: start ~43 hours, end TBD hours.
+
+- 
+
+
+
 ## Wednesday, July 31, 2019
 
 Total class time spent: start ~40 hours, end ~43 hours.

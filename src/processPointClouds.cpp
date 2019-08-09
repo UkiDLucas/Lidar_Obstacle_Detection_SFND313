@@ -8,6 +8,7 @@
 
 #include "processPointClouds.h"
 #include "render/render.h"
+#include "kdtree3D.h"
 
 
 /**  constructor */
@@ -213,6 +214,14 @@ findUniquePointCloudClusters(
 {
     std::vector<typename pcl::PointCloud<PointT>::Ptr> uniqueClustersClouds;
 
+    KdTree3D* tree = new KdTree3D;
+    std::cout << "findUniquePointCloudClusters has  " << inputCloud.size() << " elements" << std::endl;
+
+    //for (int i=0; i < points.size(); i++)
+    {
+        // insert points into the tree
+        //tree->insert(points[i], i); // actual point and original index
+    }
 
     uniqueClustersClouds.push_back(inputCloud);
     return uniqueClustersClouds;
