@@ -8,13 +8,9 @@
  *  \warning   It is still 2D implementation
  *  \copyright code_reuse_license.md
  */
+
 //using namespace std;
-using namespace pcl;
-
-
-// function definition
-template<typename PointT> // to avoid the error: use of undeclared identifier 'PointT'
-void insertPointCloud(const pcl::PointCloud<PointT> &inputCloud);
+//using namespace pcl;
 
 /**
  * \brief Provide a pointer to the input dataset.
@@ -29,30 +25,29 @@ void insertPointCloud(const pcl::PointCloud<PointT> &inputCloud);
  */
 struct Node
 {
-	std::vector<float> point;
-	int pointCloudIndex; // unique identifier of the node
-	Node* leftNode; // child node with lesser value
-	Node* rightNode; // child node with bigger value
+    private:
 
-	/**
-	 * Constructor for a new node
-	 * @param point3D e.g. {-6.2, 7, 8} // meters
-	 * @param setId
-	 */
-	Node(std::vector<float> point3D, int originalPointCloudIndex)
-	:	point(point3D), pointCloudIndex(originalPointCloudIndex), leftNode(NULL), rightNode(NULL)
-	{}
+    public:
+        int pointCloudIndex; // unique identifier of the node
+        Node* leftNode; // child node with lesser value
+        Node* rightNode; // child node with bigger value
+        std::vector<float> point;
+
+        /**
+         * Constructor for a new node
+         * @param point3D e.g. {-6.2, 7, 8} // meters
+         * @param setId
+         */
+        Node(std::vector<float> point3D, int originalPointCloudIndex)
+        :	point(point3D), pointCloudIndex(originalPointCloudIndex), leftNode(NULL), rightNode(NULL)
+        {}
 };
 
 struct KdTree3D
 {
+
+private:
 	Node* root;
-
-    KdTree3D()
-	: root(NULL)
-	{}
-
-
 
 	// Node** node -- double pointer, memory address
 	void insertHelper(Node** node, uint treeDepth, std::vector<float> point, int pointCloudIndex)
@@ -78,13 +73,6 @@ struct KdTree3D
 
 
 
-	void insert(std::vector<float> point, int pointCloudIndex)
-	{
-		uint treeDepth = 0;
-		// insertHelper is a recursive function
-		// passing in memory address of root node - which is a global pointer in struct KdTree3D
-		insertHelper(&root, treeDepth, point, pointCloudIndex);
-	}
 
 
 	void searchHelper(
@@ -154,6 +142,18 @@ struct KdTree3D
 		}
 	}
 
+public:
+
+    void insert(std::vector<float> point, int pointCloudIndex)
+    {
+        uint treeDepth = 0;
+        // insertHelper is a recursive function
+        // passing in memory address of root node - which is a global pointer in struct KdTree3D
+        insertHelper(&root, treeDepth, point, pointCloudIndex);
+    }
+
+
+
 	// return a list of point ids in the tree that are within distance of targetPoint
 	std::vector<int> search(std::vector<float> targetPoint, float distanceTreshhold)
 	{
@@ -169,6 +169,14 @@ struct KdTree3D
 
 		return resultIds;
 	}
+
+
+	/**
+	 * Constructor is setting the root NULL
+	 */
+    KdTree3D()
+            : root(NULL)
+    {}
 };
 
 

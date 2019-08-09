@@ -1,25 +1,25 @@
-/*
- * \author Aaron Brown,
- * \author Uki D. Lucas UkiDLucas@gmail.com @UkiDLucas
- *
- * PCL lib Functions for processing point clouds
- * http://docs.pointclouds.org/1.8.1/classpcl_1_1_point_cloud.html#a86473dec40d705190c6b2c2f795b9f15
+/*!
+ *  \brief     PCL lib Functions for processing point clouds
+ *  \details   PCL lib Functions for processing point clouds
+ *  \author    Aaron Brown https://www.linkedin.com/in/awbrown90/
+ *  \author    Uki D. Lucas https://www.linkedin.com/in/ukidlucas/
+ *  \date      August 1, 2019
+ *  \bug       TBD
+ *  \warning   TBD
+ *  \copyright code_reuse_license.md
  */
 
 #include "processPointClouds.h"
-#include "render/render.h"
-#include "kdtree3D.h"
-#include <chrono>
+//#include "kdtree3D.h"
 
-using namespace std;
-using namespace pcl;
+//using namespace std;
+//using namespace pcl;
 
-/**  constructor */
+/** constructor */
 template<typename PointT>
 ProcessPointClouds<PointT>::ProcessPointClouds() {}
 
-
-/**  de-constructor */
+/** destructor */
 template<typename PointT>
 ProcessPointClouds<PointT>::~ProcessPointClouds() {}
 
@@ -219,13 +219,13 @@ pclSegmentPlane(
 void clusterHelper(
         int index,
         const std::vector<std::vector<float>>& points,
-        std::vector<int> cluster,
+        std::vector<int> indexCluster,
         std::vector<bool> processed,
         KdTree3D* tree,
         float distanceThreshold)
 {
     processed[index] = true;
-    cluster.push_back(index); // add this point index as it is already associated with this cluster
+    indexCluster.push_back(index); // add this point index as it is already associated with this cluster
 
     // find points that are close.
     std::vector<int> nearest = tree->search( points[index], distanceThreshold);
@@ -235,10 +235,19 @@ void clusterHelper(
         if( !processed[nearbyIndex] )
         {
             // the nearby point has not been processed yet for this cluster
-            clusterHelper(nearbyIndex, points, cluster, processed, tree, distanceThreshold);
+            clusterHelper(nearbyIndex, points, indexCluster, processed, tree, distanceThreshold);
         }
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -261,58 +270,22 @@ void clusterHelper(
  * there will be a certain number of clusters found,
  * return as a list of clusters.
  */
-std::vector<std::vector<int>>
-euclideanCluster(
-        const std::vector<std::vector<float>>& points,
-        KdTree3D* tree,
-        float distanceThreshold)
-{
-    std::vector<std::vector<int>> clusters;
-    std::vector<bool> processed(points.size(), false); // same amount as incoming points, all default false.
-
-    int i = 0;
-    while(i < points.size())
-    {
-        if(processed[i]) // Was this point was processed?
-        {
-            i++; // move to the next point index
-            continue;
-        }
-        // This point was NOT processed.
-        // Create a new cluster.
-        std::vector<int> cluster;
-        clusterHelper(i, points, cluster, processed, tree, distanceThreshold);
-        clusters.push_back(cluster);
-        i++; // move to the next point index
-    }
-    return clusters;
-}
-
-
-
-
-
-
-
-
 template<typename PointT>
 std::vector<typename pcl::PointCloud<PointT>::Ptr>
 ProcessPointClouds<PointT>::
 findUniquePointCloudClusters(const typename pcl::PointCloud<PointT>::Ptr inputCloud)
 {
-    std::vector<typename pcl::PointCloud<PointT>::Ptr> uniqueClustersClouds;
+    // Time segmentation process
+    auto startTime = std::chrono::steady_clock::now();
 
-    KdTree3D* tree = new KdTree3D;
-
-    std::vector<float> point = {1.0, 2.0};
-    tree->insert(point, 1); // works
     std::vector<PointT, Eigen::aligned_allocator<PointT> > cloudPoints = inputCloud->points;
     std::cout << "findUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
 
+    KdTree3D* tree = new KdTree3D;
     std::vector<std::vector<float>> points;
 
-    // insert points into the tree
-    for (int index = 0; index < cloudPoints.size(); index++) // iterate thru ever point
+    // INSERT POINTS INTO THE TREE
+    for (int index = 0; index < cloudPoints.size(); index++) // iterate thru every point
     {
         // example point (3.81457,2.23129,-0.890143 - 0.571429)
         // cout << "findUniquePointCloudClusters points for index = " << points[index] << " points" << endl;
@@ -320,30 +293,43 @@ findUniquePointCloudClusters(const typename pcl::PointCloud<PointT>::Ptr inputCl
         pcl::PointXYZI pointXYZI = std::get<0>(pointTuple); // because C++ is not Python :(
         //cout << "findUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
 
-        vector<float> point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
+        std::vector<float> point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
         points.push_back(point);
 
         // void insert(std::vector<float> point, int pointCloudIndex)
         tree->insert(point, index); // actual point and original index
     }
 
-    // find clusters using the tree
+    // Euclidean SORTING using the TREE
+    std::vector<std::vector<int>> indexClusters;
+    std::vector<bool> processed(points.size(), false); // same amount as incoming points, all default false.
 
-    // Time segmentation process
-    auto startTime = std::chrono::steady_clock::now();
+    int i = 0;
+    while (i < points.size()) {
+        if (processed[i]) // Was this point was processed?
+        {
+            i++; // move to the next point index
+            continue;
+        }
+        // This point was NOT processed.
+        // Create a new cluster.
+        std::vector<int> indexCluster;
+        clusterHelper(i, points, indexCluster, processed, tree, 0.2);
+        indexClusters.push_back(indexCluster);
+        i++; // move to the next point index
+    }
 
-
-
-    std::vector<std::vector<int>> clusters = euclideanCluster(points, tree, 0.2);
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     std::cout
             << "For point cloud of  " << cloudPoints.size() << " points, "
-            << "clustering method found " << clusters.size()
+            << "clustering method found " << indexClusters.size()
             << " and took " << elapsedTime.count() << " milliseconds"
             << std::endl;
 
+
+    std::vector<typename pcl::PointCloud<PointT>::Ptr> uniqueClustersClouds;
 
     uniqueClustersClouds.push_back(inputCloud); // temporarily add whole cloud
     return uniqueClustersClouds;
@@ -437,7 +423,7 @@ pclClustering(
 
 
 template<typename PointT>
-Box ProcessPointClouds<PointT>::BoundingBox(typename pcl::PointCloud<PointT>::Ptr cluster)
+Box ProcessPointClouds<PointT>::boundingBox(typename pcl::PointCloud<PointT>::Ptr cluster)
 {
 
     // Find bounding box for one of the uniqueClustersClouds

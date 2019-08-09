@@ -1,4 +1,13 @@
-// PCL lib Functions for processing point clouds 
+/*!
+ *  \brief     PCL lib Functions for processing point clouds
+ *  \details   PCL lib Functions for processing point clouds
+ *  \author    Aaron Brown https://www.linkedin.com/in/awbrown90/
+ *  \author    Uki D. Lucas https://www.linkedin.com/in/ukidlucas/
+ *  \date      August 1, 2019
+ *  \bug       TBD
+ *  \warning   TBD
+ *  \copyright code_reuse_license.md
+ */
 
 #ifndef PROCESSPOINTCLOUDS_H_
 #define PROCESSPOINTCLOUDS_H_
@@ -8,7 +17,7 @@
 #include <pcl/filters/extract_indices.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/crop_box.h>
-#include <pcl/kdtree/kdtree.h>
+#include "kdtree3D.h"
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/segmentation/extract_clusters.h>
 #include <pcl/common/transforms.h>
@@ -58,7 +67,7 @@ public:
 
     std::vector<typename pcl::PointCloud<PointT>::Ptr> findUniquePointCloudClusters( typename pcl::PointCloud<PointT>::Ptr cloud);
 
-    Box BoundingBox(typename pcl::PointCloud<PointT>::Ptr cluster);
+    Box boundingBox(typename pcl::PointCloud<PointT>::Ptr cluster);
 
     void savePcd(typename pcl::PointCloud<PointT>::Ptr cloud, std::string file);
 

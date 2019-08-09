@@ -1,14 +1,17 @@
-/**
- * @author Aaron Brown
- * @author Uki D. Lucas UkiDLucas@gmail.com @UkiDLucas
-*/
+/*!
+ *  \brief     Enviroment
+ *  \details   Enviroment
+ *  \author    Aaron Brown https://www.linkedin.com/in/awbrown90/
+ *  \author    Uki D. Lucas https://www.linkedin.com/in/ukidlucas/
+ *  \date      August 1, 2019
+ *  \bug       TBD
+ *  \warning   TBD
+ *  \copyright code_reuse_license.md
+ */
 
 #include "sensors/lidar.h"
-#include "render/render.h"
 #include "processPointClouds.h"
 #include "processPointClouds.cpp"
-#include <pcl/point_cloud.h>
-//#include "kdtree3D.h"
 
 Color colorRed = Color(1,0,0); // boxes
 Color colorGray = Color(0.5,0.5,0.5);
@@ -91,8 +94,6 @@ void processSingleFrame(
     renderPointCloud(viewer, onRoadPlanePoints, "road plane", colorGreen);
     renderPointCloud(viewer, obstaclesPointCloud, "obstaclesPointCloud", colorWhite);
 
-    // CLUSTERING
-    KdTree3D* tree3D = new KdTree3D;
 
 
     float clusterTolerance = 0.4; // e.g. less than 1.5 divides the car in two
@@ -101,7 +102,7 @@ void processSingleFrame(
 
     // collection of clusters
     // std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize, maxClusterSize);
-
+/**
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.findUniquePointCloudClusters(obstaclesPointCloud);
     int clusterId = 0;
     for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
@@ -110,7 +111,7 @@ void processSingleFrame(
         pointProcessor.numPoints(cluster);
         renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[clusterId]);
 
-        Box box = pointProcessor.BoundingBox(cluster);
+        Box box = pointProcessor.boundingBox(cluster);
         renderBox(viewer, box, clusterId, colorRed, 0.5);
 
         ++clusterId; // to keep index of the color used
@@ -118,6 +119,7 @@ void processSingleFrame(
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     std::cout << "Processing a single frame took " << elapsedTime.count() << " milliseconds." << std::endl;
+    */
 }
 
 
