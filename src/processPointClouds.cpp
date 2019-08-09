@@ -209,21 +209,26 @@ pclSegmentPlane(
 template<typename PointT>
 std::vector<typename pcl::PointCloud<PointT>::Ptr>
 ProcessPointClouds<PointT>::
-findUniquePointCloudClusters(
-        typename pcl::PointCloud<PointT>::Ptr inputCloud)
+findUniquePointCloudClusters( typename pcl::PointCloud<PointT>::Ptr inputCloud)
 {
     std::vector<typename pcl::PointCloud<PointT>::Ptr> uniqueClustersClouds;
 
     KdTree3D* tree = new KdTree3D;
-    //std::cout << "findUniquePointCloudClusters has  " << inputCloud.size() << " elements" << std::endl;
+    std::cout << "findUniquePointCloudClusters inputCloud has  " << inputCloud->points.size() << " points" << std::endl;
 
-    //for (int i=0; i < points.size(); i++)
+    for (int i=0; i < inputCloud->points.size(); i++) // iterate thru ever point
     {
         // insert points into the tree
-        //tree->insert(points[i], i); // actual point and original index
+        // example point (3.81457,2.23129,-0.890143 - 0.571429)
+        // error: no viable conversion
+        // from 'std::__1::__vector_base<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI> >::value_type' (aka 'pcl::PointXYZI')
+        // to 'std::vector<float>'
+        //        tree->insert(inputCloud->points[i], i); // actual point and original index
+        tree->insert(inputCloud->points[i], i); // actual point and original index
+        //std::cout << "findUniquePointCloudClusters point  " << inputCloud->points[i] << " points" << std::endl;
     }
 
-    uniqueClustersClouds.push_back(inputCloud);
+    uniqueClustersClouds.push_back(inputCloud); // temporarily add whole cloud
     return uniqueClustersClouds;
 }
 
