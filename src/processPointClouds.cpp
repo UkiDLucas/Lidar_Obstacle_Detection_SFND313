@@ -10,6 +10,8 @@
 #include "render/render.h"
 #include "kdtree3D.h"
 
+using namespace std;
+using namespace pcl;
 
 /**  constructor */
 template<typename PointT>
@@ -209,28 +211,38 @@ pclSegmentPlane(
 template<typename PointT>
 std::vector<typename pcl::PointCloud<PointT>::Ptr>
 ProcessPointClouds<PointT>::
-findUniquePointCloudClusters( typename pcl::PointCloud<PointT>::Ptr inputCloud)
+findUniquePointCloudClusters(const typename pcl::PointCloud<PointT>::Ptr inputCloud)
 {
     std::vector<typename pcl::PointCloud<PointT>::Ptr> uniqueClustersClouds;
 
     KdTree3D* tree = new KdTree3D;
+
+    std::vector<float> point = {1.0, 2.0};
+    tree->insert(point, 1); // works
     std::cout << "findUniquePointCloudClusters inputCloud has  " << inputCloud->points.size() << " points" << std::endl;
 
-    for (int i=0; i < inputCloud->points.size(); i++) // iterate thru ever point
+    //std::vector<PointT, Eigen::aligned_allocator<PointT> > points = inputCloud->points;
+    for (int index = 0; index < inputCloud->points.size(); index++) // iterate thru ever point
     {
-        // insert points into the tree
+        //std::cout << "findUniquePointCloudClusters point  " << inputCloud->points[index] << " points" << std::endl;
         // example point (3.81457,2.23129,-0.890143 - 0.571429)
+        // std::vector<PointT, Eigen::aligned_allocator<PointT> > points;
+        cout << "findUniquePointCloudClusters point for index = " << inputCloud->points[index] << " points" << endl;
+
+        // insert points into the tree
         // error: no viable conversion
         // from 'std::__1::__vector_base<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI> >::value_type' (aka 'pcl::PointXYZI')
         // to 'std::vector<float>'
-        //        tree->insert(inputCloud->points[i], i); // actual point and original index
-        tree->insert(inputCloud->points[i], i); // actual point and original index
-        //std::cout << "findUniquePointCloudClusters point  " << inputCloud->points[i] << " points" << std::endl;
+        //void insert(std::vector<float> point, int pointCloudIndex)
+        //std::vector<float> point = {};
+        //tree->insert(inputCloud->points[index], index); // actual point and original index
     }
 
     uniqueClustersClouds.push_back(inputCloud); // temporarily add whole cloud
     return uniqueClustersClouds;
 }
+
+
 
 
 

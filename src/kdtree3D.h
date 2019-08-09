@@ -8,16 +8,20 @@
  *  \warning   It is still 2D implementation
  *  \copyright code_reuse_license.md
  */
+//using namespace std;
+using namespace pcl;
 
-//#include "../../render/render.h"
 
+// function definition
+template<typename PointT> // to avoid the error: use of undeclared identifier 'PointT'
+void insertPointCloud(const pcl::PointCloud<PointT> &inputCloud);
 
 /**
  * \brief Provide a pointer to the input dataset.
  * \param[in] cloud the const boost shared pointer to a PointCloud message
  * \param[in] indices the point indices subset that is to be used from \a cloud
  **/
-void setInputCloud (const pcl::PCLPointCloud2ConstPtr cloud, const pcl::IndicesConstPtr indices);
+//void setInputCloud (const pcl::PCLPointCloud2ConstPtr cloud, const pcl::IndicesConstPtr indices);
 
 
 /**
@@ -47,6 +51,8 @@ struct KdTree3D
     KdTree3D()
 	: root(NULL)
 	{}
+
+
 
 	// Node** node -- double pointer, memory address
 	void insertHelper(Node** node, uint treeDepth, std::vector<float> point, int pointCloudIndex)
