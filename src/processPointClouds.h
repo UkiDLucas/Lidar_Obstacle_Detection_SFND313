@@ -33,9 +33,9 @@ template<typename PointT>
 class ProcessPointClouds {
 public:
 
-    //constructor
+    // constructor
     ProcessPointClouds();
-    //deconstructor
+    // destructor
     ~ProcessPointClouds();
 
     void numPoints(typename pcl::PointCloud<PointT>::Ptr cloud);
@@ -43,9 +43,13 @@ public:
     void cropVehicleRoof(typename pcl::PointCloud<PointT>::Ptr& pointCloud );
 
 
+
     void downsizeUsingVoxelGrid(typename pcl::PointCloud<PointT>::Ptr& pointCloud, float leafSize);
 
-    void cropRegion(typename pcl::PointCloud<PointT>::Ptr& pointCloud, Eigen::Vector4f minRange, Eigen::Vector4f maxRange);
+    void cropRegion(
+            typename pcl::PointCloud<PointT>::Ptr &pointCloud,
+            Eigen::Vector4f minRange,
+            Eigen::Vector4f maxRange);
 
 
     std::unordered_set<int> findPlaneUsingRansac3D(
@@ -75,6 +79,17 @@ public:
 
     std::vector<boost::filesystem::path> streamPcd(std::string dataPath);
 
+
+
+
+private:
+    void clusterHelper(
+            int index,
+            const std::vector<std::vector<float>>& points,
+            std::vector<int> indexCluster,
+            std::vector<bool>& processed,
+            KdTree3D* tree,
+            float distanceThreshold);
 
 };
 #endif /* PROCESSPOINTCLOUDS_H_ */

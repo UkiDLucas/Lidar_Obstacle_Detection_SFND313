@@ -7,11 +7,12 @@
  *  \bug       TBD
  *  \warning   TBD
  *  \copyright code_reuse_license.md
+ *  see: http://pointclouds.org/documentation/tutorials/adding_custom_ptype.php
  */
 
 #include "sensors/lidar.h"
 #include "processPointClouds.h"
-#include "processPointClouds.cpp"
+#include "pcl/point_types.h"
 
 Color colorRed = Color(1,0,0); // boxes
 Color colorGray = Color(0.5,0.5,0.5);
@@ -22,13 +23,14 @@ Color colorTeal = Color(0, 1, 1);
 Color colorPink = Color(0.8, 0.3, 0.3);
 Color colorWhite = Color(1, 1, 1);
 Color colorOlive = Color(0.5, 0.5, 0.2); // obstacles
+// TODO figure out more colors, I have about 12 different clusters
 
 std::vector<Color> colors = {
         colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
         colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
         colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
         colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive
-}; // TODO figure out more colors, I have about 12 different clusters
+};
 
 // IMPLEMENTATION
 
@@ -46,7 +48,6 @@ void processSingleFrame(
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) // inputCloud vary from frame to frame
 {
     auto startTime = std::chrono::steady_clock::now();
-
 
     /**
      * In practice, the area processed and the zoom could be adjusted from frame-to-frame.

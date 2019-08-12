@@ -67,7 +67,7 @@ void ProcessPointClouds<PointT>:: downsizeUsingVoxelGrid(
  * @return
  */
 template<typename PointT>
-void ProcessPointClouds<PointT>:: cropRegion(
+void ProcessPointClouds<PointT>::cropRegion(
         typename pcl::PointCloud<PointT>::Ptr &pointCloud,
         Eigen::Vector4f minRange,
         Eigen::Vector4f maxRange)
@@ -210,17 +210,16 @@ pclSegmentPlane(
 
 
 
-
-
 /**
  * Recursive method
  * Receives a point index that is determined to be nearby.
  */
-void clusterHelper(
+template<typename PointT>
+void ProcessPointClouds<PointT>::clusterHelper(
         int index,
-        const std::vector<std::vector<float>>& points,
+        const std::vector<std::vector<float>> &points,
         std::vector<int> indexCluster,
-        std::vector<bool> processed,
+        std::vector<bool> &processed,
         KdTree3D* tree,
         float distanceThreshold)
 {
