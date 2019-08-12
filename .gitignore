@@ -41,3 +41,4 @@ src/quiz/cluster/quizCluster
 src/quiz/ransac/quizRansac
 Uki.code-workspace
 build/
+.project
