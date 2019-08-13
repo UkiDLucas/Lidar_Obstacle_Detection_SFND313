@@ -42,10 +42,11 @@ std::vector<Color> colors = {
  * @param pointProcessor PCL ProcessPointClouds<pcl::PointXYZI>
  * @param inputCloud the raw PCD before processing
  */
+template<typename PointT>
 void processSingleFrame(
     pcl::visualization::PCLVisualizer::Ptr& viewer,
-    ProcessPointClouds<pcl::PointXYZI> pointProcessor, // do not re-create every time
-    pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) // inputCloud vary from frame to frame
+    ProcessPointClouds<PointT> pointProcessor, // do not re-create every time
+    typename pcl::PointCloud<PointT>::Ptr inputCloud) // inputCloud vary from frame to frame
 {
     auto startTime = std::chrono::steady_clock::now();
 
