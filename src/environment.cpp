@@ -76,7 +76,7 @@ void processSingleFrame(
 
 
     // FIND ROAD PLANE
-    std::unordered_set<int> roadPlanePointIndices = {}; ////pointProcessor.findPlaneUsingRansac3D(inputCloud,100,0.2);
+    std::unordered_set<int> roadPlanePointIndices = pointProcessor.findPlaneUsingRansac3D(inputCloud,100,0.2);
     //std::cout << "FOUND roadPlanePointIndices " << roadPlanePointIndices.size () << std::endl;
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr onRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZI>());
