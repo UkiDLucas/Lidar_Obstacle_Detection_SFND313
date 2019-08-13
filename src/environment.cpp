@@ -42,11 +42,10 @@ std::vector<Color> colors = {
  * @param pointProcessor PCL ProcessPointClouds<pcl::PointXYZI>
  * @param inputCloud the raw PCD before processing
  */
-template<typename PointT>
 void processSingleFrame(
     pcl::visualization::PCLVisualizer::Ptr& viewer,
-    ProcessPointClouds<PointT> pointProcessor, // do not re-create every time
-    typename pcl::PointCloud<PointT>::Ptr inputCloud) // inputCloud vary from frame to frame
+    ProcessPointClouds pointProcessor, // do not re-create every time
+    pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) // inputCloud vary from frame to frame
 {
     auto startTime = std::chrono::steady_clock::now();
 
@@ -77,7 +76,7 @@ void processSingleFrame(
 
 
     // FIND ROAD PLANE
-    std::unordered_set<int> roadPlanePointIndices = pointProcessor.findPlaneUsingRansac3D(inputCloud,100,0.2);
+    std::unordered_set<int> roadPlanePointIndices = {}; ////pointProcessor.findPlaneUsingRansac3D(inputCloud,100,0.2);
     //std::cout << "FOUND roadPlanePointIndices " << roadPlanePointIndices.size () << std::endl;
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr onRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZI>());
@@ -170,7 +169,7 @@ int main (int argc, char** argv)
     //simpleHighway(viewer);
 
     // ProcessPointClouds<PointT> pointProcessor; //error: 'main' cannot be a template
-    ProcessPointClouds<pcl::PointXYZI> pointProcessor;
+    ProcessPointClouds pointProcessor;
 
     //pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessor.loadPcd("src/sensors/data/pcd/data_1/0000000000.pcd");
     std::vector<boost::filesystem::path> stream = pointProcessor.streamPcd("src/sensors/data/pcd/data_1/");

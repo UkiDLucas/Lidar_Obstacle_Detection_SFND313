@@ -29,7 +29,6 @@
 #include "render/box.h"
 #include <unordered_set>
 
-template<typename PointT>
 class ProcessPointClouds {
 public:
 
@@ -38,44 +37,44 @@ public:
     // destructor
     ~ProcessPointClouds();
 
-    void numPoints(typename pcl::PointCloud<PointT>::Ptr cloud);
+    void numPoints(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
 
-    void cropVehicleRoof(typename pcl::PointCloud<PointT>::Ptr& pointCloud );
+    void cropVehicleRoof( pcl::PointCloud<pcl::PointXYZI>::Ptr& pointCloud );
 
 
 
-    void downsizeUsingVoxelGrid(typename pcl::PointCloud<PointT>::Ptr& pointCloud, float leafSize);
+    void downsizeUsingVoxelGrid(typename pcl::PointCloud<pcl::PointXYZI>::Ptr& pointCloud, float leafSize);
 
     void cropRegion(
-            typename pcl::PointCloud<PointT>::Ptr &pointCloud,
+            typename pcl::PointCloud<pcl::PointXYZI>::Ptr &pointCloud,
             Eigen::Vector4f minRange,
             Eigen::Vector4f maxRange);
 
 
     std::unordered_set<int> findPlaneUsingRansac3D(
-                typename pcl::PointCloud<PointT>::Ptr inputPointCloud,
+                typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputPointCloud,
                 int maxIterations,
                 float distanceTreshold);
 
 
-    std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> separate2Clouds(
-            pcl::PointIndices::Ptr inliers, typename pcl::PointCloud<PointT>::Ptr cloud);
+    std::pair<typename pcl::PointCloud<pcl::PointXYZI>::Ptr, typename pcl::PointCloud<pcl::PointXYZI>::Ptr> separate2Clouds(
+            pcl::PointIndices::Ptr inliers, typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
 
-    std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr>
+    std::pair<typename pcl::PointCloud<pcl::PointXYZI>::Ptr, typename pcl::PointCloud<pcl::PointXYZI>::Ptr>
     pclSegmentPlane(
-            typename pcl::PointCloud<PointT>::Ptr cloud, int maxIterations, float distanceThreshold);
+            typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, int maxIterations, float distanceThreshold);
 
-    std::vector<typename pcl::PointCloud<PointT>::Ptr>
+    std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr>
     pclClustering(
-            typename pcl::PointCloud<PointT>::Ptr cloud, float clusterTolerance, int minSize, int maxSize);
+            typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, float clusterTolerance, int minSize, int maxSize);
 
-    std::vector<typename pcl::PointCloud<PointT>::Ptr> findUniquePointCloudClusters( typename pcl::PointCloud<PointT>::Ptr cloud);
+    std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> findUniquePointCloudClusters( typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
 
-    Box boundingBox(typename pcl::PointCloud<PointT>::Ptr cluster);
+    Box boundingBox(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cluster);
 
-    void savePcd(typename pcl::PointCloud<PointT>::Ptr cloud, std::string file);
+    void savePcd(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, std::string file);
 
-    typename pcl::PointCloud<PointT>::Ptr loadPcd(std::string file);
+    pcl::PointCloud<pcl::PointXYZI>::Ptr loadPcd(std::string file);
 
     std::vector<boost::filesystem::path> streamPcd(std::string dataPath);
 
