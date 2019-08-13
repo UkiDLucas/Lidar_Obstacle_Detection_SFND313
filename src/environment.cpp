@@ -159,6 +159,7 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
  * @param argv
  * @return
  */
+//template<typename PointT> //error: 'main' cannot be a template
 int main (int argc, char** argv)
 {
     std::cout << "starting enviroment" << std::endl;
@@ -168,7 +169,7 @@ int main (int argc, char** argv)
     initCamera(setAngle, viewer);
     //simpleHighway(viewer);
 
-    //ProcessPointClouds<pcl::PointYXZI>* pointProcessorI = new ProcessPointClouds<pcl::PointYXZI>(); // pointer on the heap
+    // ProcessPointClouds<PointT> pointProcessor; //error: 'main' cannot be a template
     ProcessPointClouds<pcl::PointXYZI> pointProcessor;
 
     //pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud = pointProcessor.loadPcd("src/sensors/data/pcd/data_1/0000000000.pcd");
