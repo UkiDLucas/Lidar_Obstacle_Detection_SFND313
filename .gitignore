@@ -1,9 +1,6 @@
 .idea/
 .idea/*
 .idea/*.*
-.vscode/
-.vscode/*
-.vscode/*.*
 *.a
 *.app
 *.cmake
@@ -42,3 +39,4 @@ src/quiz/ransac/quizRansac
 Uki.code-workspace
 build/
 .project
+ND313.xcodeproj/
