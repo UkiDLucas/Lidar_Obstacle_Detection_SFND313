@@ -30,6 +30,8 @@ Total class time spent: start 48 hours, end TBD hours.
 
 - Separating the obstacle cloud into individual obstacle point clouds
 
+- Turned on the whole pipeline, including the bounding boxes
+
 - Working on findUniquePointCloudClusters
 
   

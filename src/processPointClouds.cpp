@@ -245,7 +245,9 @@ void ProcessPointClouds::clusterHelper(
 
 
 /**
- * returns the list of cluster indices
+ * SEPARATE THE OBSTACLE CLOUD INTO INDIVIDUAL OBSTACLE POINT CLOUDS
+ * @param inputCloud of all obstacles
+ * @return the list of cluster indices
  * To perform the clustering,
  * iterate through each point in the cloud,
  * keep track of which points have been processed already.
@@ -408,12 +410,12 @@ template<typename PointT>
 }
 
 
-template<typename PointT>
-Box boundingBox(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cluster)
+
+Box ProcessPointClouds::boundingBox(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cluster)
 {
 
     // Find bounding box for one of the uniqueClustersClouds
-    PointT minPoint, maxPoint;
+    pcl::PointXYZI minPoint, maxPoint;
     pcl::getMinMax3D(*cluster, minPoint, maxPoint);
 
     Box box;

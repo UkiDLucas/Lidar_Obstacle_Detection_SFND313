@@ -70,7 +70,7 @@ public:
 
     std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> findUniquePointCloudClusters( typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
 
-    Box boundingBox(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cluster);
+    Box boundingBox( pcl::PointCloud<pcl::PointXYZI>::Ptr cluster);
 
     void savePcd(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, std::string file);
 
