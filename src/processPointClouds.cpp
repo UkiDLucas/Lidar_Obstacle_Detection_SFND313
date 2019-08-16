@@ -267,6 +267,9 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
     // Time segmentation process
     auto startTime = std::chrono::steady_clock::now();
 
+    // RETURN TYPE
+    std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds;
+
     std::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
     std::cout << "findUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
 
@@ -291,8 +294,10 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
 
     // Euclidean SORTING using the TREE
     std::vector<std::vector<int>> indexClusters;
-    std::vector<bool> processed(points.size(), false); // same amount as incoming points, all default false.
+    std::vector<bool> processed(inputCloud->size(), false); // same amount as incoming points, all default false.
+    //std::vector<bool> processed(points.size(), false); // same amount as incoming points, all default false.
 
+    // PROCESS EACH POINT INTO A CLUSTER
     int i = 0;
     while (i < points.size()) {
         if (processed[i]) // Was this point was processed?
@@ -318,9 +323,8 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
             << std::endl;
 
 
-    std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds;
 
-    uniqueClustersClouds.push_back(inputCloud); // temporarily add whole cloud
+    //uniqueClustersClouds.push_back(inputCloud); // temporarily add whole cloud
     return uniqueClustersClouds;
 }
 

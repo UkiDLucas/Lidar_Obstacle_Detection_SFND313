@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "/Volumes/DATA/_Drive/_REPOS/pcl/visualization/include"
 		}
 	],
 	"settings": {
