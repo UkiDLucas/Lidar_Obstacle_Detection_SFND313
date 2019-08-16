@@ -47,21 +47,23 @@ void processSingleFrame(
     ProcessPointClouds pointProcessor, // do not re-create every time
     pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) // inputCloud vary from frame to frame
 {
+    // START TIMER
     auto startTime = std::chrono::steady_clock::now();
 
     /**
+     * DECREASE THE AMOUNT OF POINTS WE ARE PROCESSING
      * In practice, the area processed and the zoom could be adjusted from frame-to-frame.
      * The interesting sub-parts of the frame could be insulated into separate point clouds
-     * and precessed at higher resolution, i.e. tracking pedestrians, posts, street work obstacles
+     * and processed at higher resolution, i.e. tracking pedestrians, posts, street work obstacles
      * The rest of the cloud could be tracked in low resolution i.e. cars driving behind us.
      */
     float downSampleTo = 0.20; // meters e.g. 6cm = 0.06
     pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
 
-    // REMOVE / CROP the roof points
+    // REMOVE THE VEHICLE ROOF POINTS
     pointProcessor.cropVehicleRoof(inputCloud);
 
-    // CROP REGION
+    // CROP REGION (THE HORIZON)
     // TODO crop the obstacles AFTER segmentation
     float seeForward    = 40.0; // in reality as much as 250m
     float seeBackwards  = 10.0; // meters
@@ -75,14 +77,14 @@ void processSingleFrame(
     //renderPointCloud(viewer, inputCloud, "inputCloud");
 
 
-    // FIND ROAD PLANE
+    // FIND THE ROAD PLANE
     std::unordered_set<int> roadPlanePointIndices = pointProcessor.findPlaneUsingRansac3D(inputCloud,100,0.2);
     //std::cout << "FOUND roadPlanePointIndices " << roadPlanePointIndices.size () << std::endl;
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr onRoadPlanePoints(new pcl::PointCloud<pcl::PointXYZI>());
     pcl::PointCloud<pcl::PointXYZI>::Ptr obstaclesPointCloud(new pcl::PointCloud<pcl::PointXYZI>());
 
-    // separate road and obstacles
+    // SEPARATE THE ROAD FROM THE OBSTACLE POINT CLOUD
     for(int index = 0; index < inputCloud->points.size(); index++)
     {
         pcl::PointXYZI point = inputCloud->points[index];
@@ -92,6 +94,7 @@ void processSingleFrame(
             obstaclesPointCloud->points.push_back(point);
     }
 
+    // RENDER CLOUDS
     renderPointCloud(viewer, onRoadPlanePoints, "road plane", colorGreen);
     renderPointCloud(viewer, obstaclesPointCloud, "obstaclesPointCloud", colorWhite);
 
