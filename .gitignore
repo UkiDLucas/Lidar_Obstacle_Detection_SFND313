@@ -1,6 +1,5 @@
 .idea/
-.idea/*
-.idea/*.*
+.project
 *.a
 *.app
 *.cmake
@@ -15,7 +14,6 @@
 *.lib
 *.lo
 *.log
-*.log
 *.make
 *.mod
 *.o
@@ -25,18 +23,14 @@
 *.slo
 *.smod
 *.so
+build/
 cmake_install.cmake
 CMakeCache.txt
-CMakeFiles
-CMakeFiles/*
-CMakeFiles/*.*
+CMakeFiles/
 environment
 Makefile
+ND313.xcodeproj/
 playback.cbp
 SFND313 Lidar.cbp
 src/quiz/cluster/quizCluster
 src/quiz/ransac/quizRansac
-Uki.code-workspace
-build/
-.project
-ND313.xcodeproj/
