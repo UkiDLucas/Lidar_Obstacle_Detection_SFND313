@@ -26,11 +26,20 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 ## Friday, Aug 9, 2019
 
-Total class time spent: start ~43 hours, end TBD hours.
+Total class time spent: start 48 hours, end TBD hours.
+
+- 
+
+  
+
+## Friday, Aug 9, 2019
+
+Total class time spent: start 43 hours, end 48 hours.
 
 - Implementing my own PointProcessor.findUniquePointCloudClusters(obstaclesPointCloud)
 - Inserting cloud points into the KdTree3D
 - Added Euclidean Clustering function
+- Fixed the linker problem, but had to remove PointT template
 
 
 
