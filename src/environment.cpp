@@ -104,26 +104,26 @@ void processSingleFrame(
     int minClusterSize = 10; // weed out the single point outliers (i.e. gravel)
     int maxClusterSize = 650; // my biggest car is 278 points
 
-    // collection of clusters
-    // std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize, maxClusterSize);
-/**
+    // SEPARATE THE OBSTACLE CLOUD INTO INDIVIDUAL OBSTACLES
+    //std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize, maxClusterSize);
+
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.findUniquePointCloudClusters(obstaclesPointCloud);
-    int clusterId = 0;
-    for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
-    {
-        std::cout << "cluster size ";
-        pointProcessor.numPoints(cluster);
-        renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[clusterId]);
-
-        Box box = pointProcessor.boundingBox(cluster);
-        renderBox(viewer, box, clusterId, colorRed, 0.5);
-
-        ++clusterId; // to keep index of the color used
-    }
+//    int clusterId = 0;
+//    for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
+//    {
+//        std::cout << "cluster size ";
+//        pointProcessor.numPoints(cluster);
+//        renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[clusterId]);
+//
+//        Box box = pointProcessor.boundingBox(cluster);
+//        renderBox(viewer, box, clusterId, colorRed, 0.5);
+//
+//        ++clusterId; // to keep index of the color used
+//    }
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     std::cout << "Processing a single frame took " << elapsedTime.count() << " milliseconds." << std::endl;
-    */
+
 }
 
 

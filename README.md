@@ -24,11 +24,13 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 # Class Progress
 
-## Friday, Aug 9, 2019
+## Friday, Aug 16, 2019
 
 Total class time spent: start 48 hours, end TBD hours.
 
-- 
+- Separating the obstacle cloud into individual obstacle point clouds
+
+- Working on findUniquePointCloudClusters
 
   
 
