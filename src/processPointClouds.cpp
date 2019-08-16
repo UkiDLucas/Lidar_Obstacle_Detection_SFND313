@@ -270,27 +270,10 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
     // RETURN TYPE
     std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds;
 
-    std::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
-    std::cout << "findUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
-
-    KdTree3D* tree = new KdTree3D;
     std::vector<std::vector<float>> points;
 
-    // INSERT POINTS INTO THE TREE
-    for (int index = 0; index < cloudPoints.size(); index++) // iterate thru every point
-    {
-        // example point (3.81457,2.23129,-0.890143 - 0.571429)
-        // cout << "findUniquePointCloudClusters points for index = " << points[index] << " points" << endl;
-        std::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple (cloudPoints[index]);
-        pcl::PointXYZI pointXYZI = std::get<0>(pointTuple); // because C++ is not Python :(
-        //cout << "findUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
+    KdTree3D *tree = populateTree(inputCloud, points);
 
-        std::vector<float> point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
-        points.push_back(point);
-
-        // void insert(std::vector<float> point, int pointCloudIndex)
-        tree->insert(point, index); // actual point and original index
-    }
 
     // Euclidean SORTING using the TREE
     std::vector<std::vector<int>> indexClusters;
@@ -317,19 +300,41 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     std::cout
-            << "For point cloud of  " << cloudPoints.size() << " points, "
+            << "For point cloud of  " << inputCloud->size() << " points, "
             << "clustering method found " << indexClusters.size()
             << " and took " << elapsedTime.count() << " milliseconds"
             << std::endl;
-
-
 
     //uniqueClustersClouds.push_back(inputCloud); // temporarily add whole cloud
     return uniqueClustersClouds;
 }
 
+KdTree3D *ProcessPointClouds::populateTree(const pcl::PointCloud<pcl::PointXYZI>::Ptr &inputCloud,
+                                           std::vector<std::vector<float>> &points) const {
+    KdTree3D* tree = new KdTree3D;
 
 
+    std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
+    std::cout << "findUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
+
+
+    // INSERT POINTS INTO THE TREE
+    for (int index = 0; index < cloudPoints.size(); index++) // iterate thru every point
+    {
+        // example point (3.81457,2.23129,-0.890143 - 0.571429)
+        // cout << "findUniquePointCloudClusters points for index = " << points[index] << " points" << endl;
+        std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple (cloudPoints[index]);
+        pcl::PointXYZI pointXYZI = std::get<0>(pointTuple); // because C++ is not Python :(
+        //cout << "findUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
+
+        std::vector<float> point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
+        points.push_back(point);
+
+        // void insert(std::vector<float> point, int pointCloudIndex)
+        tree->insert(point, index); // actual point and original index
+    }
+    return tree;
+}
 
 
 /**

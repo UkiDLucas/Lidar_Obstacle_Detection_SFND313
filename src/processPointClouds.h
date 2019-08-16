@@ -90,5 +90,7 @@ private:
             KdTree3D* tree,
             float distanceThreshold);
 
+    KdTree3D *
+    populateTree(const pcl::PointCloud<pcl::PointXYZI>::Ptr &inputCloud, std::vector<std::vector<float>> &points) const;
 };
 #endif /* PROCESSPOINTCLOUDS_H_ */
