@@ -122,7 +122,7 @@ void processSingleFrame(
     }
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-    std::cout << "Processing a single frame took " << elapsedTime.count() << " milliseconds." << std::endl;
+    std::cout << "Processing a single frame took " << elapsedTime.count() << " milliseconds, or " << (1000/elapsedTime.count()) << " FPS" << std::endl;
 
 }
 

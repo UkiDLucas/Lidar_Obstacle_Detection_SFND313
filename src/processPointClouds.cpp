@@ -299,11 +299,11 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-    std::cout
-            << "For point cloud of  " << inputCloud->size() << " points, "
-            << "clustering method found " << indexClusters.size()
-            << " and took " << elapsedTime.count() << " milliseconds"
-            << std::endl;
+//    std::cout
+//            << "For point cloud of  " << inputCloud->size() << " points, "
+//            << "findUniquePointCloudClusters() found " << indexClusters.size() << " clusters, "
+//            << "and took " << elapsedTime.count() << " milliseconds"
+//            << std::endl;
 
     //uniqueClustersClouds.push_back(inputCloud); // temporarily add whole cloud
     return uniqueClustersClouds;
@@ -320,7 +320,7 @@ KdTree3D *ProcessPointClouds::populateTree(const pcl::PointCloud<pcl::PointXYZI>
 
 
     std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
-    std::cout << "findUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
+//    std::cout << "findUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
 
 
     // INSERT POINTS INTO THE TREE
