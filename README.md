@@ -146,7 +146,7 @@ Total class time spent: start ~33 hours, end ~34 hours.
 
 ### Lesson 3.8 "Euclidean pclClustering"
 
-- Implemented euclideanCluster and clusterHelper, but it finds 11 clusters for 11 points,
+- Implemented euclideanCluster and findNearestPointsToCluster, but it finds 11 clusters for 11 points,
 
 
 

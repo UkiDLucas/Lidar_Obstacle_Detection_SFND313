@@ -82,7 +82,7 @@ public:
 
 
 private:
-    void clusterHelper(
+    void findNearestPointsToCluster(
             int index,
             const std::vector<std::vector<float>>& points,
             std::vector<int> indexCluster,
