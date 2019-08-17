@@ -25,29 +25,27 @@
  */
 struct Node
 {
-    private:
 
     public:
-        int pointCloudIndex; // unique identifier of the node
-        Node* leftNode; // child node with lesser value
-        Node* rightNode; // child node with bigger value
-        std::vector<float> point;
+    int pointCloudIndex; // unique identifier of the node
+    Node* leftNode; // child node with lesser value
+    Node* rightNode; // child node with bigger value
+    std::vector<float> point;
 
-        /**
-         * Constructor for a new node
-         * @param point3D e.g. {-6.2, 7, 8} // meters
-         * @param setId
-         */
-        Node(std::vector<float> point3D, int originalPointCloudIndex)
-        :	point(point3D), pointCloudIndex(originalPointCloudIndex), leftNode(NULL), rightNode(NULL)
-        {}
+    /**
+     * Constructor for a new node
+     * @param point3D e.g. {-6.2, 7, 8} // meters
+     * @param setId
+     */
+    Node(std::vector<float> point3D, int originalPointCloudIndex)
+    :	point(point3D), pointCloudIndex(originalPointCloudIndex), leftNode(NULL), rightNode(NULL)
+    {}
 };
 
 struct KdTree3D
 {
 
-private:
-
+    private:
     Node *root;
 
     // Node** node -- double pointer, memory address
@@ -71,6 +69,7 @@ private:
     }
 
 
+    private:
     void searchHelper(
             std::vector<float> targetPoint,
             Node *currentNode,
@@ -142,8 +141,7 @@ private:
 
 
 
-public:
-
+    public:
     void insert(std::vector<float> point, int pointCloudIndex)
     {
         uint treeDepth = 0;
@@ -154,6 +152,7 @@ public:
 
 
 
+    public:
 	// return a list of point IDs in the tree that are within distance of the targetPoint
 	std::vector<int> search(std::vector<float> targetPoint, float distanceTreshhold)
 	{
@@ -174,7 +173,7 @@ public:
 
 
 
-
+    public:
 	/**
 	 * Constructor is setting the root NULL
 	 */
