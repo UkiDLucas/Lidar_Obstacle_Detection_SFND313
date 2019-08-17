@@ -37,7 +37,7 @@ public:
     // destructor
     ~ProcessPointClouds();
 
-    void numPoints(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
+    //void numPoints(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
 
     void cropVehicleRoof( pcl::PointCloud<pcl::PointXYZI>::Ptr& pointCloud );
 
@@ -56,23 +56,17 @@ public:
                 int maxIterations,
                 float distanceTreshold);
 
+    //std::pair<typename pcl::PointCloud<pcl::PointXYZI>::Ptr, typename pcl::PointCloud<pcl::PointXYZI>::Ptr> separate2Clouds(pcl::PointIndices::Ptr inliers, typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
 
-    std::pair<typename pcl::PointCloud<pcl::PointXYZI>::Ptr, typename pcl::PointCloud<pcl::PointXYZI>::Ptr> separate2Clouds(
-            pcl::PointIndices::Ptr inliers, typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
+    //std::pair<typename pcl::PointCloud<pcl::PointXYZI>::Ptr, typename pcl::PointCloud<pcl::PointXYZI>::Ptr> pclSegmentPlane(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, int maxIterations, float distanceThreshold);
 
-    std::pair<typename pcl::PointCloud<pcl::PointXYZI>::Ptr, typename pcl::PointCloud<pcl::PointXYZI>::Ptr>
-    pclSegmentPlane(
-            typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, int maxIterations, float distanceThreshold);
-
-    std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr>
-    pclClustering(
-            typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, float clusterTolerance, int minSize, int maxSize);
+    //std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> pclClustering(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, float clusterTolerance, int minSize, int maxSize);
 
     std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> findUniquePointCloudClusters( typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud);
 
     Box boundingBox( pcl::PointCloud<pcl::PointXYZI>::Ptr cluster);
 
-    void savePcd(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, std::string file);
+    //void savePcd(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, std::string file);
 
     pcl::PointCloud<pcl::PointXYZI>::Ptr loadPcd(std::string file);
 
@@ -82,7 +76,7 @@ public:
 
 
 private:
-    void findNearestPointsToCluster(
+    void findNearbyPoints(
             int index,
             const std::vector<std::vector<float>>& points,
             std::vector<int> indexCluster,
@@ -91,6 +85,8 @@ private:
             float distanceThreshold);
 
     KdTree3D *
-    populateTree(const pcl::PointCloud<pcl::PointXYZI>::Ptr &inputCloud, std::vector<std::vector<float>> &points) const;
+    populateTree(
+            const pcl::PointCloud<pcl::PointXYZI>::Ptr &inputCloud,
+            std::vector<std::vector<float>> &points) const;
 };
 #endif /* PROCESSPOINTCLOUDS_H_ */

@@ -204,7 +204,7 @@ pclSegmentPlane(
  * Recursive method
  * Receives a point index that is already determined to be nearby, hence in the cluster.
  */
-void ProcessPointClouds::findNearestPointsToCluster(
+void ProcessPointClouds::findNearbyPoints(
         int index,
         const std::vector<std::vector<float>> &points,
         std::vector<int> indexCluster,
@@ -215,15 +215,16 @@ void ProcessPointClouds::findNearestPointsToCluster(
     processed[index] = true;
     indexCluster.push_back(index); // add this point index as it is already associated with this cluster
 
-    // find points that are close.
+    // find points that are close to this POINT
     std::vector<int> nearest = tree->search( points[index], distanceThreshold);
+    //std::cout << "findNearbyPoints() found  " << nearest.size() << " nearby points." << std::endl;
 
     for( int nearbyIndex: nearest)
     {
         if( !processed[nearbyIndex] )
         {
             // the nearby point has not been processed yet for this cluster
-            findNearestPointsToCluster(nearbyIndex, points, indexCluster, processed, tree, distanceThreshold);
+            findNearbyPoints(nearbyIndex, points, indexCluster, processed, tree, distanceThreshold);
         }
     }
 }
@@ -290,7 +291,7 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
         // This point was NOT processed.
         // Create a new cluster.
         std::vector<int> indexCluster;
-        findNearestPointsToCluster(i, points, indexCluster, processed, tree, 0.2);
+        findNearbyPoints(i, points, indexCluster, processed, tree, 0.2);
         indexClusters.push_back(indexCluster);
         i++; // move to the next point index
     }
