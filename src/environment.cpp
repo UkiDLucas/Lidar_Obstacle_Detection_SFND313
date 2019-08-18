@@ -14,8 +14,6 @@
 #include "processPointClouds.h"
 #include "pcl/point_types.h"
 
-//WARNING: if (val1 > 1.0 || val2 > 1.0 || val3 > 1.0)
-//PCL_WARN ("[setPointCloudRenderingProperties] Colors go from 0.0 to 1.0!\n");
 Color colorBlack      = Color(0.0, 0.0, 0.0); // black background
 Color colorRed      = Color(1.0, 0.0, 0.0); // boxes
 Color colorGray     = Color(0.5, 0.5, 0.5);
@@ -28,12 +26,7 @@ Color colorWhite    = Color(1.0, 1.0, 1.0);
 Color colorOlive    = Color(0.5, 0.5, 0.2); // obstacles
 // TODO figure out more colors, I have about 12 different clusters
 
-std::vector<Color> colors = {
-        colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
-        colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
-        colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive,
-        colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive
-};
+std::vector<Color> colors = { colorBlue, colorTeal, colorViolet, colorGray, colorPink, colorOlive };
 
 // IMPLEMENTATION
 
