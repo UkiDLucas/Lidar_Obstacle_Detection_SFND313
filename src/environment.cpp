@@ -14,15 +14,18 @@
 #include "processPointClouds.h"
 #include "pcl/point_types.h"
 
-Color colorRed = Color(1,0,0); // boxes
-Color colorGray = Color(0.5,0.5,0.5);
-Color colorGreen = Color(0,1,0); // road plane
-Color colorBlue = Color(0,0,1);
-Color colorViolet = Color(1, 0, 1);
-Color colorTeal = Color(0, 1, 1);
-Color colorPink = Color(0.8, 0.3, 0.3);
-Color colorWhite = Color(1, 1, 1);
-Color colorOlive = Color(0.5, 0.5, 0.2); // obstacles
+//WARNING: if (val1 > 1.0 || val2 > 1.0 || val3 > 1.0)
+//PCL_WARN ("[setPointCloudRenderingProperties] Colors go from 0.0 to 1.0!\n");
+Color colorBlack      = Color(0.0, 0.0, 0.0); // black background
+Color colorRed      = Color(1.0, 0.0, 0.0); // boxes
+Color colorGray     = Color(0.5, 0.5, 0.5);
+Color colorGreen    = Color(0.0, 1.0, 0.0); // road plane
+Color colorBlue     = Color(0.0, 0.0, 1.0);
+Color colorViolet   = Color(1.0, 0.0, 1.0);
+Color colorTeal     = Color(0.0, 1.0, 1.0);
+Color colorPink     = Color(0.8, 0.3, 0.3);
+Color colorWhite    = Color(1.0, 1.0, 1.0);
+Color colorOlive    = Color(0.5, 0.5, 0.2); // obstacles
 // TODO figure out more colors, I have about 12 different clusters
 
 std::vector<Color> colors = {
@@ -114,18 +117,23 @@ void processSingleFrame(
 //    cout << "separateUniquePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
 //    pointProcessor.numPoints(cluster);
     int clusterId = 0;
+    int colorId = 0; // I have less colors than object, so I need to recycle
 
     for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
     {
 //        std::cout << "cluster size ";
 //        pointProcessor.numPoints(cluster);
         // RENDER ONE OBSTACLE
-        renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[clusterId]);
+        renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[colorId]);
         // RENDER A BOX AROUND ONE OBSTACLE
         Box box = pointProcessor.boundingBox(cluster);
         renderBox(viewer, box, clusterId, colorRed, 0.5);
 
-        ++clusterId; // to keep index of the color used
+        ++clusterId;
+        if (colorId < colors.size() - 1)
+            ++colorId;
+        else
+            colorId = 0;
     }
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
@@ -142,7 +150,7 @@ void processSingleFrame(
  */
 void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
-    viewer->setBackgroundColor (0, 0, 0); // seting background color
+    viewer->setBackgroundColor (colorBlack.r, colorBlack.g, colorBlack.b); // seting background color
     
     // set camera position and angle
     viewer->initCameraParameters();
