@@ -261,8 +261,8 @@ void ProcessPointClouds::populateIndexClusterWithNearbyPoints(
  * there will be a certain number of clusters found,
  * return as a list of clusters.
  */
-std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr>
-ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
+vector<typename PointCloud<PointXYZI>::Ptr>
+ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
 {
     // Time the segmentation process
     auto startTime = std::chrono::steady_clock::now();
@@ -290,18 +290,20 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
         std::vector<int> indexCluster;
         populateIndexClusterWithNearbyPoints(i, points, indexCluster, processed, tree, 0.2);
         // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
-        //indexClusters.push_back(indexCluster);
+        PointCloud<PointXYZI> uniqueCluster;
+        for (int index : indexCluster) {
+            //uniqueCluster.push_back(inputCloud[index]);
+            //uniqueClustersClouds.push_back(indexCluster);
+        }
         i++; // move to the next point index
     }
 
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-//    std::cout
-//            << "For point cloud of  " << inputCloud->size() << " points, "
-//            << "findUniquePointCloudClusters() found " << indexClusters.size() << " clusters, "
-//            << "and took " << elapsedTime.count() << " milliseconds"
-//            << std::endl;
+    std::cout << "separateUniquePointCloudClusters() found " << uniqueClustersClouds.size() << " clusters, "
+            << "and took " << elapsedTime.count() << " milliseconds"
+            << std::endl;
 
     //uniqueClustersClouds.push_back(inputCloud); // temporarily add whole cloud
     return uniqueClustersClouds;
@@ -318,17 +320,17 @@ KdTree3D *ProcessPointClouds::populateTree(const pcl::PointCloud<pcl::PointXYZI>
 
 
     std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
-//    std::cout << "findUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
+//    std::cout << "separateUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
 
 
     // INSERT POINTS INTO THE TREE
     for (int index = 0; index < cloudPoints.size(); index++) // iterate thru every point
     {
         // example point (3.81457,2.23129,-0.890143 - 0.571429)
-        // cout << "findUniquePointCloudClusters points for index = " << points[index] << " points" << endl;
+        // cout << "separateUniquePointCloudClusters points for index = " << points[index] << " points" << endl;
         std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple (cloudPoints[index]);
         pcl::PointXYZI pointXYZI = std::get<0>(pointTuple); // because C++ is not Python :(
-        //cout << "findUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
+        //cout << "separateUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
 
         std::vector<float> point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
         points.push_back(point);
@@ -339,6 +341,21 @@ KdTree3D *ProcessPointClouds::populateTree(const pcl::PointCloud<pcl::PointXYZI>
     return tree;
 }
 
+
+/**
+ *
+ * @param cloudPoints = inputCloud->points
+ * @param index
+ * @return
+ */
+pcl::PointXYZI ProcessPointClouds::extractPointFromPointCloud(
+        const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints,
+        const int index)
+{
+    std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple (cloudPoints[index]);
+    pcl::PointXYZI pointXYZI = std::get<0>(pointTuple);
+    return pointXYZI;
+}
 
 /**
  * http://pointclouds.org/documentation/tutorials/cluster_extraction.php
@@ -595,6 +612,8 @@ std::unordered_set<int> ProcessPointClouds::findPlaneUsingRansac3D(
     // Return the PLANE that correspond to the biggest set of points on that plane.
     return inliersResult;
 }
+
+
 
 
 
