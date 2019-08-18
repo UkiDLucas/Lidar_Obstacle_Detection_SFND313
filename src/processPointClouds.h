@@ -76,7 +76,7 @@ public:
 
 
 private:
-    void findNearbyPoints(
+    void populateIndexClusterWithNearbyPoints(
             int index,
             const std::vector<std::vector<float>>& points,
             std::vector<int> indexCluster,

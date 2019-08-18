@@ -204,7 +204,7 @@ pclSegmentPlane(
  * Recursive method
  * Receives a point index that is already determined to be nearby, hence in the cluster.
  */
-void ProcessPointClouds::findNearbyPoints(
+void ProcessPointClouds::populateIndexClusterWithNearbyPoints(
         int index,
         const std::vector<std::vector<float>> &points,
         std::vector<int> indexCluster,
@@ -217,14 +217,14 @@ void ProcessPointClouds::findNearbyPoints(
 
     // find points that are close to this POINT
     std::vector<int> nearest = tree->search( points[index], distanceThreshold);
-    //std::cout << "findNearbyPoints() found  " << nearest.size() << " nearby points." << std::endl;
+    //std::cout << "populateIndexClusterWithNearbyPoints() found  " << nearest.size() << " nearby points." << std::endl;
 
     for( int nearbyIndex: nearest)
     {
         if( !processed[nearbyIndex] )
         {
             // the nearby point has not been processed yet for this cluster
-            findNearbyPoints(nearbyIndex, points, indexCluster, processed, tree, distanceThreshold);
+            populateIndexClusterWithNearbyPoints(nearbyIndex, points, indexCluster, processed, tree, distanceThreshold);
         }
     }
 }
@@ -288,7 +288,7 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
         // This point was NOT processed.
         // Create a new cluster.
         std::vector<int> indexCluster;
-        findNearbyPoints(i, points, indexCluster, processed, tree, 0.2);
+        populateIndexClusterWithNearbyPoints(i, points, indexCluster, processed, tree, 0.2);
         // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
         //indexClusters.push_back(indexCluster);
         i++; // move to the next point index
