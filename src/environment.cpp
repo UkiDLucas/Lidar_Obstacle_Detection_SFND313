@@ -100,21 +100,27 @@ void processSingleFrame(
 
 
 
-    float clusterTolerance = 0.4; // e.g. less than 1.5 divides the car in two
-    int minClusterSize = 10; // weed out the single point outliers (i.e. gravel)
-    int maxClusterSize = 650; // my biggest car is 278 points
+    float clusterTolerance = 0.4;   // e.g. less than 1.5 divides the car in two
+    int minClusterSize = 10;        // weed out the single point outliers (i.e. gravel)
+    int maxClusterSize = 650;       // my biggest car is 278 points
 
     // SEPARATE THE OBSTACLE CLOUD INTO INDIVIDUAL OBSTACLE POINT CLOUDS
-    //std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize, maxClusterSize);
+//    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds =
+//            pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize, maxClusterSize);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.findUniquePointCloudClusters(obstaclesPointCloud);
+
+    cout << "findUniquePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
+//    pointProcessor.numPoints(cluster);
     int clusterId = 0;
+
     for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
     {
         std::cout << "cluster size ";
 //        pointProcessor.numPoints(cluster);
+        // RENDER ONE OBSTACLE
         renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[clusterId]);
-
+        // RENDER A BOX AROUND ONE OBSTACLE
         Box box = pointProcessor.boundingBox(cluster);
         renderBox(viewer, box, clusterId, colorRed, 0.5);
 
