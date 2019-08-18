@@ -291,7 +291,7 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
         std::vector<int> indexCluster;
         populateIndexClusterWithNearbyPoints(i, points, indexCluster, processed, tree, 0.2);
         // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
-        PointCloud<PointXYZI>::Ptr uniqueCluster;
+        PointCloud<PointXYZI>::Ptr uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
         for (int index : indexCluster) {
             pcl::PointXYZI pointXYZI = extractPointFromPointCloud(cloudPoints, index);
             uniqueCluster->push_back(pointXYZI);

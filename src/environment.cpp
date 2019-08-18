@@ -111,13 +111,13 @@ void processSingleFrame(
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.separateUniquePointCloudClusters(
             obstaclesPointCloud);
 
-    cout << "separateUniquePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
+//    cout << "separateUniquePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
 //    pointProcessor.numPoints(cluster);
     int clusterId = 0;
 
     for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
     {
-        std::cout << "cluster size ";
+//        std::cout << "cluster size ";
 //        pointProcessor.numPoints(cluster);
         // RENDER ONE OBSTACLE
         renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[clusterId]);
