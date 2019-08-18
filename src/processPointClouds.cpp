@@ -12,8 +12,8 @@
 #include "processPointClouds.h"
 //#include "kdtree3D.h"
 
-//using namespace std;
-//using namespace pcl;
+using namespace std;
+using namespace pcl;
 
 /** constructor */
 ProcessPointClouds::ProcessPointClouds() {}
@@ -264,19 +264,16 @@ void ProcessPointClouds::findNearbyPoints(
 std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr>
 ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
 {
-    // Time segmentation process
+    // Time the segmentation process
     auto startTime = std::chrono::steady_clock::now();
 
     // RETURN TYPE
-    std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds;
-
-    std::vector<std::vector<float>> points;
+    vector<typename PointCloud<PointXYZI>::Ptr> uniqueClustersClouds;
+    vector<vector<float>> points; // TODO maybe later, operate on the inputCloud and not points
 
     KdTree3D *tree = populateTree(inputCloud, points);
 
-
     // Euclidean SORTING using the TREE
-    std::vector<std::vector<int>> indexClusters;
     std::vector<bool> processed(inputCloud->size(), false); // same amount as incoming points, all default false.
     //std::vector<bool> processed(points.size(), false); // same amount as incoming points, all default false.
 
@@ -292,7 +289,8 @@ ProcessPointClouds::findUniquePointCloudClusters(const typename pcl::PointCloud<
         // Create a new cluster.
         std::vector<int> indexCluster;
         findNearbyPoints(i, points, indexCluster, processed, tree, 0.2);
-        indexClusters.push_back(indexCluster);
+        // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
+        //indexClusters.push_back(indexCluster);
         i++; // move to the next point index
     }
 
