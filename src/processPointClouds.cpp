@@ -278,6 +278,7 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
     //std::vector<bool> processed(points.size(), false); // same amount as incoming points, all default false.
 
     // PROCESS EACH POINT INTO A CLUSTER
+    std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
     int i = 0;
     while (i < points.size()) {
         if (processed[i]) // Was this point was processed?
@@ -290,11 +291,12 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
         std::vector<int> indexCluster;
         populateIndexClusterWithNearbyPoints(i, points, indexCluster, processed, tree, 0.2);
         // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
-        PointCloud<PointXYZI> uniqueCluster;
+        boost::shared_ptr<PointCloud<PointXYZI>> uniqueCluster;
         for (int index : indexCluster) {
-            //uniqueCluster.push_back(inputCloud[index]);
-            //uniqueClustersClouds.push_back(indexCluster);
+            pcl::PointXYZI pointXYZI = extractPointFromPointCloud(cloudPoints, index);
+            uniqueCluster->push_back(pointXYZI);
         }
+        uniqueClustersClouds.push_back(uniqueCluster);
         i++; // move to the next point index
     }
 
@@ -328,8 +330,7 @@ KdTree3D *ProcessPointClouds::populateTree(const pcl::PointCloud<pcl::PointXYZI>
     {
         // example point (3.81457,2.23129,-0.890143 - 0.571429)
         // cout << "separateUniquePointCloudClusters points for index = " << points[index] << " points" << endl;
-        std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple (cloudPoints[index]);
-        pcl::PointXYZI pointXYZI = std::get<0>(pointTuple); // because C++ is not Python :(
+        pcl::PointXYZI pointXYZI = extractPointFromPointCloud(cloudPoints, index);
         //cout << "separateUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
 
         std::vector<float> point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
@@ -350,8 +351,7 @@ KdTree3D *ProcessPointClouds::populateTree(const pcl::PointCloud<pcl::PointXYZI>
  */
 pcl::PointXYZI ProcessPointClouds::extractPointFromPointCloud(
         const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints,
-        const int index)
-{
+        const int index) const {
     std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple (cloudPoints[index]);
     pcl::PointXYZI pointXYZI = std::get<0>(pointTuple);
     return pointXYZI;

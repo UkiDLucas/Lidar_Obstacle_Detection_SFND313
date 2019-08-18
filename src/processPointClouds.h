@@ -64,7 +64,7 @@ public:
 
     std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> separateUniquePointCloudClusters(const pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud);
 
-    pcl::PointXYZI extractPointFromPointCloud( const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints, const int index);
+    pcl::PointXYZI extractPointFromPointCloud( const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints, const int index) const;
 
     Box boundingBox( pcl::PointCloud<pcl::PointXYZI>::Ptr cluster);
 
