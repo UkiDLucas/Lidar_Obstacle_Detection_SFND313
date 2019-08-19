@@ -9,8 +9,8 @@
  *  \copyright code_reuse_license.md
  */
 
-//using namespace std;
-//using namespace pcl;
+using namespace std;
+using namespace pcl;
 
 /**
  * \brief Provide a pointer to the input dataset.
@@ -25,7 +25,6 @@
  */
 struct Node
 {
-
     public:
     int pointCloudIndex; // unique identifier of the node
     Node* leftNode; // child node with lesser value
@@ -42,34 +41,65 @@ struct Node
     {}
 };
 
+
+
+
 struct KdTree3D
 {
-
-    private:
+private:
     Node *root;
 
-    // Node** node -- double pointer, memory address
-    void insertHelper(Node **node, uint treeDepth, std::vector<float> point, int pointCloudIndex) {
-        // dereference *node to see its actual value
-        if (*node == NULL)
-            // if you encouter the NULL node (root, or child),
-            // you assign this point in that place
-            // dereference *node to set the actual value
-            *node = new Node(point, pointCloudIndex);
-        else {
-            // For 2D pointers,
-            // Depending on the treeDepth (every second, even|odd, 0|1 using mod 2)
-            uint cd = treeDepth % 2; // results in 0 or 1
-            if (point[cd] <= ((*node)->point[cd])) // it is possible that it is LESS OR EQUAL
-                insertHelper(&((*node)->leftNode), treeDepth + 1, point, pointCloudIndex);
-            else
-                insertHelper(&((*node)->rightNode), treeDepth + 1, point, pointCloudIndex);
-        }
 
+
+private:
+    /**
+     * ASSIGN GIVEN POINT TO THE CORRECT NODE
+     * @param node - Node** node -- double pointer, memory address. This is the current node we operate on.
+     * @param treeDepth This is the horizontal layer of the tree we are on, counting from the top.
+     * @param point3D - this is a point we try to assign. Example point3D {22.9123, 7.071, 1.02}
+     * @param index - this is the INDEX of the ORIGINAL Point Cloud
+     */
+    void assignPointToCorrectNode(Node **node, uint treeDepth, std::vector<float> point3D, int index) {
+
+//        cout << "assignPointToCorrectNode() point3D at " << point3D.at(0) << ", " << point3D.at(1) << ", "  << point3D.at(2) << endl;
+//        cout << "assignPointToCorrectNode() point3D []" << point3D[0] << ", " << point3D[1] << ", "  << point3D[2] << endl;
+
+        if (*node == NULL)
+            // if you encounter the NULL (root, or child) node,
+            // assign given point3D in that node.
+            // dereference *node to set the actual value
+            *node = new Node(point3D, index);
+        else {
+            // Every vertical layer (treeDepth) of the tree
+            // is dedicated to one coordinate comparison only, e.g. x, y, or z.
+            // We are using mod 3 to achieve that.
+            uint xyz = treeDepth % 3; // results in 0, 1, or 2
+
+//            cout << "assignPointToCorrectNode() "  << endl;
+//            cout << "assignPointToCorrectNode() treeDepth " << treeDepth << endl;
+//            cout << "assignPointToCorrectNode() xyz " << xyz << endl;
+//            cout << "assignPointToCorrectNode() (*node)->point[xyz] " << (*node)->point[xyz] << endl;
+//            cout << "assignPointToCorrectNode() point3D[xyz] " << point3D[xyz] << endl;
+
+            // The following variables are superficial, but greatly add to readability and maintenance of the code.
+            // TODO in production I might remove the variables to speed up the code.
+            float incomingValue = point3D[xyz]; // from the Point Cloud we insert
+            float existingValue = (*node)->point[xyz]; // of the existing node
+
+            if (incomingValue <= existingValue)
+            {
+                // Incoming lesser or equal values go LEFT
+                assignPointToCorrectNode(&((*node)->leftNode), treeDepth + 1, point3D, index);
+            }
+            else {
+                // Incoming greater values go RIGHT
+                assignPointToCorrectNode(&((*node)->rightNode), treeDepth + 1, point3D, index);
+            }
+        }
     }
 
 
-    private:
+private:
     void searchHelper(
             std::vector<float> targetPoint,
             Node *currentNode,
@@ -88,24 +118,34 @@ struct KdTree3D
 //        for (auto i: targetPoint)
 //            std::cout << i << " ";
 
+        // If the current node node does not exist, there is nothing to search
         if (currentNode != NULL) {
             //std::cout << " current point = ";
 
 //            for (auto i: currentNode->point)
 //                std::cout << i << " ";
 
-            // TODO most of the time X and Y point are enough to establish proximity,
-            //  however you can run into problems under the bridges, trees, street wires, etc.
+            //  You need 3D (including Z) detection, especially for bridges, trees, street wires, etc.
 
+            // The following variables are superficial, but greatly add to readability and maintenance of the code.
+            // TODO in production I might remove the variables to speed up the code.
             float nodeX = currentNode->point[0];
             float nodeY = currentNode->point[1];
+            float nodeZ = currentNode->point[2];
             float targetX = targetPoint[0];
             float targetY = targetPoint[1];
+            float targetZ = targetPoint[2];
+            float boundryX = targetX - distanceTreshhold;
+            float boundryY = targetY - distanceTreshhold;
+            float boundryZ = targetZ - distanceTreshhold;
 
-            // QUICK CHECK node is within target treshhold bounding box
-            if ((nodeX >= (targetX - distanceTreshhold) && nodeX <= (targetX + distanceTreshhold))
+            // QUICK CHECK node is within target threshold bounding box
+            if ((nodeX >= boundryX && nodeX <= boundryX)
                 &&
-                (nodeY >= (targetY - distanceTreshhold) && nodeY <= (targetY + distanceTreshhold))) {
+                (nodeY >= boundryY && nodeY <= boundryY)
+                &&
+                (nodeZ >= boundryZ && nodeZ <= boundryZ))
+            {
                 // DETAILED CHECK for distance of circum-sphere
                 float distance = sqrt(
                         (nodeX - targetX) * (nodeX - targetX)
@@ -145,9 +185,9 @@ struct KdTree3D
     void insert(std::vector<float> point, int pointCloudIndex)
     {
         uint treeDepth = 0;
-        // insertHelper is a recursive function
+        // assignPointToCorrectNode is a recursive function
         // passing in memory address of root node - which is a global pointer in struct KdTree3D
-        insertHelper(&root, treeDepth, point, pointCloudIndex);
+        assignPointToCorrectNode(&root, treeDepth, point, pointCloudIndex);
     }
 
 
