@@ -21,11 +21,11 @@ ProcessPointClouds::ProcessPointClouds() {}
 /** destructor */
 ProcessPointClouds::~ProcessPointClouds() {}
 
-template<typename PointT>
-void numPoints( pcl::PointCloud<pcl::PointXYZI>::Ptr cloud)
-{
-    std::cout << cloud->points.size() << std::endl;
-}
+//template<typename PointT>
+//void numPoints( pcl::PointCloud<pcl::PointXYZI>::Ptr cloud)
+//{
+//    std::cout << cloud->points.size() << std::endl;
+//}
 
 
 

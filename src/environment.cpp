@@ -92,7 +92,7 @@ void processSingleFrame(
 
     // RENDER CLOUDS
     renderPointCloud(viewer, onRoadPlanePoints, "road plane", colorGreen);
-    renderPointCloud(viewer, obstaclesPointCloud, "obstaclesPointCloud", colorWhite);
+//    renderPointCloud(viewer, obstaclesPointCloud, "obstaclesPointCloud", colorWhite);
 
 
 
@@ -104,7 +104,8 @@ void processSingleFrame(
 //    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds =
 //            pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize, maxClusterSize);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds = pointProcessor.separateUniquePointCloudClusters(
+    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds
+        = pointProcessor.separateUniquePointCloudClusters(
             obstaclesPointCloud);
 
 //    cout << "separateUniquePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
@@ -114,8 +115,9 @@ void processSingleFrame(
 
     for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
     {
-//        std::cout << "cluster size ";
-//        pointProcessor.numPoints(cluster);
+        std::cout << "Iterating thru cluster " << clusterId
+            << " with " << cluster->points.size() << " points"
+            << endl;
         // RENDER ONE OBSTACLE
         renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[colorId]);
         // RENDER A BOX AROUND ONE OBSTACLE
