@@ -207,7 +207,7 @@ pclSegmentPlane(
 void ProcessPointClouds::populateIndexClusterWithNearbyPoints(
         int index,
         const std::vector<std::vector<float>> &points,
-        std::vector<int> indexCluster,
+        std::vector<int> &indexCluster,
         std::vector<bool> &processed,
         KdTree3D* tree,
         float distanceThreshold)
@@ -217,7 +217,10 @@ void ProcessPointClouds::populateIndexClusterWithNearbyPoints(
 
     // find points that are close to this POINT
     std::vector<int> nearest = tree->search( points[index], distanceThreshold);
-    //std::cout << "populateIndexClusterWithNearbyPoints() found  " << nearest.size() << " nearby points." << std::endl;
+//    std::cout << "populateIndexClusterWithNearbyPoints() has  "
+//            << nearest.size() << " nearby points, "
+//            << indexCluster.size() << " cluster size."
+//            << std::endl;
 
     for( int nearbyIndex: nearest)
     {
@@ -290,6 +293,7 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
         // Create a new cluster.
         std::vector<int> indexCluster;
         populateIndexClusterWithNearbyPoints(i, points, indexCluster, processed, tree, 0.2);
+
         // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
         PointCloud<PointXYZI>::Ptr uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
         for (int index : indexCluster) {

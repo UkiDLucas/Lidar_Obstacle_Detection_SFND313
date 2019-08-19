@@ -81,7 +81,7 @@ private:
     void populateIndexClusterWithNearbyPoints(
             int index,
             const std::vector<std::vector<float>>& points,
-            std::vector<int> indexCluster,
+            std::vector<int>& indexCluster,
             std::vector<bool>& processed,
             KdTree3D* tree,
             float distanceThreshold);
