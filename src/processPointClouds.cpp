@@ -292,7 +292,8 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
         // This point was NOT processed.
         // Create a new cluster.
         std::vector<int> indexCluster;
-        populateIndexClusterWithNearbyPoints(i, points, indexCluster, processed, tree, 0.2);
+        //TODO Threshhold of 0.4 creates nice big bounding boxes, but it somtimes combines nearby cars
+        populateIndexClusterWithNearbyPoints(i, points, indexCluster, processed, tree, 0.4);
 
         // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
         PointCloud<PointXYZI>::Ptr uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);

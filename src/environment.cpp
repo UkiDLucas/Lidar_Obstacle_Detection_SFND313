@@ -115,14 +115,16 @@ void processSingleFrame(
 
     for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
     {
-        std::cout << "Iterating thru cluster " << clusterId
-            << " with " << cluster->points.size() << " points"
-            << endl;
+//        std::cout << "Iterating thru cluster " << clusterId
+//            << " with " << cluster->points.size() << " points"
+//            << endl;
         // RENDER ONE OBSTACLE
         renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[colorId]);
         // RENDER A BOX AROUND ONE OBSTACLE
-        Box box = pointProcessor.boundingBox(cluster);
-        renderBox(viewer, box, clusterId, colorRed, 0.5);
+        if(cluster->points.size() > 5){ //TODO Bound only LARGE OBJECTS, in production I might re-think this
+            Box box = pointProcessor.boundingBox(cluster);
+            renderBox(viewer, box, clusterId, colorRed, 0.5);
+        }
 
         ++clusterId;
         if (colorId < colors.size() - 1)
