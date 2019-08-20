@@ -107,16 +107,17 @@ private:
             float distanceTreshhold,
             std::vector<int> &resultIds) // address reference so we can keep changes
     {
-//        std::cout
-//                << std::endl
-//                << treeDepth
-//                << " searchHelper: "
-//                << " distanceTreshhold = "
-//                << distanceTreshhold
-//                << " meters, "
-//                << "targetPoint = ";
-//        for (auto i: targetPoint)
-//            std::cout << i << " ";
+        std::cout
+                << std::endl
+                << treeDepth
+                << " searchHelper: "
+                << " distanceTreshhold = "
+                << distanceTreshhold
+                << " meters, "
+                << "targetPoint = ";
+        for (auto i: targetPoint)
+            std::cout << i << " ";
+        cout << std::endl;
 
         // If the current node node does not exist, there is nothing to search
         if (currentNode != NULL) {
@@ -147,10 +148,13 @@ private:
                 (nodeZ >= boundryZ && nodeZ <= boundryZ))
             {
                 // DETAILED CHECK for distance of circum-sphere
+                // d = √ [(x2-x1)2 + (y2-y1)2 + (z2-z1)2]
                 float distance = sqrt(
                         (nodeX - targetX) * (nodeX - targetX)
-                        + (nodeY - targetY) * (nodeY - targetY));
-                //std::cout << " distance = " << distance;
+                        + (nodeY - targetY) * (nodeY - targetY)
+                        + (nodeZ - targetZ) * (nodeZ - targetZ)
+                        );
+                std::cout << " distance = " << distance;
 
                 if (distance <= distanceTreshhold) {
 //                    std::cout << " adding current node pointCloudIndex to results <<<<<<<<<<<<<<<<< "
@@ -159,19 +163,27 @@ private:
                 }
             }
 
-            // Mod % 2 to check if we are comparing X or Y coordinate
+            // Every vertical layer (treeDepth) of the tree
+            // is dedicated to one coordinate comparison only, e.g. x, y, or z.
+            // We are using mod 3 to achieve that.
+            uint xyz = treeDepth % 3; // results in 0, 1, or 2
+
+            // The following variables are superficial, but greatly add to readability and maintenance of the code.
+            // TODO in production I might remove the variables to speed up the code.
+
+            float incomingValue = targetPoint[xyz];
+            float currentValue = currentNode->point[xyz];
+
+            // IMPORTANT: this needs to be the EXACTLY SAME LOGIC as TREE INSERT.
             // flow LEFT on the tree
-            if ((targetPoint[treeDepth % 2] - distanceTreshhold) <= currentNode->point[treeDepth % 2]) {
+            if ( incomingValue <= currentValue ) {
                 //std::cout << " choosing LEFT branch " << std::endl;
                 searchHelper(targetPoint, currentNode->leftNode, treeDepth + 1, distanceTreshhold, resultIds);
-            }
-            // else?
-            // flow RIGHT on the tree
-            if ((targetPoint[treeDepth % 2] + distanceTreshhold) > currentNode->point[treeDepth % 2]) {
+            } else{
                 //std::cout << " choosing RIGHT branch " << std::endl;
                 searchHelper(targetPoint, currentNode->rightNode, treeDepth + 1, distanceTreshhold, resultIds);
             }
-        }
+        } // if (currentNode != NULL)
     }
 
 
