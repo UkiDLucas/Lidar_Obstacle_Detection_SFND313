@@ -99,6 +99,12 @@ private:
     }
 
 
+
+
+
+
+
+
 private:
     void searchDistanceNodeToPoint(
             std::vector<float> targetPoint,
@@ -107,78 +113,86 @@ private:
             float distanceTreshold,
             std::vector<int> &resultIds) // address reference so we can keep changes
     {
+        if (currentNode == NULL)
+        {
+            std::cout << " current node is NULL, returning" << std::endl;
+            // If the current node node does not exist, there is nothing to search
+            return;
+        }
+
         std::cout
                 << std::endl
                 << "depth: " << treeDepth
                 << " treshold = "
                 << distanceTreshold
                 << " meters, " << std::endl
-                << "targetPoint = ";
+                << " incoming point     = ";
         for (auto i: targetPoint)
             std::cout << i << " ";
         cout << std::endl;
+        std::cout
+                << " current node point = ";
+        for (auto i: currentNode->point)
+            std::cout << i << " ";
+        cout << std::endl;
 
-        // If the current node node does not exist, there is nothing to search
-        if (currentNode != NULL) {
-            std::cout << " current node point = ";
+        // You need 3D (including Z) detection, especially for bridges, trees, street wires, etc.
+        // The following variables are superficial, but greatly add to readability and maintenance of the code.
+        // TODO in production I might remove the variables to speed up the code.
+        float nodeX = currentNode->point[0];
+        float nodeY = currentNode->point[1];
+        float nodeZ = currentNode->point[2];
+        float targetX = targetPoint[0];
+        float targetY = targetPoint[1];
+        float targetZ = targetPoint[2];
+        float boundryX = targetX - distanceTreshold;
+        float boundryY = targetY - distanceTreshold;
+        float boundryZ = targetZ - distanceTreshold;
 
-            for (auto i: currentNode->point)
-                std::cout << i << " ";
-
-            cout << std::endl;
-            //  You need 3D (including Z) detection, especially for bridges, trees, street wires, etc.
-
-            // The following variables are superficial, but greatly add to readability and maintenance of the code.
-            // TODO in production I might remove the variables to speed up the code.
-            float nodeX = currentNode->point[0];
-            float nodeY = currentNode->point[1];
-            float nodeZ = currentNode->point[2];
-            float targetX = targetPoint[0];
-            float targetY = targetPoint[1];
-            float targetZ = targetPoint[2];
-            float boundryX = targetX - distanceTreshold;
-            float boundryY = targetY - distanceTreshold;
-            float boundryZ = targetZ - distanceTreshold;
-
-            bool isNodeFoundForThisPoint = false;
+        bool isNodeFoundForThisPoint = false;
 
 
+        float distance = sqrt(
+                (nodeX - targetX) * (nodeX - targetX)
+                + (nodeY - targetY) * (nodeY - targetY)
+                + (nodeZ - targetZ) * (nodeZ - targetZ)
+        );
+        std::cout << " distance = " << distance << std::endl;
+
+        if (distance <= distanceTreshold)
+        {
+            std::cout << " distance IS WITHIN the TRESHHOLD! " << distance << std::endl;
+        }
+
+
+
+        // QUICK CHECK node is within target threshold bounding box
+        if ((nodeX >= boundryX && nodeX <= boundryX)
+            &&
+            (nodeY >= boundryY && nodeY <= boundryY)
+            &&
+            (nodeZ >= boundryZ && nodeZ <= boundryZ))
+        {
+
+            std::cout << " distance IS WITHIN the TRESHOLD! Quick Check" << distance << std::endl;
+
+            // DETAILED CHECK for distance of circum-sphere
+            // d = √ [(x2-x1)2 + (y2-y1)2 + (z2-z1)2]
             float distance = sqrt(
                     (nodeX - targetX) * (nodeX - targetX)
                     + (nodeY - targetY) * (nodeY - targetY)
                     + (nodeZ - targetZ) * (nodeZ - targetZ)
-            );
+                    );
             std::cout << " distance = " << distance << std::endl;
 
+            if (distance <= distanceTreshold) {
+                std::cout << " adding current node pointCloudIndex to results <<<<<<<<<<<<<<<<< "
+                          << currentNode->pointCloudIndex;
 
-
-            // QUICK CHECK node is within target threshold bounding box
-            if ((nodeX >= boundryX && nodeX <= boundryX)
-                &&
-                (nodeY >= boundryY && nodeY <= boundryY)
-                &&
-                (nodeZ >= boundryZ && nodeZ <= boundryZ))
-            {
-                // DETAILED CHECK for distance of circum-sphere
-                // d = √ [(x2-x1)2 + (y2-y1)2 + (z2-z1)2]
-                float distance = sqrt(
-                        (nodeX - targetX) * (nodeX - targetX)
-                        + (nodeY - targetY) * (nodeY - targetY)
-                        + (nodeZ - targetZ) * (nodeZ - targetZ)
-                        );
-                std::cout << " distance = " << distance << std::endl;
-
-                if (distance <= distanceTreshold) {
-                    std::cout << " adding current node pointCloudIndex to results <<<<<<<<<<<<<<<<< "
-                              << currentNode->pointCloudIndex;
-
-                    resultIds.push_back(currentNode->pointCloudIndex); // add this pointCloudIndex to search results
-                    isNodeFoundForThisPoint = true;
+                resultIds.push_back(currentNode->pointCloudIndex); // add this pointCloudIndex to search results
+                isNodeFoundForThisPoint = true;
                 }
-            }else{
 
-
-            }
 
 
             if(!isNodeFoundForThisPoint) // keep looking in deeper nodes
