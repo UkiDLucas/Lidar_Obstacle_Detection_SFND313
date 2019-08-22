@@ -124,7 +124,7 @@ private:
             && pointA[2] <= pointB[2] + threshold
            )
         {
-            std::cout << " distance IS WITHIN the TRESHOLD! Quick Check " << std::endl;
+            //std::cout << " distance IS WITHIN the TRESHOLD! Quick Check " << std::endl;
 
             // DETAILED CHECK for distance of circum-sphere
             // d = √ [(x2-x1)2 + (y2-y1)2 + (z2-z1)2]
@@ -133,8 +133,9 @@ private:
                     + (pointB[1] - pointA[1]) * (pointB[1] - pointA[1])
                     + (pointB[2] - pointA[2]) * (pointB[2] - pointA[2])
             );
-            std::cout << "isNearby() distance = " << distance << std::endl;
+
             if (distance <= threshold) {
+                //std::cout << "isNearby() distance = " << distance << std::endl;
                 return true;
             }
         }
@@ -161,25 +162,27 @@ private:
             return;
         }
 
+        // PRINT
         std::cout
                 << std::endl
                 << "depth: " << treeDepth
-                << " treshold = "
-                << distanceTreshold
-                << " meters, " << std::endl
-                << " incoming point     = ";
-        for (auto i: incomingPoint)
-            std::cout << i << " ";
-        cout << std::endl;
-        std::cout
-                << " current node point = ";
-        for (auto i: currentNode->point)
-            std::cout << i << " ";
-        cout << std::endl;
+//                << " treshold = "
+//                << distanceTreshold
+//                << " meters, "
+                << std::endl;
+//                << " incoming point     = ";
+//        for (auto i: incomingPoint)
+//            std::cout << i << " ";
+//        cout << std::endl;
+//        std::cout
+//                << " current node point = ";
+//        for (auto i: currentNode->point)
+//            std::cout << i << " ";
+//        cout << std::endl;
 
         if (isNearby(incomingPoint, currentNode->point, distanceTreshold))
         {
-            std::cout << " adding current node to results <<<<<<<<<<<<<<<<< "
+            std::cout << "isNearby, adding current node to results <<<<<<<<<<<<<<<<< "
                       << currentNode->pointCloudIndex;
             resultIds.push_back(currentNode->pointCloudIndex); // add this pointCloudIndex to search results
             return;
