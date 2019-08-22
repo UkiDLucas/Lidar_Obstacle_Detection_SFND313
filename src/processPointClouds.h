@@ -86,9 +86,17 @@ private:
             KdTree3D* tree,
             float distanceThreshold);
 
+private:
     KdTree3D *
     populateTree(
-            const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints,
-            std::vector<std::vector<float>> &pointsXYZ) const;
+            std::vector<std::vector<float>> &pointsXYZ
+            ) const;
+
+private:
+    std::vector<std::vector<float>>
+    convertCloudToPoints(
+            const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
+            ) const;
+
 };
 #endif /* PROCESSPOINTCLOUDS_H_ */

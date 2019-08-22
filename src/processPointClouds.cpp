@@ -267,15 +267,10 @@ void ProcessPointClouds::populateIndexClusterWithNearbyPoints(
 vector<typename PointCloud<PointXYZI>::Ptr>
 ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
 {
-    // Time the segmentation process
-    auto startTime = std::chrono::steady_clock::now();
-
-    // RETURN TYPE
-    vector<typename PointCloud<PointXYZI>::Ptr> uniqueClustersClouds;
-    vector<vector<float>> points; // TODO maybe later, operate on the inputCloud and not points
-
-    std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
-    KdTree3D *tree = populateTree(cloudPoints, points);
+    auto startTime = std::chrono::steady_clock::now(); // Time the segmentation process
+    vector<typename PointCloud<PointXYZI>::Ptr> uniqueClustersClouds; // RETURN TYPE
+    vector<vector<float>> points = convertCloudToPoints(inputCloud->points);
+    KdTree3D *tree = populateTree( points);
 
     std::vector<bool> processed(inputCloud->size(), false); // same amount as incoming points, all default false.
 
@@ -296,7 +291,7 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
         // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
         PointCloud<PointXYZI>::Ptr uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
         for (int index : indexCluster) {
-            pcl::PointXYZI pointXYZI = extractPointFromPointCloud(cloudPoints, index);
+            pcl::PointXYZI pointXYZI = extractPointFromPointCloud(inputCloud->points, index);
             uniqueCluster->push_back(pointXYZI);
         }
         uniqueClustersClouds.push_back(uniqueCluster);
@@ -316,31 +311,36 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
 
 
 
+std::vector<std::vector<float>>
+ProcessPointClouds::convertCloudToPoints(
+        const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
+        ) const
+{
+    std::vector<float> point; // define vector that we will reuse, {3.81457,2.23129,-0.890143 - 0.571429}
+    pcl::PointXYZI pointXYZI; // define PointXYZI that we will reuse
+    std::vector<std::vector<float>> pointsXYZ;
 
-
-
-KdTree3D *ProcessPointClouds::populateTree(const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints,
-                                           std::vector<std::vector<float>> &pointsXYZ) const {
-    KdTree3D* tree = new KdTree3D;
-
-
-    //std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
-//    std::cout << "separateUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " pointsXYZ" << std::endl;
-
-
-    // INSERT POINTS INTO THE TREE
     for (int index = 0; index < cloudPoints.size(); index++) // iterate thru every point
     {
-        // example point (3.81457,2.23129,-0.890143 - 0.571429)
-        // cout << "separateUniquePointCloudClusters pointsXYZ for index = " << pointsXYZ[index] << " pointsXYZ" << endl;
-        pcl::PointXYZI pointXYZI = extractPointFromPointCloud(cloudPoints, index);
-        //cout << "separateUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
-
-        std::vector<float> point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
+        pointXYZI = extractPointFromPointCloud(cloudPoints, index);
+        point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
         pointsXYZ.push_back(point);
+    }
+    return pointsXYZ;
+}
 
-        // void insert(std::vector<float> point, int pointCloudIndex)
-        tree->insert(point, index); // actual point and original index
+
+
+KdTree3D *ProcessPointClouds::populateTree(
+        std::vector<std::vector<float>>& points
+        ) const
+    {
+    KdTree3D* tree = new KdTree3D;
+
+    // INSERT POINTS INTO THE TREE
+    for (int index = 0; index < points.size(); index++) // iterate thru every point
+    {
+        tree->insert(points[index], index); // actual point and original index
     }
     return tree;
 }
