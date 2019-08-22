@@ -145,36 +145,20 @@ private:
         float targetX = targetPoint[0];
         float targetY = targetPoint[1];
         float targetZ = targetPoint[2];
-        float boundryX = targetX - distanceTreshold;
-        float boundryY = targetY - distanceTreshold;
-        float boundryZ = targetZ - distanceTreshold;
 
         bool isNodeFoundForThisPoint = false;
 
-
-        float distance = sqrt(
-                (nodeX - targetX) * (nodeX - targetX)
-                + (nodeY - targetY) * (nodeY - targetY)
-                + (nodeZ - targetZ) * (nodeZ - targetZ)
-        );
-        std::cout << " distance = " << distance << std::endl;
-
-        if (distance <= distanceTreshold)
-        {
-            std::cout << " distance IS WITHIN the TRESHHOLD! " << distance << std::endl;
-        }
-
-
-
         // QUICK CHECK node is within target threshold bounding box
-        if ((nodeX >= boundryX && nodeX <= boundryX)
-            &&
-            (nodeY >= boundryY && nodeY <= boundryY)
-            &&
-            (nodeZ >= boundryZ && nodeZ <= boundryZ))
+        // Since all conditions are AND (&&) then no parenthesis grouping is needed.
+        if (   targetX >= nodeX - distanceTreshold
+            && targetX <= nodeX + distanceTreshold
+            && targetY >= nodeY - distanceTreshold
+            && targetY <= nodeY + distanceTreshold
+            && targetZ >= nodeZ - distanceTreshold
+            && targetZ <= nodeZ + distanceTreshold
+            )
         {
-
-            std::cout << " distance IS WITHIN the TRESHOLD! Quick Check" << distance << std::endl;
+            std::cout << " distance IS WITHIN the TRESHOLD! Quick Check " << std::endl;
 
             // DETAILED CHECK for distance of circum-sphere
             // d = √ [(x2-x1)2 + (y2-y1)2 + (z2-z1)2]
