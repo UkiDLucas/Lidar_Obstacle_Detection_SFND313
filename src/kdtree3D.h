@@ -228,18 +228,23 @@ private:
 
 
 
-    public:
-    void insert(std::vector<float> point, int pointCloudIndex)
+public:
+    /**
+     *
+     * @param point - vector of floats X, Y, Z
+     * @param index - int representing the INDEX of the original PointCloud
+     */
+    void insert(std::vector<float> point, int index)
     {
         uint treeDepth = 0;
         // insertPointToCorrectNode is a recursive function
         // passing in memory address of root node - which is a global pointer in struct KdTree3D
-        insertPointToCorrectNode(&root, treeDepth, point, pointCloudIndex);
+        insertPointToCorrectNode(&root, treeDepth, point, index);
     }
 
 
 
-    public:
+public:
 	// return a list of point IDs in the tree that are within distance of the targetPoint
 	std::vector<int> search(std::vector<float> incomingPoint, float distanceTreshhold)
 	{
