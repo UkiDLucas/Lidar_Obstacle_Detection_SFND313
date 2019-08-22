@@ -62,7 +62,7 @@ public:
 
     //std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> pclClustering(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, float clusterTolerance, int minSize, int maxSize);
 
-    std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> separateUniquePointCloudClusters(const pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud);
+    std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> separatePointCloudClusters(const pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud);
 
     pcl::PointXYZI extractPointFromPointCloud( const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints, const int index) const;
 
@@ -78,10 +78,10 @@ public:
 
 
 private:
-    void populateIndexClusterWithNearbyPoints(
+    void recursivelyPopulateClusterWithNearbyPoints(
             int index,
             const std::vector<std::vector<float>>& points,
-            std::vector<int>& indexCluster,
+            std::vector<int>& cluster,
             std::vector<bool>& processed,
             KdTree3D* tree,
             float distanceThreshold);

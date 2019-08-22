@@ -199,35 +199,35 @@ pclSegmentPlane(
     return segResult;
 }
 
-
+// private:
 /**
  * Recursive method
  * Receives a point index that is already determined to be nearby, hence in the cluster.
  */
-void ProcessPointClouds::populateIndexClusterWithNearbyPoints(
+void ProcessPointClouds::recursivelyPopulateClusterWithNearbyPoints(
         int index,
         const std::vector<std::vector<float>> &points,
-        std::vector<int> &indexCluster,
+        std::vector<int> &cluster,
         std::vector<bool> &processed,
         KdTree3D* tree,
         float distanceThreshold)
 {
     processed[index] = true;
-    indexCluster.push_back(index); // add this point index as it is already associated with this cluster
+    cluster.push_back(index); // add this point index as it is already associated with this cluster
 
     // find points that are close to this POINT
     std::vector<int> nearest = tree->search( points[index], distanceThreshold);
-//    std::cout << "populateIndexClusterWithNearbyPoints() has  "
-//            << nearest.size() << " nearby points, "
-//            << indexCluster.size() << " cluster size."
-//            << std::endl;
+    std::cout << "recursivelyPopulateClusterWithNearbyPoints() has  "
+            << nearest.size() << " nearby points, "
+            << cluster.size() << " cluster size."
+            << std::endl;
 
     for( int nearbyIndex: nearest)
     {
         if( !processed[nearbyIndex] )
         {
             // the nearby point has not been processed yet for this cluster
-            populateIndexClusterWithNearbyPoints(nearbyIndex, points, indexCluster, processed, tree, distanceThreshold);
+            recursivelyPopulateClusterWithNearbyPoints(nearbyIndex, points, cluster, processed, tree, distanceThreshold);
         }
     }
 }
@@ -246,7 +246,7 @@ void ProcessPointClouds::populateIndexClusterWithNearbyPoints(
 
 
 
-
+// public:
 /**
  * SEPARATE THE OBSTACLE CLOUD INTO INDIVIDUAL OBSTACLE POINT CLOUDS
  * @param inputCloud of all obstacles
@@ -265,43 +265,49 @@ void ProcessPointClouds::populateIndexClusterWithNearbyPoints(
  * return as a list of clusters.
  */
 vector<typename PointCloud<PointXYZI>::Ptr>
-ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
+ProcessPointClouds::separatePointCloudClusters(const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
 {
     auto startTime = std::chrono::steady_clock::now(); // Time the segmentation process
+
+    // DECLARE VARIABLES OUTSIDE THE WHILE() LOOP to conserve on object creation.
     vector<typename PointCloud<PointXYZI>::Ptr> uniqueClustersClouds; // RETURN TYPE
     vector<vector<float>> points = convertCloudToPoints(inputCloud->points);
     KdTree3D *tree = populateTree( points);
-
     std::vector<bool> processed(inputCloud->size(), false); // same amount as incoming points, all default false.
+    PointCloud<PointXYZI>::Ptr uniqueCluster;
+    pcl::PointXYZI pointXYZI;
+    std::vector<int> cluster;
 
-    // PROCESS EACH POINT INTO A CLUSTER
-    int i = 0;
-    while (i < points.size()) {
+
+    for(int i = 0; i < points.size(); i++)
+    {
         if (processed[i]) // Was this point was processed?
         {
             i++; // move to the next point index
             continue;
         }
-        // This point was NOT processed.
-        // Create a new cluster.
-        std::vector<int> indexCluster;
-        //TODO Threshhold of 0.4 creates nice big bounding boxes, but it somtimes combines nearby cars
-        populateIndexClusterWithNearbyPoints(i, points, indexCluster, processed, tree, 0.4);
 
-        // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
-        PointCloud<PointXYZI>::Ptr uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
-        for (int index : indexCluster) {
-            pcl::PointXYZI pointXYZI = extractPointFromPointCloud(inputCloud->points, index);
-            uniqueCluster->push_back(pointXYZI);
-        }
-        uniqueClustersClouds.push_back(uniqueCluster);
-        i++; // move to the next point index
+        // This point was NOT processed.
+        // PROCESS EACH POINT INTO A CLUSTER
+        recursivelyPopulateClusterWithNearbyPoints(i, points, cluster, processed, tree, 0.5);
     }
+    std::cout << " cluster has " << cluster.size() << " points." << std::endl;
+
+    // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
+    uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
+
+    for (int index : cluster) {
+        pointXYZI = extractPointFromPointCloud(inputCloud->points, index);
+        uniqueCluster->push_back(pointXYZI);
+    }
+    cluster.clear();
+    uniqueClustersClouds.push_back(uniqueCluster);
+
 
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-    std::cout << " separateUniquePointCloudClusters() found " << uniqueClustersClouds.size() << " clusters, "
+    std::cout << " separatePointCloudClusters() found " << uniqueClustersClouds.size() << " clusters, "
             << "and took " << elapsedTime.count() << " milliseconds"
             << std::endl;
 

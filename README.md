@@ -47,7 +47,7 @@ Total class time spent: start 48 hours, end 51 hours.
 
 - Turned on the whole pipeline, including the bounding boxes
 
-- Working on separateUniquePointCloudClusters
+- Working on separatePointCloudClusters
 
   
 
@@ -55,7 +55,7 @@ Total class time spent: start 48 hours, end 51 hours.
 
 Total class time spent: start 43 hours, end 48 hours.
 
-- Implementing my own PointProcessor.separateUniquePointCloudClusters(obstaclesPointCloud)
+- Implementing my own PointProcessor.separatePointCloudClusters(obstaclesPointCloud)
 - Inserting cloud points into the KdTree3D
 - Added Euclidean Clustering function
 - Fixed the linker problem, but had to remove PointT template
@@ -161,7 +161,7 @@ Total class time spent: start ~33 hours, end ~34 hours.
 
 ### Lesson 3.8 "Euclidean pclClustering"
 
-- Implemented euclideanCluster and populateIndexClusterWithNearbyPoints, but it finds 11 clusters for 11 points,
+- Implemented euclideanCluster and recursivelyPopulateClusterWithNearbyPoints, but it finds 11 clusters for 11 points,
 
 
 

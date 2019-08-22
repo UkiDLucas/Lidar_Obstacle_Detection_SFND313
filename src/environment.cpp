@@ -105,10 +105,10 @@ void processSingleFrame(
 //            pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize, maxClusterSize);
 
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds
-        = pointProcessor.separateUniquePointCloudClusters(
-            obstaclesPointCloud);
+        = pointProcessor.separatePointCloudClusters(
+                    obstaclesPointCloud);
 
-//    cout << "separateUniquePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
+//    cout << "separatePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
 //    pointProcessor.numPoints(cluster);
     int clusterId = 0;
     int colorId = 0; // I have less colors than object, so I need to recycle
