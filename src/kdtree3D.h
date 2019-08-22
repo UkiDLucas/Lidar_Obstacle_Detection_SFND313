@@ -67,9 +67,9 @@ private:
         if (*node == NULL) {
             // if you encounter the NULL (root, or child) node,
             // assign given point3D in that node.
-            // dereference *node to set the actual value
+            // dereference *node to get or set the actual value
             *node = new Node(point3D, index);
-            return;
+            return; // nothing else to do
         }
 
         // Every vertical layer (treeDepth) of the tree
@@ -148,7 +148,7 @@ private:
 
 private:
     void searchDistanceNodeToPoint(
-            std::vector<float> targetPoint,
+            std::vector<float> incomingPoint,
             Node *currentNode,
             int treeDepth,
             float distanceTreshold,
@@ -156,7 +156,7 @@ private:
     {
         if (currentNode == NULL)
         {
-            std::cout << " current node is NULL, returning" << std::endl;
+            std::cerr << " Came to a NULL NODE, point was not close to any nodes of the KD Tree." << std::endl;
             // If the current node node does not exist, there is nothing to search
             return;
         }
@@ -168,7 +168,7 @@ private:
                 << distanceTreshold
                 << " meters, " << std::endl
                 << " incoming point     = ";
-        for (auto i: targetPoint)
+        for (auto i: incomingPoint)
             std::cout << i << " ";
         cout << std::endl;
         std::cout
@@ -177,7 +177,7 @@ private:
             std::cout << i << " ";
         cout << std::endl;
 
-        if (isNearby( targetPoint, currentNode->point, distanceTreshold))
+        if (isNearby(incomingPoint, currentNode->point, distanceTreshold))
         {
             std::cout << " adding current node to results <<<<<<<<<<<<<<<<< "
                       << currentNode->pointCloudIndex;
@@ -194,18 +194,18 @@ private:
         // The following variables are superficial, but greatly add to readability and maintenance of the code.
         // TODO in production I might remove the variables to speed up the code.
 
-        float incomingValue = targetPoint[xyz];
+        float incomingValue = incomingPoint[xyz];
         float currentValue = currentNode->point[xyz];
 
         // IMPORTANT: this needs to be the EXACTLY SAME LOGIC as TREE INSERT.
         if ( incomingValue <= currentValue ) { // flow LEFT on the tree
             std::cout << " search LEFT branch " << std::endl;
-            searchDistanceNodeToPoint(targetPoint, currentNode->leftNode, treeDepth + 1, distanceTreshold,
+            searchDistanceNodeToPoint(incomingPoint, currentNode->leftNode, treeDepth + 1, distanceTreshold,
                                       resultIds);
         } else
         {
             std::cout << " search RIGHT branch " << std::endl;
-            searchDistanceNodeToPoint(targetPoint, currentNode->rightNode, treeDepth + 1, distanceTreshold,
+            searchDistanceNodeToPoint(incomingPoint, currentNode->rightNode, treeDepth + 1, distanceTreshold,
                                       resultIds);
         }
 
@@ -231,11 +231,11 @@ private:
 
     public:
 	// return a list of point IDs in the tree that are within distance of the targetPoint
-	std::vector<int> search(std::vector<float> targetPoint, float distanceTreshhold)
+	std::vector<int> search(std::vector<float> incomingPoint, float distanceTreshhold)
 	{
 		std::vector<int> resultIds;
 		int treeDepth = 0;
-        searchDistanceNodeToPoint(targetPoint, root, treeDepth, distanceTreshhold, resultIds);
+        searchDistanceNodeToPoint(incomingPoint, root, treeDepth, distanceTreshhold, resultIds);
 		
 //		std::cout << "search() results: " << resultIds.size() << std::endl;
 		
