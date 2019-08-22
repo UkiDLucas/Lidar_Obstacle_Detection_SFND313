@@ -129,7 +129,7 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> searchHelper(</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> compareDistanceOfNodeToPoint(</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        std::vector&lt;float&gt; targetPoint, </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <a class="code" href="struct_node.html">Node</a>* currentNode, </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordtype">int</span> treeDepth, </div>
@@ -139,7 +139,7 @@ $(function() {
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        std::cout </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            &lt;&lt; std::endl </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            &lt;&lt; treeDepth</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            &lt;&lt; <span class="stringliteral">&quot; searchHelper: &quot;</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            &lt;&lt; <span class="stringliteral">&quot; compareDistanceOfNodeToPoint: &quot;</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            &lt;&lt; <span class="stringliteral">&quot; distanceTreshhold = &quot;</span> </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            &lt;&lt; distanceTreshhold </div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            &lt;&lt; <span class="stringliteral">&quot; meters, &quot;</span></div>
@@ -176,14 +176,14 @@ $(function() {
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">if</span>( (targetPoint[treeDepth % 2] - distanceTreshhold) &lt;= currentNode-&gt;point[treeDepth % 2] )</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            {</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                std::cout &lt;&lt; <span class="stringliteral">&quot; choosing LEFT branch &quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                searchHelper(targetPoint, currentNode-&gt;left, treeDepth+1, distanceTreshhold, resultIds);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                compareDistanceOfNodeToPoint(targetPoint, currentNode-&gt;left, treeDepth+1, distanceTreshhold, resultIds);</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            }</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="comment">// else?</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="comment">// flow RIGHT on the tree</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <span class="keywordflow">if</span>( (targetPoint[treeDepth % 2] + distanceTreshhold) &gt; currentNode-&gt;point[treeDepth % 2] )          </div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            {</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                std::cout &lt;&lt; <span class="stringliteral">&quot; choosing RIGHT branch &quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                searchHelper(targetPoint, currentNode-&gt;right, treeDepth+1, distanceTreshhold, resultIds);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                compareDistanceOfNodeToPoint(targetPoint, currentNode-&gt;right, treeDepth+1, distanceTreshhold, resultIds);</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            }</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        }</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
@@ -193,7 +193,7 @@ $(function() {
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    {</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        std::vector&lt;int&gt; resultIds;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordtype">int</span> treeDepth = 0;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        searchHelper(targetPoint, root, treeDepth, distanceTreshhold, resultIds);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        compareDistanceOfNodeToPoint(targetPoint, root, treeDepth, distanceTreshhold, resultIds);</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        </div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        std::cout &lt;&lt; <span class="stringliteral">&quot;search results: &quot;</span> &lt;&lt; resultIds.size() &lt;&lt; <span class="stringliteral">&quot; &quot;</span>;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        </div>

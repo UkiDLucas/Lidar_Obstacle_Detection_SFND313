@@ -100,19 +100,18 @@ private:
 
 
 private:
-    void searchHelper(
+    void compareDistanceOfNodeToPoint(
             std::vector<float> targetPoint,
             Node *currentNode,
             int treeDepth,
-            float distanceTreshhold,
+            float distanceTreshold,
             std::vector<int> &resultIds) // address reference so we can keep changes
     {
         std::cout
                 << std::endl
-                << treeDepth
-                << " searchHelper: "
-                << " distanceTreshhold = "
-                << distanceTreshhold
+                << "depth: " << treeDepth
+                << " treshold = "
+                << distanceTreshold
                 << " meters, "
                 << "targetPoint = ";
         for (auto i: targetPoint)
@@ -121,11 +120,12 @@ private:
 
         // If the current node node does not exist, there is nothing to search
         if (currentNode != NULL) {
-            //std::cout << " current point = ";
+            std::cout << " current node point = ";
 
-//            for (auto i: currentNode->point)
-//                std::cout << i << " ";
+            for (auto i: currentNode->point)
+                std::cout << i << " ";
 
+            cout << std::endl;
             //  You need 3D (including Z) detection, especially for bridges, trees, street wires, etc.
 
             // The following variables are superficial, but greatly add to readability and maintenance of the code.
@@ -136,9 +136,21 @@ private:
             float targetX = targetPoint[0];
             float targetY = targetPoint[1];
             float targetZ = targetPoint[2];
-            float boundryX = targetX - distanceTreshhold;
-            float boundryY = targetY - distanceTreshhold;
-            float boundryZ = targetZ - distanceTreshhold;
+            float boundryX = targetX - distanceTreshold;
+            float boundryY = targetY - distanceTreshold;
+            float boundryZ = targetZ - distanceTreshold;
+
+            bool isNodeFoundForThisPoint = false;
+
+
+            float distance = sqrt(
+                    (nodeX - targetX) * (nodeX - targetX)
+                    + (nodeY - targetY) * (nodeY - targetY)
+                    + (nodeZ - targetZ) * (nodeZ - targetZ)
+            );
+            std::cout << " distance = " << distance << std::endl;
+
+
 
             // QUICK CHECK node is within target threshold bounding box
             if ((nodeX >= boundryX && nodeX <= boundryX)
@@ -154,34 +166,44 @@ private:
                         + (nodeY - targetY) * (nodeY - targetY)
                         + (nodeZ - targetZ) * (nodeZ - targetZ)
                         );
-                std::cout << " distance = " << distance;
+                std::cout << " distance = " << distance << std::endl;
 
-                if (distance <= distanceTreshhold) {
-//                    std::cout << " adding current node pointCloudIndex to results <<<<<<<<<<<<<<<<< "
-//                              << currentNode->pointCloudIndex;
+                if (distance <= distanceTreshold) {
+                    std::cout << " adding current node pointCloudIndex to results <<<<<<<<<<<<<<<<< "
+                              << currentNode->pointCloudIndex;
+
                     resultIds.push_back(currentNode->pointCloudIndex); // add this pointCloudIndex to search results
+                    isNodeFoundForThisPoint = true;
                 }
+            }else{
+
+
             }
 
-            // Every vertical layer (treeDepth) of the tree
-            // is dedicated to one coordinate comparison only, e.g. x, y, or z.
-            // We are using mod 3 to achieve that.
-            uint xyz = treeDepth % 3; // results in 0, 1, or 2
 
-            // The following variables are superficial, but greatly add to readability and maintenance of the code.
-            // TODO in production I might remove the variables to speed up the code.
+            if(!isNodeFoundForThisPoint) // keep looking in deeper nodes
+            {
+                // Every vertical layer (treeDepth) of the tree
+                // is dedicated to one coordinate comparison only, e.g. x, y, or z.
+                // We are using mod 3 to achieve that.
+                uint xyz = treeDepth % 3; // results in 0, 1, or 2
 
-            float incomingValue = targetPoint[xyz];
-            float currentValue = currentNode->point[xyz];
+                // The following variables are superficial, but greatly add to readability and maintenance of the code.
+                // TODO in production I might remove the variables to speed up the code.
 
-            // IMPORTANT: this needs to be the EXACTLY SAME LOGIC as TREE INSERT.
-            // flow LEFT on the tree
-            if ( incomingValue <= currentValue ) {
-                //std::cout << " choosing LEFT branch " << std::endl;
-                searchHelper(targetPoint, currentNode->leftNode, treeDepth + 1, distanceTreshhold, resultIds);
-            } else{
-                //std::cout << " choosing RIGHT branch " << std::endl;
-                searchHelper(targetPoint, currentNode->rightNode, treeDepth + 1, distanceTreshhold, resultIds);
+                float incomingValue = targetPoint[xyz];
+                float currentValue = currentNode->point[xyz];
+
+                // IMPORTANT: this needs to be the EXACTLY SAME LOGIC as TREE INSERT.
+                if ( incomingValue <= currentValue ) { // flow LEFT on the tree
+                    std::cout << " choosing LEFT branch " << std::endl;
+                    compareDistanceOfNodeToPoint(targetPoint, currentNode->leftNode, treeDepth + 1, distanceTreshold,
+                                                 resultIds);
+                } else{
+                    std::cout << " choosing RIGHT branch " << std::endl;
+                    compareDistanceOfNodeToPoint(targetPoint, currentNode->rightNode, treeDepth + 1, distanceTreshold,
+                                                 resultIds);
+                }
             }
         } // if (currentNode != NULL)
     }
@@ -210,7 +232,7 @@ private:
 	{
 		std::vector<int> resultIds;
 		int treeDepth = 0;
-		searchHelper(targetPoint, root, treeDepth, distanceTreshhold, resultIds);
+        compareDistanceOfNodeToPoint(targetPoint, root, treeDepth, distanceTreshhold, resultIds);
 		
 //		std::cout << "search() results: " << resultIds.size() << std::endl;
 		

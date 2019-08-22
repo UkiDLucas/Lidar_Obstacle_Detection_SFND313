@@ -177,7 +177,7 @@ Total class time spent: start ~33 hours, end ~34 hours.
 
 Total class time spent: start ~31.5 hours, end ~33 hours.
 
-- Cleaned up searchHelper, the bug is in the way I pass in resultIds: 
+- Cleaned up compareDistanceOfNodeToPoint, the bug is in the way I pass in resultIds: 
   - std::vector<int>& resultIds - fixed
 
 
