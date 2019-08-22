@@ -196,20 +196,27 @@ private:
 
         // The following variables are superficial, but greatly add to readability and maintenance of the code.
         // TODO in production I might remove the variables to speed up the code.
-
         float incomingValue = incomingPoint[xyz];
         float currentValue = currentNode->point[xyz];
 
         // IMPORTANT: this needs to be the EXACTLY SAME LOGIC as TREE INSERT.
         if ( incomingValue <= currentValue ) { // flow LEFT on the tree
             std::cout << " search LEFT branch " << std::endl;
-            searchDistanceNodeToPoint(incomingPoint, currentNode->leftNode, treeDepth + 1, distanceTreshold,
-                                      resultIds);
+            searchDistanceNodeToPoint(
+                    incomingPoint,
+                    currentNode->leftNode,
+                    treeDepth + 1,
+                    distanceTreshold,
+                    resultIds);
         } else
         {
             std::cout << " search RIGHT branch " << std::endl;
-            searchDistanceNodeToPoint(incomingPoint, currentNode->rightNode, treeDepth + 1, distanceTreshold,
-                                      resultIds);
+            searchDistanceNodeToPoint(
+                    incomingPoint,
+                    currentNode->leftNode,
+                    treeDepth + 1,
+                    distanceTreshold,
+                    resultIds);
         }
 
     }
