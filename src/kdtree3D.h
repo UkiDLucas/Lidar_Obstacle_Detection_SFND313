@@ -56,19 +56,19 @@ private:
      * ASSIGN GIVEN POINT TO THE CORRECT NODE
      * @param node - Node** node -- double pointer, memory address. This is the current node we operate on.
      * @param treeDepth This is the horizontal layer of the tree we are on, counting from the top.
-     * @param point3D - this is a point we try to assign. Example point3D {22.9123, 7.071, 1.02}
+     * @param point - this is a point we try to assign. Example point3D {22.9123, 7.071, 1.02}
      * @param index - this is the INDEX of the ORIGINAL Point Cloud
      */
-    void insertPointToCorrectNode(Node **node, uint treeDepth, std::vector<float> point3D, int index) {
+    void insertPointToCorrectNode(Node **node, uint treeDepth, std::vector<float> point, int index) {
 
-//        cout << "insertPointToCorrectNode() point3D at " << point3D.at(0) << ", " << point3D.at(1) << ", "  << point3D.at(2) << endl;
-//        cout << "insertPointToCorrectNode() point3D []" << point3D[0] << ", " << point3D[1] << ", "  << point3D[2] << endl;
+//        cout << "insertPointToCorrectNode() point at " << point.at(0) << ", " << point.at(1) << ", "  << point.at(2) << endl;
+//        cout << "insertPointToCorrectNode() point []" << point[0] << ", " << point[1] << ", "  << point[2] << endl;
 
         if (*node == NULL) {
             // if you encounter the NULL (root, or child) node,
-            // assign given point3D in that node.
+            // assign given point in that node.
             // dereference *node to get or set the actual value
-            *node = new Node(point3D, index);
+            *node = new Node(point, index);
             return; // nothing else to do
         }
 
@@ -81,21 +81,21 @@ private:
 //            cout << "insertPointToCorrectNode() treeDepth " << treeDepth << endl;
 //            cout << "insertPointToCorrectNode() xyz " << xyz << endl;
 //            cout << "insertPointToCorrectNode() (*node)->point[xyz] " << (*node)->point[xyz] << endl;
-//            cout << "insertPointToCorrectNode() point3D[xyz] " << point3D[xyz] << endl;
+//            cout << "insertPointToCorrectNode() point[xyz] " << point[xyz] << endl;
 
         // The following variables are superficial, but greatly add to readability and maintenance of the code.
         // TODO in production I might remove the variables to speed up the code.
-        float incomingValue = point3D[xyz]; // from the Point Cloud we insert
+        float incomingValue = point[xyz]; // from the Point Cloud we insert
         float existingValue = (*node)->point[xyz]; // of the existing node
 
         if (incomingValue <= existingValue)
         {
             // Incoming lesser or equal values go LEFT
-            insertPointToCorrectNode(&((*node)->leftNode), treeDepth + 1, point3D, index);
+            insertPointToCorrectNode(&((*node)->leftNode), treeDepth + 1, point, index);
         }
         else {
             // Incoming greater values go RIGHT
-            insertPointToCorrectNode(&((*node)->rightNode), treeDepth + 1, point3D, index);
+            insertPointToCorrectNode(&((*node)->rightNode), treeDepth + 1, point, index);
         }
     }
 
