@@ -100,7 +100,7 @@ private:
 
 
 private:
-    void compareDistanceOfNodeToPoint(
+    void searchDistanceNodeToPoint(
             std::vector<float> targetPoint,
             Node *currentNode,
             int treeDepth,
@@ -112,7 +112,7 @@ private:
                 << "depth: " << treeDepth
                 << " treshold = "
                 << distanceTreshold
-                << " meters, "
+                << " meters, " << std::endl
                 << "targetPoint = ";
         for (auto i: targetPoint)
             std::cout << i << " ";
@@ -196,13 +196,13 @@ private:
 
                 // IMPORTANT: this needs to be the EXACTLY SAME LOGIC as TREE INSERT.
                 if ( incomingValue <= currentValue ) { // flow LEFT on the tree
-                    std::cout << " choosing LEFT branch " << std::endl;
-                    compareDistanceOfNodeToPoint(targetPoint, currentNode->leftNode, treeDepth + 1, distanceTreshold,
-                                                 resultIds);
+                    std::cout << " search LEFT branch " << std::endl;
+                    searchDistanceNodeToPoint(targetPoint, currentNode->leftNode, treeDepth + 1, distanceTreshold,
+                                              resultIds);
                 } else{
-                    std::cout << " choosing RIGHT branch " << std::endl;
-                    compareDistanceOfNodeToPoint(targetPoint, currentNode->rightNode, treeDepth + 1, distanceTreshold,
-                                                 resultIds);
+                    std::cout << " search RIGHT branch " << std::endl;
+                    searchDistanceNodeToPoint(targetPoint, currentNode->rightNode, treeDepth + 1, distanceTreshold,
+                                              resultIds);
                 }
             }
         } // if (currentNode != NULL)
@@ -232,7 +232,7 @@ private:
 	{
 		std::vector<int> resultIds;
 		int treeDepth = 0;
-        compareDistanceOfNodeToPoint(targetPoint, root, treeDepth, distanceTreshhold, resultIds);
+        searchDistanceNodeToPoint(targetPoint, root, treeDepth, distanceTreshhold, resultIds);
 		
 //		std::cout << "search() results: " << resultIds.size() << std::endl;
 		
