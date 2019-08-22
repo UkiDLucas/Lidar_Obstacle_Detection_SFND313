@@ -308,7 +308,7 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-    std::cout << "separateUniquePointCloudClusters() found " << uniqueClustersClouds.size() << " clusters, "
+    std::cout << " separateUniquePointCloudClusters() found " << uniqueClustersClouds.size() << " clusters, "
             << "and took " << elapsedTime.count() << " milliseconds"
             << std::endl;
 
