@@ -88,7 +88,7 @@ private:
 
     KdTree3D *
     populateTree(
-            const pcl::PointCloud<pcl::PointXYZI>::Ptr &inputCloud,
-            std::vector<std::vector<float>> &points) const;
+            const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints,
+            std::vector<std::vector<float>> &pointsXYZ) const;
 };
 #endif /* PROCESSPOINTCLOUDS_H_ */

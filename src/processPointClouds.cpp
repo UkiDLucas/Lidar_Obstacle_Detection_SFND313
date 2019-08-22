@@ -274,14 +274,12 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
     vector<typename PointCloud<PointXYZI>::Ptr> uniqueClustersClouds;
     vector<vector<float>> points; // TODO maybe later, operate on the inputCloud and not points
 
-    KdTree3D *tree = populateTree(inputCloud, points);
+    std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
+    KdTree3D *tree = populateTree(cloudPoints, points);
 
-    // Euclidean SORTING using the TREE
     std::vector<bool> processed(inputCloud->size(), false); // same amount as incoming points, all default false.
-    //std::vector<bool> processed(points.size(), false); // same amount as incoming points, all default false.
 
     // PROCESS EACH POINT INTO A CLUSTER
-    std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
     int i = 0;
     while (i < points.size()) {
         if (processed[i]) // Was this point was processed?
@@ -321,25 +319,25 @@ ProcessPointClouds::separateUniquePointCloudClusters(const typename pcl::PointCl
 
 
 
-KdTree3D *ProcessPointClouds::populateTree(const pcl::PointCloud<pcl::PointXYZI>::Ptr &inputCloud,
-                                           std::vector<std::vector<float>> &points) const {
+KdTree3D *ProcessPointClouds::populateTree(const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints,
+                                           std::vector<std::vector<float>> &pointsXYZ) const {
     KdTree3D* tree = new KdTree3D;
 
 
-    std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
-//    std::cout << "separateUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " points" << std::endl;
+    //std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints = inputCloud->points;
+//    std::cout << "separateUniquePointCloudClusters inputCloud has  " << cloudPoints.size() << " pointsXYZ" << std::endl;
 
 
     // INSERT POINTS INTO THE TREE
     for (int index = 0; index < cloudPoints.size(); index++) // iterate thru every point
     {
         // example point (3.81457,2.23129,-0.890143 - 0.571429)
-        // cout << "separateUniquePointCloudClusters points for index = " << points[index] << " points" << endl;
+        // cout << "separateUniquePointCloudClusters pointsXYZ for index = " << pointsXYZ[index] << " pointsXYZ" << endl;
         pcl::PointXYZI pointXYZI = extractPointFromPointCloud(cloudPoints, index);
         //cout << "separateUniquePointCloudClusters point for X = " << pointXYZI.x << " Y =" << pointXYZI.y << endl;
 
         std::vector<float> point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
-        points.push_back(point);
+        pointsXYZ.push_back(point);
 
         // void insert(std::vector<float> point, int pointCloudIndex)
         tree->insert(point, index); // actual point and original index
