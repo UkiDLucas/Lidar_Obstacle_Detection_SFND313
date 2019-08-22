@@ -318,15 +318,15 @@ ProcessPointClouds::convertCloudToPoints(
 {
     std::vector<float> point; // define vector that we will reuse, {3.81457,2.23129,-0.890143 - 0.571429}
     pcl::PointXYZI pointXYZI; // define PointXYZI that we will reuse
-    std::vector<std::vector<float>> pointsXYZ;
+    std::vector<std::vector<float>> pointsVector; // RETURN TYPE
 
     for (int index = 0; index < cloudPoints.size(); index++) // iterate thru every point
     {
         pointXYZI = extractPointFromPointCloud(cloudPoints, index);
         point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
-        pointsXYZ.push_back(point);
+        pointsVector.push_back(point);
     }
-    return pointsXYZ;
+    return pointsVector;
 }
 
 
