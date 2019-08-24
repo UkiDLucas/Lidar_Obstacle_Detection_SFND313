@@ -48,7 +48,9 @@ void processSingleFrame(
 {
     // START TIMER
     auto startTime = std::chrono::steady_clock::now();
-    renderPointCloud(viewer, inputCloud, "ALL_POINTS_GRAY", colorGray);
+//    renderPointCloud(viewer, inputCloud, "ALL_POINTS_GRAY", colorGray);
+
+    // DOWNSIZE AND CROP
     inputCloud = preprocessDownsizePointCloud(pointProcessor, inputCloud);
 
     //renderPointCloud(viewer, inputCloud, "inputCloud");
@@ -72,7 +74,7 @@ void processSingleFrame(
     }
 
     // RENDER CLOUDS
-    renderPointCloud(viewer, onRoadPlanePoints, "ROAD_PLANE_GREEN", colorGreen);
+//    renderPointCloud(viewer, onRoadPlanePoints, "ROAD_PLANE_GREEN", colorGreen);
     renderPointCloud(viewer, obstaclesPointCloud, "ALL_OBSTACLES_WHITE", colorWhite);
 
 
@@ -102,9 +104,9 @@ void processSingleFrame(
         // RENDER ONE OBSTACLE
         renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[colorId]);
         // RENDER A BOX AROUND ONE OBSTACLE
-        if(cluster->points.size() > 5){ //TODO Bound only LARGE OBJECTS, in production I might re-think this
+        if(cluster->points.size() > 5){ //TODO: Bound only LARGE OBJECTS, in production I might re-think this
             Box box = pointProcessor.boundingBox(cluster);
-            renderBox(viewer, box, clusterId, colorRed, 0.5);
+            renderBox(viewer, box, clusterId, colorRed, 0.2);
         }
 
         ++clusterId;
