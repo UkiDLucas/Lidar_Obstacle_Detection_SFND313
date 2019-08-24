@@ -30,6 +30,16 @@ https://github.com/UkiDLucas/SFND313_Lidar_Obstacle_Detection/commits/master
 
 
 
+I can clearly see all the obstacles, yet the separation does not fully work.
+
+
+
+<img src="media/obstacles 2019-08-24 at 8.01.04 AM.png" />
+
+
+
+
+
 ### "Lidar Final Project"
 
 https://www.youtube.com/watch?v=lGbHW8SMu24
@@ -46,28 +56,9 @@ In this project you will take everything that you have learned for processing po
 
 
 
-## Monday, July 29, 2019
+### 
 
-Total class time spent: start ~35 hours, end ~36 hours.
-
-### Lesson 4 "Working with Real PCD"
-
-- Downsampling/filtering the Point Cloud Data
--  The streaming point cloud (animation) is working!
-
-
-
-
-
-
-
-## Saturday, July 27, 2019
-
-Total class time spent: start ~34 hours, end ~35 hours.
-
-### Lesson 4 "Working with Real PCD"
-
-- Rendring the cloud
+Rendring the cloud
 
 <img src="media/Real PCD 2019-07-27 at 7.22.15 PM.png" />
 
@@ -79,13 +70,7 @@ Total class time spent: start ~34 hours, end ~35 hours.
 
 
 
-## Tuesday, July 23, 2019
-
-Total class time spent: start ~33 hours, end ~34 hours.
-
-### Lesson 4 "Working with Real PCD"
-
-- Just started, but it is not rendering
+- 
 
 
 
@@ -95,42 +80,13 @@ Total class time spent: start ~33 hours, end ~34 hours.
 
 
 
-### Lesson 3.9 "Bounding Boxes"
-
-- Implemented code
+### Bounding Boxes
 
 <img src="media/environment 2019-07-23 at 4.25.55 PM.png" />
 
 
 
-### Lesson 3.8 "Euclidean pclClustering"
 
-- Implemented euclideanCluster and recursivelyPopulateClusterWithNearbyPoints, but it finds 11 clusters for 11 points,
-
-
-
-
-
-
-
-
-
-
-
-## Monday, July 22, 2019
-
-Total class time spent: start ~31.5 hours, end ~33 hours.
-
-- Cleaned up searchDistanceNodeToPoint, the bug is in the way I pass in resultIds: 
-  - std::vector<int>& resultIds - fixed
-
-
-
-
-
-## Sunday, July 21, 2019
-
-Total class time spent: start ~30 hours, end ~31.5 hours.
 
 Read few articles on Machine Learning on MacOS, CUDA (NVidia) vs OpenCL (AMD) GPU.
 
@@ -143,29 +99,9 @@ $ plaidml-setup
 
 - Installing [PlaidML](https://vertexai-plaidml.readthedocs-hosted.com/en/latest/index.html)
 
-0815 - 0945
-
-### Lesson 3.7 Searching Points in KD-Tree
-
-- fixing bugs
-- Cleaning and adding documentation to the code
-- Still getting bad result pclClustering found 0 and took 0 milliseconds
-
-### 
 
 
 
-
-
-
-
-
-
-
-
-## Saturday, July 20, 2019
-
-Total class time spent: start ~29.5 hours, end ~30 hours.
 
 - I have re-read documentation about Euclidean Cluster Extraction: http://pointclouds.org/documentation/tutorials/cluster_extraction.php
 - Added documentation to my project: https://github.com/UkiDLucas/SFND313_Lidar_Obstacle_Detection#ukis-class-progress
@@ -203,11 +139,9 @@ The KD Tree is a form of binary tree where you sort the e.g. points (X,Y), shown
 
 
 
-## Thursday, July 18, 2019
+ 
 
-Total class time spent: ~27 hours.
-
-Today, I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. 
+I was able to implement the first version of RANSAC 3D that fits a plane (e.g. road surface) to a Point Cloud data. 
 
 <img src="media/RANSAC 3D segmentation 2019-07-18 at 4.03.06 PM.png" width="800" />
 

@@ -94,9 +94,14 @@ void processSingleFrame(
         = pointProcessor.separatePointCloudClusters(
                     obstaclesPointCloud);
 
-    cout << "separatePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
+    if (uniqueClustersClouds.size() > 1) {
+        cout << "separatePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds"
+             << endl;
+        processUniqueObstacles(viewer, pointProcessor, uniqueClustersClouds);
+    }
+    else
+        cerr << "separatePointCloudClusters() ONLY ONE OBSTACLE POINT CLOUD DETECTED, NOT RIGHT!" << endl;
 
-    processUniqueObstacles(viewer, pointProcessor, uniqueClustersClouds);
 
     auto endTime = std::chrono::steady_clock::now();
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
