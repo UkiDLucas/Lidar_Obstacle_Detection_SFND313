@@ -24,67 +24,11 @@ Point Cloud Library (PCL) allows us to **divide an unorganized collection of 3D 
 
 # Class Progress
 
-## Sunday, Aug 18, 2019
+For progress, please monitor my frequent GitHub commits:
 
-Total class time spent: start 55 hours, end TBD hours.
-
-- Making corrections to KD Tree to calculate distance in 3D
-- 
-
-## Sunday, Aug 18, 2019
-
-Total class time spent: start 51 hours, end 55 hours.
-
-- Got the project pipeline to work all the way thru!
+https://github.com/UkiDLucas/SFND313_Lidar_Obstacle_Detection/commits/master
 
 
-
-## Friday, Aug 16, 2019
-
-Total class time spent: start 48 hours, end 51 hours.
-
-- Separating the obstacle cloud into individual obstacle point clouds
-
-- Turned on the whole pipeline, including the bounding boxes
-
-- Working on separatePointCloudClusters
-
-  
-
-## Friday, Aug 9, 2019
-
-Total class time spent: start 43 hours, end 48 hours.
-
-- Implementing my own PointProcessor.separatePointCloudClusters(obstaclesPointCloud)
-- Inserting cloud points into the KdTree3D
-- Added Euclidean Clustering function
-- Fixed the linker problem, but had to remove PointT template
-
-
-
-## Wednesday, July 31, 2019
-
-Total class time spent: start ~40 hours, end ~43 hours.
-
-- Implemented my own 3D KD Tree 
-
-
-
-
-
-## Wednesday, July 31, 2019
-
-Total class time spent: start ~37 hours, end ~40 hours.
-
-- Implemented Road Plane separation from the Obstacle Cloud
-- Bounding Boxes
-- The project runs well 
-
-
-
-## Tuesday, July 30, 2019
-
-Total class time spent: start ~36 hours, end ~37 hours.
 
 ### "Lidar Final Project"
 
