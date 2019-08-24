@@ -33,6 +33,9 @@ std::vector<Color> colors = { colorBlue, colorTeal, colorViolet, colorGray, colo
 PointCloud<PointXYZI>::Ptr &
 preprocessDownsizePointCloud(ProcessPointClouds &pointProcessor, PointCloud<PointXYZI>::Ptr &inputCloud);
 
+void processUniqueObstacles(visualization::PCLVisualizer::Ptr &viewer, ProcessPointClouds &pointProcessor,
+                            const vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> &uniqueClustersClouds);
+
 /**
  * This method takes a single frame of Point Cloud Data,
  * and processes it,
@@ -91,18 +94,27 @@ void processSingleFrame(
         = pointProcessor.separatePointCloudClusters(
                     obstaclesPointCloud);
 
-//    cout << "separatePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
-//    pointProcessor.numPoints(cluster);
+    cout << "separatePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds" << endl;
+
+    processUniqueObstacles(viewer, pointProcessor, uniqueClustersClouds);
+
+    auto endTime = std::chrono::steady_clock::now();
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
+    std::cout << "Processing a single frame took " << elapsedTime.count() << " milliseconds, or " << (1000/elapsedTime.count()) << " FPS" << std::endl;
+}
+
+void processUniqueObstacles(visualization::PCLVisualizer::Ptr &viewer, ProcessPointClouds &pointProcessor,
+                            const vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> &uniqueClustersClouds) {
     int clusterId = 0;
     int colorId = 0; // I have less colors than object, so I need to recycle
 
-    for(pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : uniqueClustersClouds)
+    for(PointCloud<PointXYZI>::Ptr cluster : uniqueClustersClouds)
     {
 //        std::cout << "Iterating thru cluster " << clusterId
 //            << " with " << cluster->points.size() << " points"
 //            << endl;
         // RENDER ONE OBSTACLE
-        renderPointCloud(viewer, cluster, "obstCloud" + std::to_string(clusterId), colors[colorId]);
+        renderPointCloud(viewer, cluster, "obstCloud" + to_string(clusterId), colors[colorId]);
         // RENDER A BOX AROUND ONE OBSTACLE
         if(cluster->points.size() > 5){ //TODO: Bound only LARGE OBJECTS, in production I might re-think this
             Box box = pointProcessor.boundingBox(cluster);
@@ -110,16 +122,11 @@ void processSingleFrame(
         }
 
         ++clusterId;
-        if (colorId < colors.size() - 1)
-            ++colorId;
-        else
-            colorId = 0;
+        if (colorId < colors.size() - 1) ++colorId;
+        else colorId = 0;
     }
-    auto endTime = std::chrono::steady_clock::now();
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
-    std::cout << "Processing a single frame took " << elapsedTime.count() << " milliseconds, or " << (1000/elapsedTime.count()) << " FPS" << std::endl;
-
 }
+
 
 PointCloud<PointXYZI>::Ptr &
 preprocessDownsizePointCloud(ProcessPointClouds &pointProcessor, PointCloud<PointXYZI>::Ptr &inputCloud) {/**
