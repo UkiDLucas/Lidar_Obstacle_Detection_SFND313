@@ -30,6 +30,9 @@ std::vector<Color> colors = { colorBlue, colorTeal, colorViolet, colorGray, colo
 
 // IMPLEMENTATION
 
+PointCloud<PointXYZI>::Ptr &
+preprocessDownsizePointCloud(ProcessPointClouds &pointProcessor, PointCloud<PointXYZI>::Ptr &inputCloud);
+
 /**
  * This method takes a single frame of Point Cloud Data,
  * and processes it,
@@ -45,31 +48,8 @@ void processSingleFrame(
 {
     // START TIMER
     auto startTime = std::chrono::steady_clock::now();
+    inputCloud = preprocessDownsizePointCloud(pointProcessor, inputCloud);
 
-    /**
-     * DECREASE THE AMOUNT OF POINTS WE ARE PROCESSING
-     * In practice, the area processed and the zoom could be adjusted from frame-to-frame.
-     * The interesting sub-parts of the frame could be insulated into separate point clouds
-     * and processed at higher resolution, i.e. tracking pedestrians, posts, street work obstacles
-     * The rest of the cloud could be tracked in low resolution i.e. cars driving behind us.
-     */
-    float downSampleTo = 0.20; // meters e.g. 6cm = 0.06
-    pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
-
-    // REMOVE THE VEHICLE ROOF POINTS
-    pointProcessor.cropVehicleRoof(inputCloud);
-
-    // CROP REGION (THE HORIZON)
-    // TODO crop the obstacles AFTER segmentation
-    float seeForward    = 40.0; // in reality as much as 250m
-    float seeBackwards  = 10.0; // meters
-    float seeRight      = 5.0; // meters, right-hand side driving e.g. 8.0
-    float seeLeft       = 7.2; // meters, right-hand side driving e.g. 13.0
-    float seeUp         = 2.0; // meters, from the roof of the car e.g. 3.0
-    float seeDown       = 2.0; // meters, from the roof of the car
-    Eigen::Vector4f minRange = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
-    Eigen::Vector4f maxRange = Eigen::Vector4f (seeForward, seeLeft, seeUp, 1);
-    pointProcessor.cropRegion(inputCloud, minRange, maxRange);
     //renderPointCloud(viewer, inputCloud, "inputCloud");
 
 
@@ -136,6 +116,34 @@ void processSingleFrame(
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime);
     std::cout << "Processing a single frame took " << elapsedTime.count() << " milliseconds, or " << (1000/elapsedTime.count()) << " FPS" << std::endl;
 
+}
+
+PointCloud<PointXYZI>::Ptr &
+preprocessDownsizePointCloud(ProcessPointClouds &pointProcessor, PointCloud<PointXYZI>::Ptr &inputCloud) {/**
+ * DECREASE THE AMOUNT OF POINTS WE ARE PROCESSING
+ * In practice, the area processed and the zoom could be adjusted from frame-to-frame.
+ * The interesting sub-parts of the frame could be insulated into separate point clouds
+ * and processed at higher resolution, i.e. tracking pedestrians, posts, street work obstacles
+ * The rest of the cloud could be tracked in low resolution i.e. cars driving behind us.
+ */
+    float downSampleTo = 0.20; // meters e.g. 6cm = 0.06
+    pointProcessor.downsizeUsingVoxelGrid(inputCloud, downSampleTo);
+
+    // REMOVE THE VEHICLE ROOF POINTS
+    pointProcessor.cropVehicleRoof(inputCloud);
+
+    // CROP REGION (THE HORIZON)
+// TODO crop the obstacles AFTER segmentation
+    float seeForward    = 40.0; // in reality as much as 250m
+    float seeBackwards  = 10.0; // meters
+    float seeRight      = 5.0; // meters, right-hand side driving e.g. 8.0
+    float seeLeft       = 7.2; // meters, right-hand side driving e.g. 13.0
+    float seeUp         = 2.0; // meters, from the roof of the car e.g. 3.0
+    float seeDown       = 2.0; // meters, from the roof of the car
+    Eigen::Vector4f minRange = Eigen::Vector4f (-seeBackwards, -seeRight, -seeDown, 1);
+    Eigen::Vector4f maxRange = Eigen::Vector4f (seeForward, seeLeft, seeUp, 1);
+    pointProcessor.cropRegion(inputCloud, minRange, maxRange);
+    return inputCloud;
 }
 
 
