@@ -48,6 +48,7 @@ void processSingleFrame(
 {
     // START TIMER
     auto startTime = std::chrono::steady_clock::now();
+    renderPointCloud(viewer, inputCloud, "ALL_POINTS_GRAY", colorGray);
     inputCloud = preprocessDownsizePointCloud(pointProcessor, inputCloud);
 
     //renderPointCloud(viewer, inputCloud, "inputCloud");
@@ -71,8 +72,8 @@ void processSingleFrame(
     }
 
     // RENDER CLOUDS
-    renderPointCloud(viewer, onRoadPlanePoints, "road plane", colorGreen);
-//    renderPointCloud(viewer, obstaclesPointCloud, "obstaclesPointCloud", colorWhite);
+    renderPointCloud(viewer, onRoadPlanePoints, "ROAD_PLANE_GREEN", colorGreen);
+    renderPointCloud(viewer, obstaclesPointCloud, "ALL_OBSTACLES_WHITE", colorWhite);
 
 
 
