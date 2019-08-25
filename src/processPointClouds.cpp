@@ -277,8 +277,8 @@ ProcessPointClouds::separatePointCloudClusters(const typename pcl::PointCloud<pc
     pcl::PointXYZI pointXYZI;
 
     // USING a SET of unprocessed indices.
-    // Every INDEX that is processed will be removed. This is more optimal than:
-    // std::vector<bool> isProcessed(inputCloud->size(), false);
+    // Every INDEX that is processed will be REMOVED.
+    // This is more optimal than: std::vector<bool> isProcessed(inputCloud->size(), false);
     std:set<int> unProcessedIndices;
     for (int index = 0; index < pointValues.size(); index++) {
         unProcessedIndices.insert(index);
@@ -286,35 +286,41 @@ ProcessPointClouds::separatePointCloudClusters(const typename pcl::PointCloud<pc
     std::cout << "Created unProcessedIndices containing: " << unProcessedIndices.size() << " indices." << std::endl;
 
     // MAKE SURE YOU REPEAT THIS TO CREATE ALL CLUSTERS
-    for (int indexNextCluster = 0; indexNextCluster < pointValues.size(); indexNextCluster++) {
+    // Iterate through all the elements in a set and display the value.
+    for( set<int>::iterator it=unProcessedIndices.begin(); it!=unProcessedIndices.end(); ++it)
+    {
+        std::cout << " ITERATOR VALUE " << *it << endl;
+        cout << " unProcessedIndices size() " << unProcessedIndices.size() << endl;
+        unProcessedIndices.erase(*it);
 
-        // FOR ALL NEXT NOT PROCESSED POINT,
-        std::vector<int> nextCluster;
-        for (int index = 0; index < pointValues.size(); index++) {
-            if (isProcessed[index]) // Was this point was isProcessed?
-            {
-                index++; // move to the next point index
-                continue;
-            }
 
-            // This POINT index was NOT isProcessed.
-            // PROCESS EACH POINT INTO A CLUSTER
-            recursivelyPopulateClusterWithNearbyPoints(
-                    index, pointValues, nextCluster, isProcessed, tree, 0.5);
-        }
-        std::cout << "AFTER processing all pointValues, the nextCluster has " << nextCluster.size() << " pointValues." << std::endl;
-
-        // CONVERT Point INDEX to PointXYZI
-        uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
-
-        for (int index : nextCluster) {
-            pointXYZI = extractPointFromPointCloud(inputCloud->points, index);
-            uniqueCluster->push_back(pointXYZI);
-        }
-        nextCluster.clear();
-
-        // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
-        uniqueClustersClouds.push_back(uniqueCluster);
+//        // FOR ALL NEXT NOT PROCESSED POINT,
+//        std::vector<int> nextCluster;
+//        for (int index = 0; index < pointValues.size(); index++) {
+//            if (isProcessed[index]) // Was this point was isProcessed?
+//            {
+//                index++; // move to the next point index
+//                continue;
+//            }
+//
+//            // This POINT index was NOT isProcessed.
+//            // PROCESS EACH POINT INTO A CLUSTER
+//            recursivelyPopulateClusterWithNearbyPoints(
+//                    index, pointValues, nextCluster, isProcessed, tree, 0.5);
+//        }
+//        std::cout << "AFTER processing all pointValues, the nextCluster has " << nextCluster.size() << " pointValues." << std::endl;
+//
+//        // CONVERT Point INDEX to PointXYZI
+//        uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
+//
+//        for (int index : nextCluster) {
+//            pointXYZI = extractPointFromPointCloud(inputCloud->points, index);
+//            uniqueCluster->push_back(pointXYZI);
+//        }
+//        nextCluster.clear();
+//
+//        // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
+//        uniqueClustersClouds.push_back(uniqueCluster);
     }
 
 
