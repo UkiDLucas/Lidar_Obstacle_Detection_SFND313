@@ -212,8 +212,8 @@ void ProcessPointClouds::recursivelyPopulateClusterWithNearbyPoints(
         KdTree3D* tree,
         float distanceThreshold)
 {
-    processed[index] = true;
     cluster.push_back(index); // add this point index as it is already associated with this cluster
+    processed[index] = true; // has been added to cluster
 
     // find points that are close to this POINT
     std::vector<int> nearest = tree->search( points[index], distanceThreshold);
@@ -265,43 +265,57 @@ void ProcessPointClouds::recursivelyPopulateClusterWithNearbyPoints(
  * return as a list of clusters.
  */
 vector<typename PointCloud<PointXYZI>::Ptr>
-ProcessPointClouds::separatePointCloudClusters(const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
-{
+ProcessPointClouds::separatePointCloudClusters(const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) {
     auto startTime = std::chrono::steady_clock::now(); // Time the segmentation process
 
     // DECLARE VARIABLES OUTSIDE THE WHILE() LOOP to conserve on object creation.
     vector<typename PointCloud<PointXYZI>::Ptr> uniqueClustersClouds; // RETURN TYPE
-    vector<vector<float>> points = convertCloudToPoints(inputCloud->points);
-    KdTree3D *tree = populateTree( points);
-    std::vector<bool> processed(inputCloud->size(), false); // same amount as incoming points, all default false.
+    vector<vector<float>> pointValues = convertCloudToPoints(inputCloud->points);
+    KdTree3D *tree = populateTree(pointValues);
+    std::vector<bool> isProcessed(inputCloud->size(), false); // same amount as incoming pointValues, all default false.
     PointCloud<PointXYZI>::Ptr uniqueCluster;
     pcl::PointXYZI pointXYZI;
-    std::vector<int> cluster;
 
+    // USING a SET of unprocessed indices.
+    // Every INDEX that is processed will be removed. This is more optimal than:
+    // std::vector<bool> isProcessed(inputCloud->size(), false);
+    std:set<int> unProcessedIndices;
+    for (int index = 0; index < pointValues.size(); index++) {
+        unProcessedIndices.insert(index);
+    }
+    std::cout << "Created unProcessedIndices containing: " << unProcessedIndices.size() << " indices." << std::endl;
 
-    for(int i = 0; i < points.size(); i++)
-    {
-        if (processed[i]) // Was this point was processed?
-        {
-            i++; // move to the next point index
-            continue;
+    // MAKE SURE YOU REPEAT THIS TO CREATE ALL CLUSTERS
+    for (int indexNextCluster = 0; indexNextCluster < pointValues.size(); indexNextCluster++) {
+
+        // FOR ALL NEXT NOT PROCESSED POINT,
+        std::vector<int> nextCluster;
+        for (int index = 0; index < pointValues.size(); index++) {
+            if (isProcessed[index]) // Was this point was isProcessed?
+            {
+                index++; // move to the next point index
+                continue;
+            }
+
+            // This POINT index was NOT isProcessed.
+            // PROCESS EACH POINT INTO A CLUSTER
+            recursivelyPopulateClusterWithNearbyPoints(
+                    index, pointValues, nextCluster, isProcessed, tree, 0.5);
         }
+        std::cout << "AFTER processing all pointValues, the nextCluster has " << nextCluster.size() << " pointValues." << std::endl;
 
-        // This point was NOT processed.
-        // PROCESS EACH POINT INTO A CLUSTER
-        recursivelyPopulateClusterWithNearbyPoints(i, points, cluster, processed, tree, 0.5);
+        // CONVERT Point INDEX to PointXYZI
+        uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
+
+        for (int index : nextCluster) {
+            pointXYZI = extractPointFromPointCloud(inputCloud->points, index);
+            uniqueCluster->push_back(pointXYZI);
+        }
+        nextCluster.clear();
+
+        // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
+        uniqueClustersClouds.push_back(uniqueCluster);
     }
-    std::cout << " cluster has " << cluster.size() << " points." << std::endl;
-
-    // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
-    uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
-
-    for (int index : cluster) {
-        pointXYZI = extractPointFromPointCloud(inputCloud->points, index);
-        uniqueCluster->push_back(pointXYZI);
-    }
-    cluster.clear();
-    uniqueClustersClouds.push_back(uniqueCluster);
 
 
 
