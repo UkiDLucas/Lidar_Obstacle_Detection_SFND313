@@ -56,9 +56,6 @@ void processSingleFrame(
     // DOWNSIZE AND CROP
     inputCloud = preprocessDownsizePointCloud(pointProcessor, inputCloud);
 
-    //renderPointCloud(viewer, inputCloud, "inputCloud");
-
-
     // FIND THE ROAD PLANE
     std::unordered_set<int> roadPlanePointIndices = pointProcessor.findPlaneUsingRansac3D(inputCloud,100,0.2);
     //std::cout << "FOUND roadPlanePointIndices " << roadPlanePointIndices.size () << std::endl;
@@ -76,23 +73,21 @@ void processSingleFrame(
             obstaclesPointCloud->points.push_back(point);
     }
 
-    // RENDER CLOUDS
 //    renderPointCloud(viewer, onRoadPlanePoints, "ROAD_PLANE_GREEN", colorGreen);
     renderPointCloud(viewer, obstaclesPointCloud, "ALL_OBSTACLES_WHITE", colorWhite);
-
-
 
     float clusterTolerance = 0.4;   // e.g. less than 1.5 divides the car in two
     int minClusterSize = 10;        // weed out the single point outliers (i.e. gravel)
     int maxClusterSize = 650;       // my biggest car is 278 points
 
+
     // SEPARATE THE OBSTACLE CLOUD INTO INDIVIDUAL OBSTACLE POINT CLOUDS
+
 //    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds =
 //            pointProcessor.pclClustering(obstaclesPointCloud, clusterTolerance, minClusterSize, maxClusterSize);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> uniqueClustersClouds
-        = pointProcessor.separatePointCloudClusters(
-                    obstaclesPointCloud);
+    vector<PointCloud<PointXYZI>::Ptr> uniqueClustersClouds
+        = pointProcessor.separatePointCloudClusters( obstaclesPointCloud );
 
     if (uniqueClustersClouds.size() > 1) {
         cout << "separatePointCloudClusters() returned " << uniqueClustersClouds.size() << " uniqueClustersClouds"
