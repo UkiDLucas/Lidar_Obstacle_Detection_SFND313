@@ -25,7 +25,7 @@ using namespace pcl;
  */
 struct Node
 {
-    public:
+public:
     int pointCloudIndex; // unique identifier of the node
     Node* leftNode; // child node with lesser value
     Node* rightNode; // child node with bigger value
@@ -149,11 +149,11 @@ private:
 
 private:
     void searchDistanceNodeToPoint(
-            std::vector<float> incomingPoint,
+            vector < float > incomingPoint,
             Node *currentNode,
             int treeDepth,
             float distanceTreshold,
-            std::vector<int> &resultIds) // address reference so we can keep changes
+            vector< vector < float > > &nearPoints) // address reference so we can keep changes
     {
         if (currentNode == NULL)
         {
@@ -180,11 +180,12 @@ private:
 //            std::cout << i << " ";
 //        cout << std::endl;
 
-        if (isNearby(incomingPoint, currentNode->point, distanceTreshold))
+        vector < float > point = currentNode->point;
+
+        if (isNearby(incomingPoint, point, distanceTreshold))
         {
-            std::cout << "isNearby, adding current node to results <<<<<<<<<<<<<<<<< "
-                      << currentNode->pointCloudIndex;
-            resultIds.push_back(currentNode->pointCloudIndex); // add this pointCloudIndex to search results
+            cout << " isNearby(), adding current node to results!" << endl;
+            nearPoints.push_back(point); // add this pointCloudIndex to search results
             return;
         }
 
@@ -195,7 +196,6 @@ private:
         uint xyz = treeDepth % 3; // results in 0, 1, or 2
 
         // The following variables are superficial, but greatly add to readability and maintenance of the code.
-        // TODO in production I might remove the variables to speed up the code.
         float incomingValue = incomingPoint[xyz];
         float currentValue = currentNode->point[xyz];
 
@@ -207,7 +207,7 @@ private:
                     currentNode->leftNode,
                     treeDepth + 1,
                     distanceTreshold,
-                    resultIds);
+                    nearPoints);
         } else
         {
             std::cout << " search RIGHT branch " << std::endl;
@@ -216,7 +216,7 @@ private:
                     currentNode->leftNode,
                     treeDepth + 1,
                     distanceTreshold,
-                    resultIds);
+                    nearPoints);
         }
 
     }
@@ -246,11 +246,12 @@ public:
 
 public:
 	// return a list of point IDs in the tree that are within distance of the targetPoint
-	std::vector<int> search(std::vector<float> incomingPoint, float distanceTreshhold)
+    vector < vector < float > >
+            search(vector< float > incomingPoint, float distanceTreshhold)
 	{
-		std::vector<int> resultIds;
+		vector < vector < float > > nearPoints;
 		int treeDepth = 0;
-        searchDistanceNodeToPoint(incomingPoint, root, treeDepth, distanceTreshhold, resultIds);
+        searchDistanceNodeToPoint(incomingPoint, root, treeDepth, distanceTreshhold, nearPoints);
 		
 //		std::cout << "search() results: " << resultIds.size() << std::endl;
 		
@@ -258,7 +259,7 @@ public:
 //  			std::cout << i << " ";
 //		std::cout << std::endl;
 
-		return resultIds;
+		return nearPoints;
 	}
 
 

@@ -205,32 +205,47 @@ pclSegmentPlane(
  * Receives a point index that is already determined to be nearby, hence in the cluster.
  */
 void ProcessPointClouds::recursivelyPopulateClusterWithNearbyPoints(
-        int index,
-        const std::vector<std::vector<float>> &points,
-        std::vector<int> &cluster,
-        std::vector<bool> &processed,
-        KdTree3D* tree,
-        float distanceThreshold)
+        vector<vector<float>> cluster,
+        vector<vector<float>> unassignedPoints,
+        KdTree3D *tree,
+        const float distanceThreshold)
 {
-    cluster.push_back(index); // add this point index as it is already associated with this cluster
-    processed[index] = true; // has been added to cluster
+    vector<float> point = unassignedPoints.at(0); // just take the first unassigned point
+    cluster.push_back(point); // add this point index, as it is already associated with this cluster
+    unassignedPoints.erase( unassignedPoints.begin() ); // remove FIRST ELEMENT from the pool of unassigned indices.
 
     // find points that are close to this POINT
-    std::vector<int> nearest = tree->search( points[index], distanceThreshold);
+    vector< vector<float> > nearest = tree->search( point, distanceThreshold);
     std::cout << "recursivelyPopulateClusterWithNearbyPoints() has  "
             << nearest.size() << " nearby points, "
             << cluster.size() << " cluster size."
             << std::endl;
 
-    for( int nearbyIndex: nearest)
+    while( unassignedPoints.size() > 0 )
     {
-        if( !processed[nearbyIndex] )
-        {
-            // the nearby point has not been processed yet for this cluster
-            recursivelyPopulateClusterWithNearbyPoints(nearbyIndex, points, cluster, processed, tree, distanceThreshold);
-        }
+        // the nearby point has not been processed yet for this cluster
+        recursivelyPopulateClusterWithNearbyPoints(
+            cluster,
+            unassignedPoints,
+            tree,
+            distanceThreshold);
     }
 }
+
+//void removePoint(
+//        vector<vector<float>> unassignedPoints,
+//        vector<float> pointToRemove
+//        )
+//{
+//    std::vector<int> unassignedPoints;
+//// .. put in some values ..
+//    int int_to_remove = n;
+//    vec.erase(std::remove(
+//            unassignedPoints.begin(),
+//            unassignedPoints.end(),
+//            pointToRemove),
+//                    unassignedPoints.end());
+//}
 
 
 
@@ -265,62 +280,40 @@ void ProcessPointClouds::recursivelyPopulateClusterWithNearbyPoints(
  * return as a list of clusters.
  */
 vector<typename PointCloud<PointXYZI>::Ptr>
-ProcessPointClouds::separatePointCloudClusters(const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud) {
+ProcessPointClouds::separatePointCloudClusters(
+        const typename pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud)
+{
     auto startTime = std::chrono::steady_clock::now(); // Time the segmentation process
 
-    // DECLARE VARIABLES OUTSIDE THE WHILE() LOOP to conserve on object creation.
+    // DECLARE VARIABLES OUTSIDE THE LOOP to conserve on object creation.
     vector<typename PointCloud<PointXYZI>::Ptr> uniqueClustersClouds; // RETURN TYPE
-    vector<vector<float>> pointValues = convertCloudToPoints(inputCloud->points);
-    KdTree3D *tree = populateTree(pointValues);
-    std::vector<bool> isProcessed(inputCloud->size(), false); // same amount as incoming pointValues, all default false.
-    PointCloud<PointXYZI>::Ptr uniqueCluster;
-    pcl::PointXYZI pointXYZI;
+    vector<vector<float>> unassignedPoints = convertCloudToPoints(inputCloud->points);
+    KdTree3D *tree = populateTree(unassignedPoints);
 
-    // USING a SET of unprocessed indices.
-    // Every INDEX that is processed will be REMOVED.
-    // This is more optimal than: std::vector<bool> isProcessed(inputCloud->size(), false);
-    std:set<int> unProcessedIndices;
-    for (int index = 0; index < pointValues.size(); index++) {
-        unProcessedIndices.insert(index);
-    }
-    std::cout << "Created unProcessedIndices containing: " << unProcessedIndices.size() << " indices." << std::endl;
-
-    // MAKE SURE YOU REPEAT THIS TO CREATE ALL CLUSTERS
-    // Iterate through all the elements in a set and display the value.
-    for( set<int>::iterator it=unProcessedIndices.begin(); it!=unProcessedIndices.end(); ++it)
+    // FOR EACH UNASSIGNED POINT
+    // we put ALL nearby points inside each cluster
+    // and take these points out of the pool of unassigned points.
+    // if point is not near, CREATE A NEW CLUSTER
+    while( unassignedPoints.size() > 0)
     {
-        std::cout << " ITERATOR VALUE " << *it << endl;
-        cout << " unProcessedIndices size() " << unProcessedIndices.size() << endl;
-        unProcessedIndices.erase(*it);
+        std::cout << "unassignedPoints has " << unassignedPoints.size() << " items left." << std::endl;
+        vector<vector<float>> cluster;
 
+        recursivelyPopulateClusterWithNearbyPoints( cluster, unassignedPoints, tree, 0.5);
 
-//        // FOR ALL NEXT NOT PROCESSED POINT,
-//        std::vector<int> nextCluster;
-//        for (int index = 0; index < pointValues.size(); index++) {
-//            if (isProcessed[index]) // Was this point was isProcessed?
-//            {
-//                index++; // move to the next point index
-//                continue;
-//            }
-//
-//            // This POINT index was NOT isProcessed.
-//            // PROCESS EACH POINT INTO A CLUSTER
-//            recursivelyPopulateClusterWithNearbyPoints(
-//                    index, pointValues, nextCluster, isProcessed, tree, 0.5);
-//        }
-//        std::cout << "AFTER processing all pointValues, the nextCluster has " << nextCluster.size() << " pointValues." << std::endl;
-//
-//        // CONVERT Point INDEX to PointXYZI
-//        uniqueCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
-//
-//        for (int index : nextCluster) {
-//            pointXYZI = extractPointFromPointCloud(inputCloud->points, index);
-//            uniqueCluster->push_back(pointXYZI);
-//        }
-//        nextCluster.clear();
-//
-//        // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
-//        uniqueClustersClouds.push_back(uniqueCluster);
+        std::cout << "AFTER processing all unassignedPoints, the nextCluster has " << cluster.size() << " unassignedPoints." << std::endl;
+
+        // CONVERT Point INDEX to PointXYZI
+        PointCloud<PointXYZI>::Ptr thePointCloudCluster = pcl::PointCloud<pcl::PointXYZI>::Ptr(new pcl::PointCloud<pcl::PointXYZI>);
+
+        for (vector<float> point : cluster) {
+            pcl::PointXYZI pointXYZI = extractPointFromPointCloud(point, inputCloud->points);
+            thePointCloudCluster->push_back(pointXYZI);
+        }
+        cluster.clear();
+
+        // ADD ONE CLUSTER TO THE RETURN TYPE uniqueClustersClouds
+        uniqueClustersClouds.push_back(thePointCloudCluster);
     }
 
 
@@ -339,7 +332,10 @@ ProcessPointClouds::separatePointCloudClusters(const typename pcl::PointCloud<pc
 
 std::vector<std::vector<float>>
 ProcessPointClouds::convertCloudToPoints(
-        const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
+        const std::__1::vector<
+                pcl::PointXYZI,
+                Eigen::aligned_allocator<pcl::PointXYZI>
+                > cloudPoints
         ) const
 {
     std::vector<float> point; // define vector that we will reuse, {3.81457,2.23129,-0.890143 - 0.571429}
@@ -348,7 +344,7 @@ ProcessPointClouds::convertCloudToPoints(
 
     for (int index = 0; index < cloudPoints.size(); index++) // iterate thru every point
     {
-        pointXYZI = extractPointFromPointCloud(cloudPoints, index);
+        pointXYZI = extractPointFromPointCloud(point, cloudPoints);
         point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
         pointsVector.push_back(point);
     }
@@ -378,12 +374,25 @@ KdTree3D *ProcessPointClouds::populateTree(
  * @param index
  * @return
  */
-pcl::PointXYZI ProcessPointClouds::extractPointFromPointCloud(
-        const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints,
-        const int index) const {
-    std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple (cloudPoints[index]);
-    pcl::PointXYZI pointXYZI = std::get<0>(pointTuple);
-    return pointXYZI;
+pcl::PointXYZI
+ProcessPointClouds::extractPointFromPointCloud(
+        const vector < float > point,
+        const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
+        ) const
+{
+    for (int index = 0; index < cloudPoints.size(); index++)
+    {
+        if (   point[0] == cloudPoints[index].x
+            && point[1] == cloudPoints[index].y
+            && point[2] == cloudPoints[index].z)
+        {
+            std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple(cloudPoints[index]);
+            pcl::PointXYZI pointXYZI = std::get<0>(pointTuple);
+            return pointXYZI;
+        }
+    }
+    cerr << "ERROR: POINT NOT FOUND!!!" << endl;
+    return NULL;
 }
 
 /**

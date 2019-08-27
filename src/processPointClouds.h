@@ -64,7 +64,10 @@ public:
 
     std::vector<typename pcl::PointCloud<pcl::PointXYZI>::Ptr> separatePointCloudClusters(const pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloud);
 
-    pcl::PointXYZI extractPointFromPointCloud( const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints, const int index) const;
+    pcl::PointXYZI extractPointFromPointCloud(
+            const vector < float > point,
+            const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
+            ) const;
 
     Box boundingBox( pcl::PointCloud<pcl::PointXYZI>::Ptr cluster);
 
@@ -79,12 +82,10 @@ public:
 
 private:
     void recursivelyPopulateClusterWithNearbyPoints(
-            int index,
-            const std::vector<std::vector<float>>& points,
-            std::vector<int>& cluster,
-            std::vector<bool>& processed,
-            KdTree3D* tree,
-            float distanceThreshold);
+            vector<vector<float>> cluster,
+            vector<vector<float>> unassignedPoints,
+            KdTree3D *tree,
+            const float distanceThreshold);
 
 private:
     KdTree3D *
