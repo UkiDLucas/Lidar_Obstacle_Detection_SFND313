@@ -74,7 +74,9 @@ void processSingleFrame(
             obstaclesPointCloud->points.push_back(point);
     }
 
-//    renderPointCloud(viewer, onRoadPlanePoints, "ROAD_PLANE_GREEN", colorGreen);
+
+    cout << "Rendering road " << (onRoadPlanePoints->points).size() << std::endl;
+    renderPointCloud(viewer, onRoadPlanePoints, "ROAD_PLANE_GREEN", colorGreen);
     renderPointCloud(viewer, obstaclesPointCloud, "ALL_OBSTACLES_WHITE", colorWhite);
 
     float clusterTolerance = 0.4;   // e.g. less than 1.5 divides the car in two
