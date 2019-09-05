@@ -69,6 +69,13 @@ public:
             const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
             ) const;
 
+    pcl::PointXYZI extractPointFromPointCloudAtIndex(
+            const int index,
+            const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
+            ) const;
+
+
+
     Box boundingBox( pcl::PointCloud<pcl::PointXYZI>::Ptr cluster);
 
     //void savePcd(typename pcl::PointCloud<pcl::PointXYZI>::Ptr cloud, std::string file);

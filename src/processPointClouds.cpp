@@ -331,7 +331,8 @@ ProcessPointClouds::separatePointCloudClusters(
 }
 
 
-
+/**
+ */
 std::vector<std::vector<float>>
 ProcessPointClouds::convertCloudToPoints(
         const std::__1::vector<
@@ -347,7 +348,7 @@ ProcessPointClouds::convertCloudToPoints(
 
     for (int index = 0; index < cloudPoints.size(); index++) // iterate thru every point
     {
-        pointXYZI = extractPointFromPointCloud(point, cloudPoints);
+        pointXYZI = extractPointFromPointCloudAtIndex(index, cloudPoints);
         point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
         cout << "point " << point.size() << endl;
         pointsVector.push_back(point);
@@ -388,17 +389,22 @@ ProcessPointClouds::extractPointFromPointCloud(
         const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
         ) const
 {
+    if(point.size() == 0)
+    {
+        cerr << " extractPointFromPointCloud() point is EMPTY!" << endl;
+        return NULL;
+    }
     cout << "entering extractPointFromPointCloud() " << cloudPoints.size() << endl;
     // PROBLEM HERE
     for (int index = 0; index < cloudPoints.size(); index++)
     {
+        cout << "LOOP in extractPointFromPointCloud() index: " << index << cloudPoints[index].x << endl;
         if (   point[0] == cloudPoints[index].x
             && point[1] == cloudPoints[index].y
             && point[2] == cloudPoints[index].z)
         {
             cout << "found the point at index" << index << endl;
-            std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple(cloudPoints[index]);
-            pcl::PointXYZI pointXYZI = std::get<0>(pointTuple);
+            pcl::PointXYZI pointXYZI = extractPointFromPointCloudAtIndex(index, cloudPoints);
             return pointXYZI;
         }
     }
@@ -406,8 +412,18 @@ ProcessPointClouds::extractPointFromPointCloud(
     return NULL;
 }
 
-
-
+pcl::PointXYZI
+ProcessPointClouds::extractPointFromPointCloudAtIndex(
+        const int index,
+        const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
+        ) const
+{
+    std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple(cloudPoints[index]);
+    
+    pcl::PointXYZI pointXYZI = std::get<0>(pointTuple);
+    
+    return pointXYZI;
+}
 
 
 
