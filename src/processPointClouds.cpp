@@ -287,8 +287,8 @@ ProcessPointClouds::separatePointCloudClusters(
     std::cout << "Entering separatePointCloudClusters() with " << (inputCloud->points).size() << " points" << std::endl;
 
     // DECLARE VARIABLES OUTSIDE THE LOOP to conserve on object creation.
-    vector<vector<float>> unassignedPoints = convertCloudToPoints(inputCloud->points);
-    std::cout << "unassignedPoints " << unassignedPoints.size() << endl;
+    vector< vector<float> > unassignedPoints = convertCloudToPoints(inputCloud->points);
+    std::cout << "separatePointCloudClusters() unassignedPoints " << unassignedPoints.size() << endl;
     KdTree3D *tree = populateTree(unassignedPoints);
     vector<typename PointCloud<PointXYZI>::Ptr> uniqueClustersClouds; // RETURN TYPE
 
@@ -333,15 +333,15 @@ ProcessPointClouds::separatePointCloudClusters(
 
 /**
  */
-std::vector<std::vector<float>>
+vector< vector<float> >
 ProcessPointClouds::convertCloudToPoints(
         const std::__1::vector<
-                    pcl::PointXYZI,
-                    Eigen::aligned_allocator<pcl::PointXYZI>
+                    PointXYZI,
+                    Eigen::aligned_allocator<PointXYZI>
                 > cloudPoints
         ) const
 {
-    cout << "convertCloudToPoints received " << cloudPoints.size() << " points." << endl;
+    // cout << "convertCloudToPoints received " << cloudPoints.size() << " points." << endl;
     std::vector<float> point; // define vector that we will reuse, {3.81457,2.23129,-0.890143}
     pcl::PointXYZI pointXYZI; // define PointXYZI that we will reuse
     std::vector<std::vector<float>> pointsVector; // RETURN TYPE
@@ -350,9 +350,9 @@ ProcessPointClouds::convertCloudToPoints(
     {
         pointXYZI = extractPointFromPointCloudAtIndex(index, cloudPoints);
         point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
-        cout << "convertCloudToPoints point " << point.size() << endl;
         pointsVector.push_back(point);
     }
+    cout << "convertCloudToPoints converted " << pointsVector.size() << " points." << endl;
     return pointsVector;
 }
 
@@ -412,15 +412,28 @@ ProcessPointClouds::extractPointFromPointCloud(
     return NULL;
 }
 
+
+
+
+
+
+
 pcl::PointXYZI
 ProcessPointClouds::extractPointFromPointCloudAtIndex(
         const int index,
-        const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
+        const std::__1::vector<
+                                pcl::PointXYZI, 
+                                Eigen::aligned_allocator< PointXYZI> > 
+            cloudPoints
         ) const
 {
-    std::__1::tuple<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> pointTuple(cloudPoints[index]);
+    std::__1::tuple<
+                    PointXYZI, 
+                    Eigen::aligned_allocator<PointXYZI>
+        > pointTuple( cloudPoints[index] );
     
-    pcl::PointXYZI pointXYZI = std::get<0>(pointTuple);
+    PointXYZI pointXYZI = std::get<0>(pointTuple);
+    // cout << "extractPointFromPointCloudAtIndex point at " << index << " value " << pointXYZI.x << endl;
     
     return pointXYZI;
 }
