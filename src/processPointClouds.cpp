@@ -289,7 +289,7 @@ ProcessPointClouds::separatePointCloudClusters(
     // DECLARE VARIABLES OUTSIDE THE LOOP to conserve on object creation.
     vector< vector<float> > unassignedPoints = convertCloudToPoints(inputCloud->points);
     std::cout << "separatePointCloudClusters() unassignedPoints " << unassignedPoints.size() << endl;
-    KdTree3D *tree = populateTree(unassignedPoints);
+    KdTree3D *tree = populateTree( unassignedPoints );
     vector<typename PointCloud<PointXYZI>::Ptr> uniqueClustersClouds; // RETURN TYPE
 
     // FOR EACH UNASSIGNED POINT
@@ -298,7 +298,7 @@ ProcessPointClouds::separatePointCloudClusters(
     // if point is not near, CREATE A NEW CLUSTER
     while( unassignedPoints.size() > 0)
     {
-        std::cout << "unassignedPoints has " << unassignedPoints.size() << " items left." << std::endl;
+        std::cout << "separatePointCloudClusters() unassignedPoints has " << unassignedPoints.size() << " items left." << std::endl;
         vector<vector<float>> cluster;
 
         recursivelyPopulateClusterWithNearbyPoints( cluster, unassignedPoints, tree, 0.5);
