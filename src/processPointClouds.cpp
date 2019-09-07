@@ -336,8 +336,8 @@ ProcessPointClouds::separatePointCloudClusters(
 std::vector<std::vector<float>>
 ProcessPointClouds::convertCloudToPoints(
         const std::__1::vector<
-                pcl::PointXYZI,
-                Eigen::aligned_allocator<pcl::PointXYZI>
+                    pcl::PointXYZI,
+                    Eigen::aligned_allocator<pcl::PointXYZI>
                 > cloudPoints
         ) const
 {
@@ -350,7 +350,7 @@ ProcessPointClouds::convertCloudToPoints(
     {
         pointXYZI = extractPointFromPointCloudAtIndex(index, cloudPoints);
         point = {pointXYZI.x, pointXYZI.y, pointXYZI.z};
-        cout << "point " << point.size() << endl;
+        cout << "convertCloudToPoints point " << point.size() << endl;
         pointsVector.push_back(point);
     }
     return pointsVector;
