@@ -90,7 +90,7 @@ public:
 private:
     void recursivelyPopulateClusterWithNearbyPoints(
             vector<vector<float>> cluster,
-            vector<vector<float>> unassignedPoints,
+            vector<vector<float>> availablePoints,
             KdTree3D *tree,
             const float distanceThreshold);
 
