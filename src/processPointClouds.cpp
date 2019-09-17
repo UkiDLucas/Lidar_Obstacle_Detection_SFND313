@@ -209,32 +209,43 @@ pclSegmentPlane(
   * @param distanceThreshold -- meters
   */
 void ProcessPointClouds::recursivelyPopulateClusterWithNearbyPoints(
-        vector< vector<float> > cluster,
-        vector< vector<float> > availablePoints,
+        vector< vector< float > > cluster,
+        vector< float > point,
+        vector< bool > availablePoints,
         KdTree3D *tree,
         const float distanceThreshold)
 {
-    vector<float> point = availablePoints.at(0); // just take the first available point
-    cluster.push_back(point); // add this point index, as it is already associated with this cluster
-    availablePoints.erase(availablePoints.begin() ); // remove FIRST ELEMENT from the pool of unassigned indices.
-
     // find points that are close to this POINT
     vector< vector<float> > nearbyPoints = tree->search(point, distanceThreshold );
+
+    if ( nearbyPoints.size() == 0 )
+    {
+        std::cout
+        << "recursivelyPopulateClusterWithNearbyPoints() the point does not have any neighbours, nothing to do"
+        << std::endl;
+        return;
+    }
+
+    cluster.push_back(point); // add this point index, as it is already associated with this cluster
+
+    // ADD all the nearby poitns to the cluster
+    // REMOVE all the nearby poitns from available
+    for ( int i = 0; i < nearbyPoints.size(); i++)
+    {
+        cluster.push_back(nearbyPoints.at(i));
+        recursivelyPopulateClusterWithNearbyPoints(
+                cluster,
+                nearbyPoints.at(i), // point to be searched around
+                availablePoints,
+                tree,
+                distanceThreshold);
+    }
+
     std::cout << "recursivelyPopulateClusterWithNearbyPoints() found  "
               << nearbyPoints.size() << " nearby points, "
               << availablePoints.size() << " availablePoints points, "
               << cluster.size() << " cluster size."
               << std::endl;
-
-    while(availablePoints.size() > 0 )
-    {
-        // the nearby point has not been processed yet for this cluster
-        recursivelyPopulateClusterWithNearbyPoints(
-                cluster,
-                nearbyPoints, // pass in the nearby points found as availablePoints
-                tree,
-                distanceThreshold);
-    }
 }
 
 //void removePoint(
@@ -290,22 +301,22 @@ ProcessPointClouds::separatePointCloudClusters(
 {   
     auto startTime = std::chrono::steady_clock::now(); // Time the segmentation process
     std::cout << "Entering separatePointCloudClusters() with " << (inputCloud->points).size() << " points" << std::endl;
-
-    // DECLARE VARIABLES OUTSIDE THE LOOP to conserve on object creation.
-    vector< vector<float> > availablePoints = convertCloudToPoints(inputCloud->points);
-//    std::cout << "separatePointCloudClusters() availablePoints " << availablePoints.size() << endl;
-    KdTree3D *tree = populateTree(availablePoints );
     vector<typename PointCloud< PointXYZI >::Ptr> uniqueClustersClouds; // RETURN TYPE
 
-    // For NEXT AVAILABLE point, create a CLUSTER,
-    // find and put ALL nearby points inside this cluster
-    // Each point added to a cluster is removed from AVAILABLE pool.
-    while(!availablePoints.empty())
-    {
-        cout << "separatePointCloudClusters() availablePoints has " << availablePoints.size() << " items left." << endl;
-        vector< vector< float > > cluster; // NEW CLUSTER
+    vector< vector<float> > cloudPoints = convertCloudToPoints(inputCloud->points);
+    KdTree3D *tree = populateTree(cloudPoints );
 
-        recursivelyPopulateClusterWithNearbyPoints(cluster, availablePoints, tree, 0.5);
+    // Create a container with spots for each point indicating if it is available or used.
+    vector< bool > availablePoints (cloudPoints.size(), TRUE); // default true, all available
+
+
+    for ( int index = 0; index < cloudPoints.size(); index++)
+    {
+        vector< vector< float > > cluster; // NEW CLUSTER
+        vector< float > point = cloudPoints.at(index);
+        availablePoints.at(index) = FALSE; // no longer available
+
+        recursivelyPopulateClusterWithNearbyPoints(cluster, point, availablePoints, tree, 0.5);
 
         std::cout << "separatePointCloudClusters() nextCluster has " << cluster.size() << " availablePoints." << std::endl;
 

@@ -85,15 +85,6 @@ public:
     std::vector<boost::filesystem::path> streamPcd(std::string dataPath);
 
 
-
-
-private:
-    void recursivelyPopulateClusterWithNearbyPoints(
-            vector<vector<float>> cluster,
-            vector<vector<float>> availablePoints,
-            KdTree3D *tree,
-            const float distanceThreshold);
-
 private:
     KdTree3D *
     populateTree(
@@ -106,5 +97,13 @@ private:
             const std::__1::vector<pcl::PointXYZI, Eigen::aligned_allocator<pcl::PointXYZI>> cloudPoints
             ) const;
 
+private:
+    void
+    recursivelyPopulateClusterWithNearbyPoints(
+            vector< vector< float > > cluster,
+            vector< float > point,
+            vector< bool > availablePoints,
+            KdTree3D *tree,
+            const float distanceThreshold);
 };
 #endif /* PROCESSPOINTCLOUDS_H_ */
